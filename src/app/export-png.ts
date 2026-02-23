@@ -54,13 +54,18 @@ export async function exportScreenPng(screenId: string) {
   )
   if (!wrapper) return
 
-  const thumbnail = wrapper.querySelector<HTMLElement>(
-    '[data-testid="screen-thumbnail"]',
-  )
-  if (!thumbnail) return
+  const contentEl = wrapper.querySelector<HTMLElement>("[data-df-screen-content]")
+  if (!contentEl) return
 
-  const dataUrl = await toPng(thumbnail, {
-    backgroundColor: "transparent",
+  const width = parseInt(contentEl.style.width)
+  const height = parseInt(contentEl.style.height)
+
+  const dataUrl = await toPng(contentEl, {
+    width,
+    height,
+    style: {
+      transform: "none",
+    },
   })
 
   downloadDataUrl(dataUrl, `designflow-${screenId}.png`)

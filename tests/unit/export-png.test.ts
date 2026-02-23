@@ -129,18 +129,27 @@ describe("exportCanvasPng", () => {
 })
 
 describe("exportScreenPng", () => {
-  let mockThumbnailEl: HTMLDivElement
+  let mockContentEl: HTMLDivElement
   let clickSpy: ReturnType<typeof vi.fn>
 
   beforeEach(() => {
     vi.clearAllMocks()
 
-    // Set up DOM: wrapper with data-df-screen-id containing a thumbnail
+    // Set up DOM: wrapper > thumbnail > color-scheme wrapper > full-res content
     const wrapper = document.createElement("div")
     wrapper.setAttribute("data-df-screen-id", "login")
-    mockThumbnailEl = document.createElement("div")
-    mockThumbnailEl.setAttribute("data-testid", "screen-thumbnail")
-    wrapper.appendChild(mockThumbnailEl)
+    const thumbnail = document.createElement("div")
+    thumbnail.setAttribute("data-testid", "screen-thumbnail")
+    const colorSchemeWrapper = document.createElement("div")
+    colorSchemeWrapper.setAttribute("data-df-color-scheme", "light")
+    mockContentEl = document.createElement("div")
+    mockContentEl.setAttribute("data-df-screen-content", "")
+    mockContentEl.style.width = "1440px"
+    mockContentEl.style.height = "900px"
+    mockContentEl.style.transform = "scale(0.29)"
+    colorSchemeWrapper.appendChild(mockContentEl)
+    thumbnail.appendChild(colorSchemeWrapper)
+    wrapper.appendChild(thumbnail)
     document.body.appendChild(wrapper)
 
     // Mock anchor click
@@ -161,16 +170,22 @@ describe("exportScreenPng", () => {
     vi.restoreAllMocks()
   })
 
-  it("should find correct element by data-df-screen-id", async () => {
+  it("should find the full-resolution content element by data-df-screen-id", async () => {
     await exportScreenPng("login")
 
-    expect(mockToPng).toHaveBeenCalledWith(mockThumbnailEl, expect.any(Object))
+    expect(mockToPng).toHaveBeenCalledWith(mockContentEl, expect.any(Object))
   })
 
-  it("should call toPng on the thumbnail element", async () => {
+  it("should capture at full resolution with transform removed", async () => {
     await exportScreenPng("login")
 
-    expect(mockToPng).toHaveBeenCalledTimes(1)
+    expect(mockToPng).toHaveBeenCalledWith(mockContentEl, {
+      width: 1440,
+      height: 900,
+      style: {
+        transform: "none",
+      },
+    })
   })
 
   it("should trigger download with correct filename", async () => {

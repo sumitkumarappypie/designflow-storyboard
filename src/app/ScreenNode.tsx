@@ -238,6 +238,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
             data-df-color-scheme={activeColorScheme}
           >
             <div
+              data-df-screen-content
               style={{
                 width: `${fullWidth}px`,
                 height: `${fullHeight}px`,
