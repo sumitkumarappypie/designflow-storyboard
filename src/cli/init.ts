@@ -32,12 +32,11 @@ export async function runInit(options: InitOptions): Promise<void> {
 
   // Copy template files
   const screenDir = tailwind ? "screens-tailwind" : "screens"
+  // Discover screen files dynamically from the template directory
+  const screenFiles = (await fs.readdir(path.join(templatesDir, screenDir)))
+    .filter((f) => f.endsWith(".tsx"))
   const filesToCopy = [
-    { src: `${screenDir}/Login.tsx`, dest: "screens/Login.tsx" },
-    { src: `${screenDir}/Dashboard.tsx`, dest: "screens/Dashboard.tsx" },
-    { src: `${screenDir}/Profile.tsx`, dest: "screens/Profile.tsx" },
-    { src: `${screenDir}/Settings.tsx`, dest: "screens/Settings.tsx" },
-    { src: `${screenDir}/Notifications.tsx`, dest: "screens/Notifications.tsx" },
+    ...screenFiles.map((f) => ({ src: `${screenDir}/${f}`, dest: `screens/${f}` })),
     { src: "flows.ts", dest: "flows.ts" },
     { src: "designflow.theme.ts", dest: "designflow.theme.ts" },
     { src: "CLAUDE.md", dest: "CLAUDE.md" },

@@ -5,15 +5,15 @@ import { runDev } from "../src/cli/dev"
 const cli = cac("designflow")
 
 cli
-  .command("init", "Scaffold wireframes directory with example screens")
-  .option("--dir <dir>", "Target directory", { default: "./wireframes" })
+  .command("init [dir]", "Scaffold wireframes directory with example screens")
   .option("--tailwind", "Include Tailwind CSS (default: true)", { default: true })
   .option("--no-tailwind", "Skip Tailwind CSS")
   .option("--name <name>", "Project name")
-  .action(async (options) => {
+  .action(async (dir, options) => {
+    const targetDir = dir || "./wireframes"
     try {
-      await runInit({ dir: options.dir, tailwind: options.tailwind, name: options.name })
-      console.log(`Scaffolded wireframes in ${options.dir}`)
+      await runInit({ dir: targetDir, tailwind: options.tailwind, name: options.name })
+      console.log(`Scaffolded wireframes in ${targetDir}`)
     } catch (err: any) {
       console.error(`Error: ${err.message}`)
       process.exit(1)
