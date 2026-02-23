@@ -130,7 +130,7 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredE
         defaultEdgeOptions={{
           markerEnd: { type: MarkerType.ArrowClosed, color: "#94a3b8" },
         }}
-        fitView
+        onInit={(instance) => instance.fitView()}
       >
         <FocusHandler focusNodeId={focusNodeId} />
         <MiniMap pannable zoomable />
