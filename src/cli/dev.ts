@@ -117,6 +117,9 @@ export async function runDev(options: DevOptions): Promise<void> {
 
   const server = await createServer({
     root: resolvedDir,
+    esbuild: {
+      jsx: "automatic",
+    },
     plugins: [
       tailwindcss(),
       designflowPlugin({ dir: resolvedDir }),
