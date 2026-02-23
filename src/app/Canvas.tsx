@@ -15,7 +15,6 @@ interface CanvasProps {
   onScreenSelect: (screenId: string) => void
   focusNodeId?: string | null
   inferredEdges?: EdgeConfig[]
-  onThemeToggle?: () => void
 }
 
 function configToNodes(
@@ -83,7 +82,7 @@ function FocusHandler({ focusNodeId }: { focusNodeId?: string | null }) {
   return null
 }
 
-export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredEdges, onThemeToggle }: CanvasProps) {
+export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredEdges }: CanvasProps) {
   const initialNodes = configToNodes(config, onScreenSelect, screens)
   const initialEdges = configToEdges(config, inferredEdges)
 
@@ -117,7 +116,7 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredE
       >
         <FocusHandler focusNodeId={focusNodeId} />
         <MiniMap pannable zoomable />
-        <Toolbar onThemeToggle={onThemeToggle} />
+        <Toolbar />
       </ReactFlow>
     </div>
   )

@@ -3,12 +3,10 @@ export type {
   DesignFlowConfig,
   ScreenConfig,
   EdgeConfig,
-  DesignFlowTheme,
   Viewport,
 } from "./types"
 
 // Runtime
-export { generateThemeCSS } from "./runtime/theme-loader"
 export { scanScreens, extractNavigationTargets } from "./runtime/screen-scanner"
 export { designflowPlugin } from "./runtime/vite-plugin"
 

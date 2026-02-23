@@ -5,8 +5,7 @@ import { fileURLToPath } from "url"
 import fs from "fs/promises"
 import { scanScreens, extractNavigationTargets } from "./screen-scanner"
 import { updateScreenPosition, writeFlowConfig } from "./flow-writer"
-import { generateThemeFile, generateTailwindConfig } from "./theme-loader"
-import type { DesignFlowConfig, DesignFlowTheme } from "../types"
+import type { DesignFlowConfig } from "../types"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -154,53 +153,6 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
 
             // Write back to flows.ts
             await writeFlowConfig(flowsPath, config)
-
-            res.writeHead(200, { "Content-Type": "application/json" })
-            res.end(JSON.stringify({ ok: true }))
-          } catch (err) {
-            res.writeHead(500, { "Content-Type": "application/json" })
-            res.end(JSON.stringify({ error: String(err) }))
-          }
-        })
-      })
-
-      // API middleware for theme update
-      server.middlewares.use((req: IncomingMessage, res: ServerResponse, next: () => void) => {
-        if (req.url !== "/__designflow/update-theme" || req.method !== "POST") {
-          return next()
-        }
-
-        let body = ""
-        req.on("data", (chunk: Buffer) => { body += chunk.toString() })
-        req.on("end", async () => {
-          try {
-            const { theme } = JSON.parse(body) as { theme: DesignFlowTheme }
-            const fileContent = generateThemeFile(theme)
-            await fs.writeFile(themePath, fileContent, "utf-8")
-
-            res.writeHead(200, { "Content-Type": "application/json" })
-            res.end(JSON.stringify({ ok: true }))
-          } catch (err) {
-            res.writeHead(500, { "Content-Type": "application/json" })
-            res.end(JSON.stringify({ error: String(err) }))
-          }
-        })
-      })
-
-      // API middleware for Tailwind config generation
-      server.middlewares.use((req: IncomingMessage, res: ServerResponse, next: () => void) => {
-        if (req.url !== "/__designflow/generate-tailwind" || req.method !== "POST") {
-          return next()
-        }
-
-        let body = ""
-        req.on("data", (chunk: Buffer) => { body += chunk.toString() })
-        req.on("end", async () => {
-          try {
-            const { theme } = JSON.parse(body) as { theme: DesignFlowTheme }
-            const tailwindConfig = generateTailwindConfig(theme)
-            const tailwindPath = path.resolve(dir, "tailwind.config.ts")
-            await fs.writeFile(tailwindPath, tailwindConfig, "utf-8")
 
             res.writeHead(200, { "Content-Type": "application/json" })
             res.end(JSON.stringify({ ok: true }))
