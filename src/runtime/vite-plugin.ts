@@ -2,6 +2,7 @@ import type { Plugin } from "vite"
 import type { IncomingMessage, ServerResponse } from "http"
 import path from "path"
 import { fileURLToPath } from "url"
+import { existsSync } from "fs"
 import fs from "fs/promises"
 import { scanScreens, extractNavigationTargets } from "./screen-scanner"
 import { updateScreenPosition, updateScreenViewport, writeFlowConfig } from "./flow-writer"
@@ -9,6 +10,11 @@ import type { DesignFlowConfig } from "../types"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+// Package root — ../ from dist/, ../../ from src/runtime/
+let __pkgRoot = path.resolve(__dirname, "..")
+if (!existsSync(path.join(__pkgRoot, "package.json"))) {
+  __pkgRoot = path.resolve(__dirname, "../..")
+}
 
 export interface DesignflowPluginOptions {
   dir: string
@@ -46,7 +52,7 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
     async load(id: string) {
       if (id === RESOLVED_THEME) {
         const themePath = path.resolve(dir, "designflow.theme.ts").replace(/\\/g, "/")
-        const themeLoaderPath = path.resolve(__dirname, "theme-loader").replace(/\\/g, "/")
+        const themeLoaderPath = path.resolve(__pkgRoot, "src/runtime/theme-loader").replace(/\\/g, "/")
         return `
           import theme from "${themePath}"
           import { generateThemeCSS } from "${themeLoaderPath}"

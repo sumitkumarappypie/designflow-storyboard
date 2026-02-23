@@ -25,8 +25,10 @@ export function buildDevHtml(opts: { hasStylesCSS: boolean }): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DesignFlow</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Inter, system-ui, sans-serif; }
+    @layer base {
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: Inter, system-ui, sans-serif; }
+    }
   </style>${stylesLink}
 </head>
 <body>
@@ -60,9 +62,12 @@ export async function runDev(options: DevOptions): Promise<void> {
     )
   }
 
-  // Resolve paths for the App component and package root
-  const pkgRoot = path.resolve(__dirname, "../..")
-  const appPath = path.resolve(__dirname, "../app/App").replace(/\\/g, "/")
+  // Resolve package root — ../from dist/, ../../ from src/cli/
+  let pkgRoot = path.resolve(__dirname, "..")
+  if (!fs.existsSync(path.join(pkgRoot, "package.json"))) {
+    pkgRoot = path.resolve(__dirname, "../..")
+  }
+  const appPath = path.resolve(pkgRoot, "src/app/App").replace(/\\/g, "/")
 
   // Auto-detect styles.css for Tailwind support
   const hasStylesCSS = fs.existsSync(path.join(resolvedDir, "styles.css"))

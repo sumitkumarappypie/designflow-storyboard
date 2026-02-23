@@ -107,5 +107,5 @@ export function generateTailwindCSS(theme: DesignFlowTheme): string {
     lines.push(`  --shadow-${key}: var(--df-shadow-${key});`)
   }
 
-  return `@import "tailwindcss";\n\n@theme {\n${lines.join("\n")}\n}\n`
+  return `@import "tailwindcss";\n@source "./screens";\n\n@theme {\n${lines.join("\n")}\n}\n`
 }

@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import cac from "cac"
 import { runInit } from "../src/cli/init"
 import { runDev } from "../src/cli/dev"

@@ -20,10 +20,11 @@ export async function runInit(options: InitOptions): Promise<void> {
     if (err.code !== "ENOENT") throw err
   }
 
-  // Find templates directory (relative to this file in the package)
+  // Find templates directory — ../templates from dist/, ../../templates from src/cli/
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = path.dirname(__filename)
-  const templatesDir = path.resolve(__dirname, "../../templates")
+  let templatesDir = path.resolve(__dirname, "../templates")
+  try { await fs.access(templatesDir) } catch { templatesDir = path.resolve(__dirname, "../../templates") }
 
   // Create directory structure
   await fs.mkdir(path.join(dir, "screens"), { recursive: true })
