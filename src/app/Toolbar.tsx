@@ -51,8 +51,8 @@ export function Toolbar({ settings, onSettingsChange }: ToolbarProps) {
         background: "#fff",
         border: "1px solid #e2e8f0",
         borderRadius: 9999,
-        padding: "4px 6px",
-        fontSize: 13,
+        padding: "6px 10px",
+        fontSize: 15,
       }}
     >
       <button aria-label="Zoom in" onClick={() => zoomIn()} style={btnStyle}>
@@ -183,9 +183,9 @@ const btnStyle: React.CSSProperties = {
   border: "none",
   background: "transparent",
   cursor: "pointer",
-  padding: "4px 8px",
+  padding: "6px 10px",
   borderRadius: 4,
-  fontSize: 13,
+  fontSize: 15,
   lineHeight: 1,
   color: "#334155",
 }
