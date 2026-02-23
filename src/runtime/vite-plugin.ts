@@ -23,9 +23,18 @@ const RESOLVED_INFERRED_EDGES = "\0" + VIRTUAL_INFERRED_EDGES
 
 export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
   const { dir } = options
+  let suppressNextFlowsReload = false
 
   return {
     name: "designflow",
+
+    handleHotUpdate({ file }) {
+      const flowsPath = path.resolve(dir, "flows.ts")
+      if (file === flowsPath && suppressNextFlowsReload) {
+        suppressNextFlowsReload = false
+        return []
+      }
+    },
 
     resolveId(id: string) {
       if (id === VIRTUAL_THEME) return RESOLVED_THEME
@@ -151,7 +160,8 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
               config = updateScreenPosition(config, screenId, position)
             }
 
-            // Write back to flows.ts
+            // Write back to flows.ts (suppress HMR reload for this save)
+            suppressNextFlowsReload = true
             await writeFlowConfig(flowsPath, config)
 
             res.writeHead(200, { "Content-Type": "application/json" })
