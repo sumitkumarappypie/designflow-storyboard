@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { useReactFlow } from "@xyflow/react"
 import { ACCENT_COLORS } from "../types"
 import type { CanvasSettings, BackgroundStyle, LineStyle } from "../types"
+import { exportCanvasPng } from "./export-png"
 
 interface ToolbarProps {
   settings?: CanvasSettings
@@ -9,7 +10,7 @@ interface ToolbarProps {
 }
 
 export function Toolbar({ settings, onSettingsChange }: ToolbarProps) {
-  const { zoomIn, zoomOut, fitView } = useReactFlow()
+  const { zoomIn, zoomOut, fitView, getNodes } = useReactFlow()
   const [open, setOpen] = useState(false)
   const popoverRef = useRef<HTMLDivElement>(null)
 
@@ -65,6 +66,14 @@ export function Toolbar({ settings, onSettingsChange }: ToolbarProps) {
       </button>
       <button aria-label="Fit view" onClick={() => fitView()} style={{ ...btnStyle, color: isDark ? "#e2e8f0" : "#334155" }}>
         ⊞
+      </button>
+      <button
+        data-testid="export-canvas-png"
+        aria-label="Export canvas as PNG"
+        onClick={() => exportCanvasPng(getNodes, { backgroundColor: isDark ? "#000000" : "#ffffff" })}
+        style={{ ...btnStyle, color: isDark ? "#e2e8f0" : "#334155" }}
+      >
+        ⤓
       </button>
       {onSettingsChange && settings && (
         <>

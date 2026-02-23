@@ -8,6 +8,12 @@ vi.mock("@xyflow/react", () => ({
   Position: { Top: "top", Bottom: "bottom", Left: "left", Right: "right" },
 }))
 
+// Mock export-png
+const mockExportScreenPng = vi.fn()
+vi.mock("../../src/app/export-png", () => ({
+  exportScreenPng: (...args: any[]) => mockExportScreenPng(...args),
+}))
+
 describe("ScreenNode", () => {
   const defaultProps = {
     id: "login",
@@ -377,6 +383,44 @@ describe("ScreenNode", () => {
       expect(thumbnail.style.background).toContain("15, 23, 42")
       const toggle = screen.getByTestId("color-scheme-toggle").querySelector("input") as HTMLInputElement
       expect(toggle.checked).toBe(true)
+    })
+  })
+
+  describe("export screen PNG", () => {
+    it("should render export button in pill bar", () => {
+      render(<ScreenNode {...defaultProps} />)
+      const btn = screen.getByTestId("export-screen-png")
+      expect(btn).toBeInTheDocument()
+      const controls = screen.getByTestId("node-controls")
+      expect(controls.contains(btn)).toBe(true)
+    })
+
+    it("should have correct aria-label", () => {
+      render(<ScreenNode {...defaultProps} />)
+      expect(screen.getByRole("button", { name: /export screen as png/i })).toBeInTheDocument()
+    })
+
+    it("should call exportScreenPng with screenId on click", () => {
+      render(<ScreenNode {...defaultProps} />)
+      fireEvent.click(screen.getByTestId("export-screen-png"))
+      expect(mockExportScreenPng).toHaveBeenCalledWith("login")
+    })
+
+    it("should have data-df-screen-id on root element", () => {
+      const { container } = render(<ScreenNode {...defaultProps} />)
+      const root = container.firstElementChild as HTMLElement
+      expect(root).toHaveAttribute("data-df-screen-id", "login")
+    })
+
+    it("should not propagate click to parent (prevents viewer open)", () => {
+      const parentClick = vi.fn()
+      const { container } = render(
+        <div onClick={parentClick}>
+          <ScreenNode {...defaultProps} />
+        </div>
+      )
+      fireEvent.click(screen.getByTestId("export-screen-png"))
+      expect(parentClick).not.toHaveBeenCalled()
     })
   })
 })

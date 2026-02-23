@@ -4,6 +4,7 @@ import type { NodeProps, Node } from "@xyflow/react"
 import type { ComponentType } from "react"
 import type { Viewport, ColorScheme } from "../types"
 import { getScreenResolution } from "../types"
+import { exportScreenPng } from "./export-png"
 
 export type ScreenNodeData = {
   title: string
@@ -81,6 +82,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
 
   return (
     <div
+      data-df-screen-id={data.screenId}
       onDoubleClick={() => data.onSelect(data.screenId)}
       style={{ cursor: "pointer" }}
     >
@@ -191,6 +193,29 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
         </label>
         <span style={{ fontSize: 10, color: pillTextColor, opacity: isDark ? 1 : 0.4 }}>☾</span>
         </div>
+
+        <div style={{ width: 1, height: 16, background: hasAccent ? "rgba(255,255,255,0.3)" : "#e2e8f0" }} />
+
+        {/* Export screen as PNG */}
+        <button
+          data-testid="export-screen-png"
+          aria-label="Export screen as PNG"
+          onClick={(e) => {
+            e.stopPropagation()
+            exportScreenPng(data.screenId)
+          }}
+          style={{
+            border: "none",
+            background: "transparent",
+            cursor: "pointer",
+            padding: "2px 4px",
+            fontSize: 12,
+            lineHeight: 1,
+            color: pillTextColor,
+          }}
+        >
+          ⤓
+        </button>
       </div>
 
       {/* Preview rectangle */}

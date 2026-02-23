@@ -7,6 +7,7 @@ import type { CanvasSettings } from "../../src/types"
 const mockZoomIn = vi.fn()
 const mockZoomOut = vi.fn()
 const mockFitView = vi.fn()
+const mockGetNodes = vi.fn(() => [])
 
 // Mock React Flow
 vi.mock("@xyflow/react", () => ({
@@ -14,7 +15,14 @@ vi.mock("@xyflow/react", () => ({
     zoomIn: mockZoomIn,
     zoomOut: mockZoomOut,
     fitView: mockFitView,
+    getNodes: mockGetNodes,
   }),
+}))
+
+// Mock export-png
+const mockExportCanvasPng = vi.fn()
+vi.mock("../../src/app/export-png", () => ({
+  exportCanvasPng: (...args: any[]) => mockExportCanvasPng(...args),
 }))
 
 const defaultSettings: CanvasSettings = { ...DEFAULT_CANVAS_SETTINGS }
@@ -187,6 +195,32 @@ describe("Toolbar", () => {
         fireEvent.click(screen.getByRole("button", { name: /^dashed$/i }))
         expect(onChange).toHaveBeenCalledWith({ ...defaultSettings, lineStyle: "dashed" })
       })
+    })
+  })
+
+  describe("export canvas PNG", () => {
+    it("should render export button with correct aria-label", () => {
+      render(<Toolbar />)
+      expect(screen.getByRole("button", { name: /export canvas as png/i })).toBeInTheDocument()
+    })
+
+    it("should have correct data-testid", () => {
+      render(<Toolbar />)
+      expect(screen.getByTestId("export-canvas-png")).toBeInTheDocument()
+    })
+
+    it("should call exportCanvasPng on click", () => {
+      render(<Toolbar />)
+      fireEvent.click(screen.getByTestId("export-canvas-png"))
+      expect(mockExportCanvasPng).toHaveBeenCalledWith(mockGetNodes, { backgroundColor: "#ffffff" })
+    })
+
+    it("should pass black background when dark mode", () => {
+      const onChange = vi.fn()
+      const darkSettings = { ...defaultSettings, appearance: "dark" as const }
+      render(<Toolbar settings={darkSettings} onSettingsChange={onChange} />)
+      fireEvent.click(screen.getByTestId("export-canvas-png"))
+      expect(mockExportCanvasPng).toHaveBeenCalledWith(mockGetNodes, { backgroundColor: "#000000" })
     })
   })
 })
