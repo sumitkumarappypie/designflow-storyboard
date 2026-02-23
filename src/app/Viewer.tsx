@@ -32,23 +32,24 @@ export function Viewer({ screenId, screenTitle, component: ScreenComponent, onCl
         data-testid="viewer-pill"
         style={{
           position: "absolute",
-          top: 16,
+          top: 12,
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 60,
           display: "flex",
           alignItems: "center",
-          gap: "10px",
-          padding: "6px 8px 6px 16px",
+          gap: "6px",
+          padding: "6px 10px 6px 12px",
           background: accentColor ?? "rgba(255, 255, 255, 0.95)",
           backdropFilter: "blur(8px)",
           border: accentColor ? "none" : "1px solid #e2e8f0",
           borderRadius: 9999,
         }}
       >
-        <h2 style={{ margin: 0, fontSize: "13px", fontWeight: 600, color: accentColor ? "#fff" : "#0f172a", whiteSpace: "nowrap" }}>
+        <h2 style={{ margin: 0, fontSize: "12px", fontWeight: 600, color: accentColor ? "#fff" : "#0f172a", whiteSpace: "nowrap" }}>
           {screenTitle}
         </h2>
+        <div style={{ width: 1, height: 16, background: accentColor ? "rgba(255,255,255,0.3)" : "#e2e8f0" }} />
         <button
           onClick={onClose}
           aria-label="Close"
@@ -56,7 +57,7 @@ export function Viewer({ screenId, screenTitle, component: ScreenComponent, onCl
             background: "none",
             border: "none",
             cursor: "pointer",
-            padding: 2,
+            padding: "4px",
             display: "flex",
             alignItems: "center",
             color: accentColor ? "rgba(255,255,255,0.8)" : "#64748b",

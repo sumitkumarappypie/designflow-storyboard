@@ -93,7 +93,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
           display: "flex",
           alignItems: "center",
           gap: "6px",
-          padding: "4px 10px",
+          padding: "6px 10px",
           marginBottom: "6px",
           background: hasAccent ? data.accentColor! : "#fff",
           border: hasAccent ? "none" : "1px solid #e2e8f0",
@@ -103,7 +103,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
         <span
           data-testid="node-title"
           style={{
-            fontSize: "11px",
+            fontSize: "12px",
             fontWeight: 600,
             color: hasAccent ? "#fff" : "#0f172a",
             whiteSpace: "nowrap",
@@ -113,7 +113,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
           {data.title}
         </span>
 
-        <div style={{ width: 1, height: 14, background: hasAccent ? "rgba(255,255,255,0.3)" : "#e2e8f0" }} />
+        <div style={{ width: 1, height: 16, background: hasAccent ? "rgba(255,255,255,0.3)" : "#e2e8f0" }} />
 
         {/* Viewport dropdown */}
         <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
@@ -139,7 +139,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
           </select>
         </div>
 
-        <div style={{ width: 1, height: 14, background: hasAccent ? "rgba(255,255,255,0.3)" : "#e2e8f0" }} />
+        <div style={{ width: 1, height: 16, background: hasAccent ? "rgba(255,255,255,0.3)" : "#e2e8f0" }} />
 
         {/* Color scheme toggle */}
         <div

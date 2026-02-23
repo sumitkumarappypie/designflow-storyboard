@@ -37,6 +37,8 @@ export function Toolbar({ settings, onSettingsChange }: ToolbarProps) {
     }
   }
 
+  const isDark = settings?.appearance === "dark"
+
   return (
     <div
       data-testid="toolbar"
@@ -48,30 +50,30 @@ export function Toolbar({ settings, onSettingsChange }: ToolbarProps) {
         display: "flex",
         gap: 6,
         alignItems: "center",
-        background: "#fff",
-        border: "1px solid #e2e8f0",
+        background: isDark ? "#1e1e1e" : "#fff",
+        border: `1px solid ${isDark ? "#333" : "#e2e8f0"}`,
         borderRadius: 9999,
         padding: "6px 10px",
-        fontSize: 15,
+        fontSize: 13,
       }}
     >
-      <button aria-label="Zoom in" onClick={() => zoomIn()} style={btnStyle}>
+      <button aria-label="Zoom in" onClick={() => zoomIn()} style={{ ...btnStyle, color: isDark ? "#e2e8f0" : "#334155" }}>
         +
       </button>
-      <button aria-label="Zoom out" onClick={() => zoomOut()} style={btnStyle}>
+      <button aria-label="Zoom out" onClick={() => zoomOut()} style={{ ...btnStyle, color: isDark ? "#e2e8f0" : "#334155" }}>
         −
       </button>
-      <button aria-label="Fit view" onClick={() => fitView()} style={btnStyle}>
+      <button aria-label="Fit view" onClick={() => fitView()} style={{ ...btnStyle, color: isDark ? "#e2e8f0" : "#334155" }}>
         ⊞
       </button>
       {onSettingsChange && settings && (
         <>
-          <div style={{ width: 1, height: 18, background: "#e2e8f0" }} />
+          <div style={{ width: 1, height: 16, background: isDark ? "#444" : "#e2e8f0" }} />
           <div ref={popoverRef} style={{ position: "relative" }}>
             <button
               aria-label="Settings"
               onClick={() => setOpen((o) => !o)}
-              style={btnStyle}
+              style={{ ...btnStyle, color: isDark ? "#e2e8f0" : "#334155" }}
             >
               ⚙
             </button>
@@ -82,16 +84,17 @@ export function Toolbar({ settings, onSettingsChange }: ToolbarProps) {
                   position: "absolute",
                   top: "calc(100% + 8px)",
                   right: 0,
-                  background: "#fff",
-                  border: "1px solid #e2e8f0",
+                  background: isDark ? "#1e1e1e" : "#fff",
+                  border: `1px solid ${isDark ? "#333" : "#e2e8f0"}`,
                   borderRadius: 8,
                   padding: 12,
                   width: 220,
                   display: "flex",
                   flexDirection: "column",
                   gap: 10,
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                  boxShadow: isDark ? "0 4px 12px rgba(0,0,0,0.4)" : "0 4px 12px rgba(0,0,0,0.1)",
                   fontSize: 12,
+                  color: isDark ? "#e2e8f0" : undefined,
                 }}
               >
                 {/* Appearance */}
@@ -100,12 +103,14 @@ export function Toolbar({ settings, onSettingsChange }: ToolbarProps) {
                     label="Light"
                     icon="☀"
                     active={settings.appearance === "light"}
+                    dark={isDark}
                     onClick={() => update({ appearance: "light" })}
                   />
                   <ToggleButton
                     label="Dark"
                     icon="☾"
                     active={settings.appearance === "dark"}
+                    dark={isDark}
                     onClick={() => update({ appearance: "dark" })}
                   />
                 </div>
@@ -122,7 +127,7 @@ export function Toolbar({ settings, onSettingsChange }: ToolbarProps) {
                         height: 20,
                         borderRadius: "50%",
                         background: color,
-                        border: settings.accentColor === color ? "2px solid #1e293b" : "2px solid transparent",
+                        border: settings.accentColor === color ? `2px solid ${isDark ? "#e2e8f0" : "#1e293b"}` : "2px solid transparent",
                         cursor: "pointer",
                         padding: 0,
                       }}
@@ -137,6 +142,7 @@ export function Toolbar({ settings, onSettingsChange }: ToolbarProps) {
                       key={bg}
                       label={bg.charAt(0).toUpperCase() + bg.slice(1)}
                       active={settings.backgroundStyle === bg}
+                      dark={isDark}
                       onClick={() => update({ backgroundStyle: bg })}
                     />
                   ))}
@@ -149,6 +155,7 @@ export function Toolbar({ settings, onSettingsChange }: ToolbarProps) {
                       key={ls}
                       label={ls.charAt(0).toUpperCase() + ls.slice(1)}
                       active={settings.lineStyle === ls}
+                      dark={isDark}
                       onClick={() => update({ lineStyle: ls })}
                     />
                   ))}
@@ -166,9 +173,9 @@ const btnStyle: React.CSSProperties = {
   border: "none",
   background: "transparent",
   cursor: "pointer",
-  padding: "6px 10px",
-  borderRadius: 4,
-  fontSize: 18,
+  padding: "2px 6px",
+  borderRadius: 9999,
+  fontSize: 14,
   lineHeight: 1,
   color: "#334155",
 }
@@ -179,15 +186,16 @@ const popoverBtnStyle: React.CSSProperties = {
   padding: "4px 8px",
 }
 
-function ToggleButton({ label, icon, active, onClick }: { label: string; icon?: string; active: boolean; onClick: () => void }) {
+function ToggleButton({ label, icon, active, dark, onClick }: { label: string; icon?: string; active: boolean; dark?: boolean; onClick: () => void }) {
   return (
     <button
       aria-label={label}
       onClick={onClick}
       style={{
         ...popoverBtnStyle,
-        background: active ? "#e2e8f0" : "transparent",
+        background: active ? (dark ? "#333" : "#e2e8f0") : "transparent",
         fontWeight: active ? 600 : 400,
+        color: dark ? "#e2e8f0" : "#334155",
         flex: 1,
       }}
     >
