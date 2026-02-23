@@ -99,17 +99,6 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
       return undefined
     },
 
-    transformIndexHtml() {
-      return [
-        {
-          tag: "script",
-          attrs: { type: "module" },
-          children: `import "virtual:designflow/theme"`,
-          injectTo: "head" as const,
-        },
-      ]
-    },
-
     configureServer(server) {
       const screensDir = path.resolve(dir, "screens")
       const themePath = path.resolve(dir, "designflow.theme.ts")

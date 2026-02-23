@@ -39,12 +39,6 @@ describe("designflowPlugin", () => {
     expect(plugin).toBeDefined()
   })
 
-  it("should have transformIndexHtml hook", () => {
-    const plugin = designflowPlugin({ dir: "./wireframes" })
-    expect(plugin.transformIndexHtml).toBeDefined()
-    expect(typeof plugin.transformIndexHtml).toBe("function")
-  })
-
   it("should have configureServer hook", () => {
     const plugin = designflowPlugin({ dir: "./wireframes" })
     expect(plugin.configureServer).toBeDefined()
