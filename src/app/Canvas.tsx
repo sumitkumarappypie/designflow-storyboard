@@ -1,10 +1,10 @@
-import { ReactFlow, MiniMap, useNodesState, useEdgesState, useReactFlow, MarkerType } from "@xyflow/react"
+import { ReactFlow, MiniMap, Background, BackgroundVariant, useNodesState, useEdgesState, useReactFlow, MarkerType } from "@xyflow/react"
 import type { Node, Edge } from "@xyflow/react"
 import { useCallback, useEffect, type ComponentType } from "react"
 import { ScreenNode } from "./ScreenNode"
 import { FlowEdge } from "./FlowEdge"
 import { Toolbar } from "./Toolbar"
-import type { DesignFlowConfig, EdgeConfig, CanvasAppearance } from "../types"
+import type { DesignFlowConfig, EdgeConfig, CanvasSettings } from "../types"
 
 const nodeTypes = { screen: ScreenNode }
 const edgeTypes = { flow: FlowEdge }
@@ -15,8 +15,8 @@ interface CanvasProps {
   onScreenSelect: (screenId: string) => void
   focusNodeId?: string | null
   inferredEdges?: EdgeConfig[]
-  appearance?: CanvasAppearance
-  onAppearanceChange?: (appearance: CanvasAppearance) => void
+  settings?: CanvasSettings
+  onSettingsChange?: (settings: CanvasSettings) => void
 }
 
 function configToNodes(
@@ -42,7 +42,7 @@ function pairKey(a: string, b: string): string {
   return a < b ? `${a}:${b}` : `${b}:${a}`
 }
 
-function configToEdges(config: DesignFlowConfig, inferredEdges?: EdgeConfig[]): Edge[] {
+function configToEdges(config: DesignFlowConfig, inferredEdges?: EdgeConfig[], settings?: CanvasSettings): Edge[] {
   const seenPairs = new Set<string>()
 
   const explicitEdges: Edge[] = (config.edges ?? [])
@@ -59,7 +59,7 @@ function configToEdges(config: DesignFlowConfig, inferredEdges?: EdgeConfig[]): 
       target: edge.to,
       sourceHandle: "source-right",
       targetHandle: "target-left",
-      data: { label: edge.label },
+      data: { label: edge.label, accentColor: settings?.accentColor, lineStyle: settings?.lineStyle },
     }))
 
   if (!inferredEdges?.length) return explicitEdges
@@ -78,7 +78,7 @@ function configToEdges(config: DesignFlowConfig, inferredEdges?: EdgeConfig[]): 
       target: edge.to,
       sourceHandle: "source-right",
       targetHandle: "target-left",
-      data: { label: edge.label, inferred: true },
+      data: { label: edge.label, inferred: true, accentColor: settings?.accentColor, lineStyle: settings?.lineStyle },
     }))
 
   return [...explicitEdges, ...inferred]
@@ -98,9 +98,14 @@ function FocusHandler({ focusNodeId }: { focusNodeId?: string | null }) {
   return null
 }
 
-export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredEdges, appearance, onAppearanceChange }: CanvasProps) {
+const bgVariantMap = {
+  grid: BackgroundVariant.Lines,
+  dots: BackgroundVariant.Dots,
+}
+
+export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredEdges, settings, onSettingsChange }: CanvasProps) {
   const initialNodes = configToNodes(config, onScreenSelect, screens)
-  const initialEdges = configToEdges(config, inferredEdges)
+  const initialEdges = configToEdges(config, inferredEdges, settings)
 
   const [nodes, , onNodesChange] = useNodesState(initialNodes)
   const [edges, , onEdgesChange] = useEdgesState(initialEdges)
@@ -115,10 +120,11 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredE
     })
   }, [])
 
-  const isDarkCanvas = appearance === "dark"
+  const isDarkCanvas = settings?.appearance === "dark"
+  const accentColor = settings?.accentColor ?? "#94a3b8"
 
   return (
-    <div style={{ width: "100%", height: "100vh", background: isDarkCanvas ? "#1e293b" : undefined }}>
+    <div style={{ width: "100%", height: "100vh", background: isDarkCanvas ? "#000000" : undefined }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -128,13 +134,19 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredE
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         defaultEdgeOptions={{
-          markerEnd: { type: MarkerType.ArrowClosed, color: "#94a3b8" },
+          markerEnd: { type: MarkerType.ArrowClosed, color: accentColor },
         }}
         onInit={(instance) => instance.fitView()}
       >
         <FocusHandler focusNodeId={focusNodeId} />
         <MiniMap pannable zoomable />
-        <Toolbar appearance={appearance} onAppearanceChange={onAppearanceChange} />
+        {settings && settings.backgroundStyle !== "blank" && (
+          <Background
+            variant={bgVariantMap[settings.backgroundStyle]}
+            color={isDarkCanvas ? "#222" : "#e2e8f0"}
+          />
+        )}
+        <Toolbar settings={settings} onSettingsChange={onSettingsChange} />
       </ReactFlow>
     </div>
   )

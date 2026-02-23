@@ -1,17 +1,20 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { Canvas } from "../../src/app/Canvas"
-import type { DesignFlowConfig } from "../../src/types"
+import { DEFAULT_CANVAS_SETTINGS } from "../../src/types"
+import type { DesignFlowConfig, CanvasSettings } from "../../src/types"
 
 // Track onNodeDragStop callback passed to ReactFlow
 let capturedOnNodeDragStop: ((...args: any[]) => void) | undefined
+let capturedDefaultEdgeOptions: any
 
 // Mock React Flow since jsdom doesn't support full rendering
 vi.mock("@xyflow/react", () => {
-  const ReactFlow = ({ nodes, edges, children, onNodeDragStop, ...props }: any) => {
+  const ReactFlow = ({ nodes, edges, children, onNodeDragStop, defaultEdgeOptions, ...props }: any) => {
     capturedOnNodeDragStop = onNodeDragStop
+    capturedDefaultEdgeOptions = defaultEdgeOptions
     return (
-      <div data-testid="react-flow" data-nodes={JSON.stringify(nodes)} data-edges={JSON.stringify(edges)} data-has-drag-handler={String(!!onNodeDragStop)}>
+      <div data-testid="react-flow" data-nodes={JSON.stringify(nodes)} data-edges={JSON.stringify(edges)} data-has-drag-handler={String(!!onNodeDragStop)} data-default-edge-options={JSON.stringify(defaultEdgeOptions)}>
         {nodes?.map((n: any) => (
           <div key={n.id} data-testid={`node-${n.id}`}>
             {n.data?.title}
@@ -30,6 +33,8 @@ vi.mock("@xyflow/react", () => {
   return {
     ReactFlow,
     MiniMap: () => <div data-testid="minimap" />,
+    Background: ({ variant, color }: any) => <div data-testid="background" data-variant={variant} data-color={color} />,
+    BackgroundVariant: { Lines: "lines", Dots: "dots", Cross: "cross" },
     Handle: ({ type, position }: any) => <div data-testid={`handle-${type}`} />,
     Position: { Top: "top", Bottom: "bottom", Left: "left", Right: "right" },
     BaseEdge: ({ path }: any) => <path d={path} />,
@@ -52,6 +57,8 @@ const sampleConfig: DesignFlowConfig = {
     { from: "login", to: "dashboard", label: "Sign in" },
   ],
 }
+
+const defaultSettings: CanvasSettings = { ...DEFAULT_CANVAS_SETTINGS }
 
 describe("Canvas", () => {
   it("should render React Flow instance", () => {
@@ -128,17 +135,73 @@ describe("Canvas", () => {
     expect(screen.getByTestId("toolbar")).toBeInTheDocument()
   })
 
-  it("should apply dark background when appearance is dark", () => {
-    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} appearance="dark" onAppearanceChange={vi.fn()} />)
-    const wrapper = screen.getByTestId("react-flow").parentElement as HTMLElement
-    expect(wrapper.style.background).toContain("30, 41, 59")
+  describe("dark mode", () => {
+    it("should apply truly dark background (#000) when appearance is dark", () => {
+      const darkSettings = { ...defaultSettings, appearance: "dark" as const }
+      render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} settings={darkSettings} onSettingsChange={vi.fn()} />)
+      const wrapper = screen.getByTestId("react-flow").parentElement as HTMLElement
+      // #000000 → rgb(0, 0, 0)
+      expect(wrapper.style.background).toContain("0, 0, 0")
+    })
+
+    it("should default to light background", () => {
+      render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} />)
+      const wrapper = screen.getByTestId("react-flow").parentElement as HTMLElement
+      expect(wrapper.style.background).not.toContain("0, 0, 0")
+    })
   })
 
-  it("should default to light background", () => {
-    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} />)
-    const wrapper = screen.getByTestId("react-flow").parentElement as HTMLElement
-    // No explicit background override for light (just default white)
-    expect(wrapper.style.background).not.toContain("30, 41, 59")
+  describe("background style", () => {
+    it("should render Background with Lines variant when backgroundStyle is grid", () => {
+      render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} settings={defaultSettings} onSettingsChange={vi.fn()} />)
+      const bg = screen.getByTestId("background")
+      expect(bg.getAttribute("data-variant")).toBe("lines")
+    })
+
+    it("should render Background with Dots variant when backgroundStyle is dots", () => {
+      const dotsSettings = { ...defaultSettings, backgroundStyle: "dots" as const }
+      render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} settings={dotsSettings} onSettingsChange={vi.fn()} />)
+      const bg = screen.getByTestId("background")
+      expect(bg.getAttribute("data-variant")).toBe("dots")
+    })
+
+    it("should not render Background when backgroundStyle is blank", () => {
+      const blankSettings = { ...defaultSettings, backgroundStyle: "blank" as const }
+      render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} settings={blankSettings} onSettingsChange={vi.fn()} />)
+      expect(screen.queryByTestId("background")).not.toBeInTheDocument()
+    })
+
+    it("should not render Background when no settings provided", () => {
+      render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} />)
+      expect(screen.queryByTestId("background")).not.toBeInTheDocument()
+    })
+  })
+
+  describe("edge settings", () => {
+    it("should pass accentColor and lineStyle through edge data", () => {
+      const settings = { ...defaultSettings, accentColor: "#dc2626", lineStyle: "dashed" as const }
+      render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} settings={settings} onSettingsChange={vi.fn()} />)
+      const rfEl = screen.getByTestId("react-flow")
+      const edges = JSON.parse(rfEl.getAttribute("data-edges") || "[]")
+      const edge = edges.find((e: any) => e.id === "login-dashboard")
+      expect(edge.data.accentColor).toBe("#dc2626")
+      expect(edge.data.lineStyle).toBe("dashed")
+    })
+
+    it("should set marker color to accent color", () => {
+      const settings = { ...defaultSettings, accentColor: "#059669" }
+      render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} settings={settings} onSettingsChange={vi.fn()} />)
+      const rfEl = screen.getByTestId("react-flow")
+      const opts = JSON.parse(rfEl.getAttribute("data-default-edge-options") || "{}")
+      expect(opts.markerEnd.color).toBe("#059669")
+    })
+
+    it("should use default marker color when no settings", () => {
+      render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} />)
+      const rfEl = screen.getByTestId("react-flow")
+      const opts = JSON.parse(rfEl.getAttribute("data-default-edge-options") || "{}")
+      expect(opts.markerEnd.color).toBe("#94a3b8")
+    })
   })
 })
 
