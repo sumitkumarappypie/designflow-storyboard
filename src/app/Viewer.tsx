@@ -40,13 +40,13 @@ export function Viewer({ screenId, screenTitle, component: ScreenComponent, onCl
           alignItems: "center",
           gap: "10px",
           padding: "6px 8px 6px 16px",
-          background: "rgba(255, 255, 255, 0.95)",
+          background: accentColor ?? "rgba(255, 255, 255, 0.95)",
           backdropFilter: "blur(8px)",
-          border: `1px solid ${accentColor ?? "#e2e8f0"}`,
+          border: accentColor ? "none" : "1px solid #e2e8f0",
           borderRadius: 9999,
         }}
       >
-        <h2 style={{ margin: 0, fontSize: "13px", fontWeight: 600, color: "#0f172a", whiteSpace: "nowrap" }}>
+        <h2 style={{ margin: 0, fontSize: "13px", fontWeight: 600, color: accentColor ? "#fff" : "#0f172a", whiteSpace: "nowrap" }}>
           {screenTitle}
         </h2>
         <button

@@ -12,6 +12,7 @@ export type ScreenNodeData = {
   component?: ComponentType
   viewport?: Viewport
   colorScheme?: ColorScheme
+  accentColor?: string
 }
 
 export type ScreenNodeType = Node<ScreenNodeData, "screen">
@@ -38,6 +39,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
   const thumbnailWidth = Math.round(fullWidth * scale)
   const thumbnailHeight = Math.round(fullHeight * scale)
   const isDark = activeColorScheme === "dark"
+  const hasAccent = !!data.accentColor
 
   return (
     <div
@@ -55,8 +57,8 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
           gap: "4px",
           padding: "4px 10px",
           marginBottom: "6px",
-          background: "#fff",
-          border: "1px solid #e2e8f0",
+          background: hasAccent ? data.accentColor! : "#fff",
+          border: hasAccent ? "none" : "1px solid #e2e8f0",
           borderRadius: 9999,
         }}
       >
@@ -65,7 +67,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
           style={{
             fontSize: "11px",
             fontWeight: 600,
-            color: "#0f172a",
+            color: hasAccent ? "#fff" : "#0f172a",
             whiteSpace: "nowrap",
             marginRight: "4px",
           }}

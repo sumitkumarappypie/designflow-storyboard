@@ -23,6 +23,7 @@ function configToNodes(
   config: DesignFlowConfig,
   onScreenSelect: (id: string) => void,
   screens?: Record<string, ComponentType>,
+  accentColor?: string,
 ): Node[] {
   return Object.entries(config.screens).map(([id, screen]) => ({
     id,
@@ -34,6 +35,7 @@ function configToNodes(
       onSelect: onScreenSelect,
       component: screens?.[id],
       viewport: screen.viewport,
+      accentColor,
     },
   }))
 }
@@ -104,11 +106,16 @@ const bgVariantMap = {
 }
 
 export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredEdges, settings, onSettingsChange }: CanvasProps) {
-  const initialNodes = configToNodes(config, onScreenSelect, screens)
+  const initialNodes = configToNodes(config, onScreenSelect, screens, settings?.accentColor)
   const initialEdges = configToEdges(config, inferredEdges, settings)
 
-  const [nodes, , onNodesChange] = useNodesState(initialNodes)
-  const [edges, , onEdgesChange] = useEdgesState(initialEdges)
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
+
+  useEffect(() => {
+    setEdges(configToEdges(config, inferredEdges, settings))
+    setNodes(configToNodes(config, onScreenSelect, screens, settings?.accentColor))
+  }, [settings?.accentColor, settings?.lineStyle])
 
   const onNodeDragStop = useCallback((_event: React.MouseEvent, node: Node) => {
     fetch("/__designflow/update-positions", {

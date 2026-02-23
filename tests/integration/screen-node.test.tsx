@@ -245,6 +245,35 @@ describe("ScreenNode", () => {
 
   })
 
+  describe("accent color pill", () => {
+    it("should use accent color as pill background when provided", () => {
+      const props = {
+        ...defaultProps,
+        data: { ...defaultProps.data, accentColor: "#dc2626" },
+      }
+      render(<ScreenNode {...props} />)
+      const controls = screen.getByTestId("node-controls")
+      // #dc2626 → rgb(220, 38, 38)
+      expect(controls.style.background).toContain("220, 38, 38")
+    })
+
+    it("should use white pill background when no accent color", () => {
+      render(<ScreenNode {...defaultProps} />)
+      const controls = screen.getByTestId("node-controls")
+      expect(controls.style.background).toContain("255, 255, 255")
+    })
+
+    it("should use white text on accent-colored pill", () => {
+      const props = {
+        ...defaultProps,
+        data: { ...defaultProps.data, accentColor: "#2563eb" },
+      }
+      render(<ScreenNode {...props} />)
+      const title = screen.getByTestId("node-title")
+      expect(title.style.color).toContain("255, 255, 255")
+    })
+  })
+
   describe("per-screen color scheme toggle", () => {
     it("should render light/dark toggle buttons", () => {
       render(<ScreenNode {...defaultProps} />)

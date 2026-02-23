@@ -121,13 +121,12 @@ describe("App", () => {
       expect(bg.getAttribute("data-variant")).toBe("lines")
     })
 
-    it("should update accent color via settings", () => {
+    it("should persist accent color change to localStorage", () => {
       render(<App config={sampleConfig} screens={{ login: MockScreen }} />)
       fireEvent.click(screen.getByRole("button", { name: /settings/i }))
       fireEvent.click(screen.getByTestId("accent-#dc2626"))
-      const toolbar = screen.getByTestId("toolbar")
-      // #dc2626 → rgb(220, 38, 38)
-      expect(toolbar.style.borderColor).toContain("220, 38, 38")
+      const stored = JSON.parse(localStorage.getItem("df-appearance") || "{}")
+      expect(stored.accentColor).toBe("#dc2626")
     })
   })
 })

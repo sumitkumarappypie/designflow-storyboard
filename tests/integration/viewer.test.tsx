@@ -102,7 +102,7 @@ describe("Viewer", () => {
     expect(overlay).toBeInTheDocument()
   })
 
-  it("should tint the viewer pill border with accent color", () => {
+  it("should fill the viewer pill with accent color", () => {
     render(
       <Viewer
         screenId="test"
@@ -114,10 +114,10 @@ describe("Viewer", () => {
     )
     const pill = screen.getByTestId("viewer-pill")
     // #7c3aed → rgb(124, 58, 237)
-    expect(pill.style.borderColor).toContain("124, 58, 237")
+    expect(pill.style.background).toContain("124, 58, 237")
   })
 
-  it("should use default border when no accent color provided", () => {
+  it("should use white pill background when no accent color", () => {
     render(
       <Viewer
         screenId="test"
@@ -127,7 +127,6 @@ describe("Viewer", () => {
       />
     )
     const pill = screen.getByTestId("viewer-pill")
-    // default: #e2e8f0 → rgb(226, 232, 240)
-    expect(pill.style.borderColor).toContain("226, 232, 240")
+    expect(pill.style.background).toContain("255, 255, 255")
   })
 })
