@@ -22,7 +22,7 @@ export function Toolbar({ appearance, onAppearanceChange }: ToolbarProps) {
         alignItems: "center",
         background: "#fff",
         border: "1px solid #e2e8f0",
-        borderRadius: 8,
+        borderRadius: 9999,
         padding: "4px 6px",
         boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
         fontSize: 13,

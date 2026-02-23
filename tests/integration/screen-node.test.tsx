@@ -35,9 +35,23 @@ describe("ScreenNode", () => {
     measured: { width: 300, height: 200 },
   }
 
-  it("should render screen title", () => {
+  /** Helper: find the color-scheme wrapper inside the thumbnail */
+  function getColorSchemeWrapper() {
+    return screen.getByTestId("screen-thumbnail").querySelector("[data-df-color-scheme]") as HTMLElement
+  }
+
+  /** Helper: find the inner content div (with transform scale) inside the color-scheme wrapper */
+  function getInnerContent() {
+    return getColorSchemeWrapper().firstElementChild as HTMLElement
+  }
+
+  it("should render screen title as overlaid pill", () => {
     render(<ScreenNode {...defaultProps} />)
-    expect(screen.getByText("Login")).toBeInTheDocument()
+    const title = screen.getByTestId("node-title")
+    expect(title).toBeInTheDocument()
+    expect(title.textContent).toBe("Login")
+    // Title should be positioned absolutely inside the thumbnail
+    expect(title.style.position).toBe("absolute")
   })
 
   it("should have left target and right source handles", () => {
@@ -54,7 +68,7 @@ describe("ScreenNode", () => {
 
   it("should call onSelect when clicked", () => {
     render(<ScreenNode {...defaultProps} />)
-    fireEvent.doubleClick(screen.getByText("Login"))
+    fireEvent.doubleClick(screen.getByTestId("node-title"))
     expect(defaultProps.data.onSelect).toHaveBeenCalledWith("login")
   })
 
@@ -76,6 +90,11 @@ describe("ScreenNode", () => {
     expect(screen.getByTestId("screen-thumbnail")).toBeInTheDocument()
   })
 
+  it("should render pill-shaped controls bar above thumbnail", () => {
+    render(<ScreenNode {...defaultProps} />)
+    expect(screen.getByTestId("node-controls")).toBeInTheDocument()
+  })
+
   it("should apply scale transform to thumbnail content", () => {
     function TestScreen() {
       return <div>Content</div>
@@ -85,12 +104,9 @@ describe("ScreenNode", () => {
       data: { ...defaultProps.data, component: TestScreen },
     }
     render(<ScreenNode {...props} />)
-    const thumbnail = screen.getByTestId("screen-thumbnail")
-    // Content div is inside color-scheme wrapper
-    const colorSchemeWrapper = thumbnail.firstElementChild as HTMLElement
-    const inner = colorSchemeWrapper.firstElementChild
+    const inner = getInnerContent()
     expect(inner).toBeTruthy()
-    expect((inner as HTMLElement).style.transform).toContain("scale")
+    expect(inner.style.transform).toContain("scale")
   })
 
   it("should render at desktop resolution by default", () => {
@@ -102,9 +118,8 @@ describe("ScreenNode", () => {
       data: { ...defaultProps.data, component: TestScreen },
     }
     render(<ScreenNode {...props} />)
-    const thumbnail = screen.getByTestId("screen-thumbnail")
-    const inner = (thumbnail.firstElementChild as HTMLElement).firstElementChild as HTMLElement
-    // Default desktop: 1440x900, scale = 420/max(1440,900) ≈ 0.292
+    const inner = getInnerContent()
+    // Default desktop: 1440x900
     expect(inner.style.width).toBe("1440px")
     expect(inner.style.height).toBe("900px")
   })
@@ -118,8 +133,7 @@ describe("ScreenNode", () => {
       data: { ...defaultProps.data, component: TestScreen, viewport: "mobile" as const },
     }
     render(<ScreenNode {...props} />)
-    const thumbnail = screen.getByTestId("screen-thumbnail")
-    const inner = (thumbnail.firstElementChild as HTMLElement).firstElementChild as HTMLElement
+    const inner = getInnerContent()
     // Mobile: 390x844
     expect(inner.style.width).toBe("390px")
     expect(inner.style.height).toBe("844px")
@@ -134,8 +148,7 @@ describe("ScreenNode", () => {
       data: { ...defaultProps.data, component: TestScreen, viewport: "tablet" as const },
     }
     render(<ScreenNode {...props} />)
-    const thumbnail = screen.getByTestId("screen-thumbnail")
-    const inner = (thumbnail.firstElementChild as HTMLElement).firstElementChild as HTMLElement
+    const inner = getInnerContent()
     // Tablet: 768x1024
     expect(inner.style.width).toBe("768px")
     expect(inner.style.height).toBe("1024px")
@@ -192,9 +205,7 @@ describe("ScreenNode", () => {
         data: { ...defaultProps.data, component: TestScreen },
       }
       render(<ScreenNode {...props} />)
-      // Initially desktop: 1440x900
-      const thumbnail = screen.getByTestId("screen-thumbnail")
-      const inner = (thumbnail.firstElementChild as HTMLElement).firstElementChild as HTMLElement
+      const inner = getInnerContent()
       expect(inner.style.width).toBe("1440px")
 
       // Click mobile
@@ -217,8 +228,7 @@ describe("ScreenNode", () => {
 
       fireEvent.click(screen.getByRole("button", { name: /tablet/i }))
 
-      const thumbnail = screen.getByTestId("screen-thumbnail")
-      const inner = (thumbnail.firstElementChild as HTMLElement).firstElementChild as HTMLElement
+      const inner = getInnerContent()
       expect(inner.style.width).toBe("768px")
       expect(inner.style.height).toBe("1024px")
     })
@@ -288,7 +298,7 @@ describe("ScreenNode", () => {
 
       fireEvent.click(screen.getByRole("button", { name: /dark/i }))
 
-      const wrapper = screen.getByTestId("screen-thumbnail").querySelector("[data-df-color-scheme]") as HTMLElement
+      const wrapper = getColorSchemeWrapper()
       expect(wrapper).toBeTruthy()
       expect(wrapper.style.colorScheme).toBe("dark")
     })
@@ -305,7 +315,7 @@ describe("ScreenNode", () => {
 
       fireEvent.click(screen.getByRole("button", { name: /dark/i }))
 
-      const wrapper = screen.getByTestId("screen-thumbnail").querySelector("[data-df-color-scheme]") as HTMLElement
+      const wrapper = getColorSchemeWrapper()
       expect(wrapper).toHaveAttribute("data-df-color-scheme", "dark")
     })
 

@@ -42,102 +42,122 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
   return (
     <div
       onDoubleClick={() => data.onSelect(data.screenId)}
-      style={{
-        background: "white",
-        border: "1px solid #e2e8f0",
-        borderRadius: "8px",
-        padding: "8px",
-        cursor: "pointer",
-      }}
+      style={{ cursor: "pointer" }}
     >
       <Handle type="target" position={Position.Left} id="target-left" />
+
+      {/* Pill bar with controls */}
       <div
+        data-testid="node-controls"
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
-          padding: "4px 8px",
-          fontSize: "12px",
-          fontWeight: 600,
-          color: "#0f172a",
-          borderBottom: "1px solid #e2e8f0",
-          marginBottom: "8px",
+          justifyContent: "center",
+          gap: "4px",
+          padding: "4px 10px",
+          marginBottom: "6px",
+          background: "#fff",
+          border: "1px solid #e2e8f0",
+          borderRadius: 9999,
+          boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
         }}
       >
-        {data.title}
-        <div style={{ display: "flex", gap: "4px", alignItems: "center" }}>
-          <div
-            data-testid="viewport-toggle"
-            style={{
-              display: "flex",
-              gap: "4px",
-            }}
-          >
-            {viewportLabels.map(({ key, label }) => (
-              <button
-                key={key}
-                aria-label={key}
-                data-active={String(activeViewport === key)}
-                onClick={() => setActiveViewport(key)}
-                style={{
-                  border: "1px solid #e2e8f0",
-                  background: activeViewport === key ? "#f1f5f9" : "transparent",
-                  fontWeight: activeViewport === key ? 600 : 400,
-                  cursor: "pointer",
-                  padding: "2px 8px",
-                  borderRadius: 9999,
-                  fontSize: 10,
-                  lineHeight: 1.4,
-                  color: "#334155",
-                }}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-          <div style={{ width: 1, height: 14, background: "#e2e8f0" }} />
-          <div
-            data-testid="color-scheme-toggle"
-            style={{
-              display: "flex",
-              gap: "4px",
-            }}
-          >
-            {colorSchemeLabels.map(({ key, label }) => (
-              <button
-                key={key}
-                aria-label={key}
-                data-active={String(activeColorScheme === key)}
-                onClick={() => setActiveColorScheme(key)}
-                style={{
-                  border: "1px solid #e2e8f0",
-                  background: activeColorScheme === key ? "#f1f5f9" : "transparent",
-                  fontWeight: activeColorScheme === key ? 600 : 400,
-                  cursor: "pointer",
-                  padding: "2px 8px",
-                  borderRadius: 9999,
-                  fontSize: 10,
-                  lineHeight: 1.4,
-                  color: "#334155",
-                }}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+        <div
+          data-testid="viewport-toggle"
+          style={{
+            display: "flex",
+            gap: "4px",
+          }}
+        >
+          {viewportLabels.map(({ key, label }) => (
+            <button
+              key={key}
+              aria-label={key}
+              data-active={String(activeViewport === key)}
+              onClick={() => setActiveViewport(key)}
+              style={{
+                border: "1px solid #e2e8f0",
+                background: activeViewport === key ? "#f1f5f9" : "transparent",
+                fontWeight: activeViewport === key ? 600 : 400,
+                cursor: "pointer",
+                padding: "2px 8px",
+                borderRadius: 9999,
+                fontSize: 10,
+                lineHeight: 1.4,
+                color: "#334155",
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <div style={{ width: 1, height: 14, background: "#e2e8f0" }} />
+        <div
+          data-testid="color-scheme-toggle"
+          style={{
+            display: "flex",
+            gap: "4px",
+          }}
+        >
+          {colorSchemeLabels.map(({ key, label }) => (
+            <button
+              key={key}
+              aria-label={key}
+              data-active={String(activeColorScheme === key)}
+              onClick={() => setActiveColorScheme(key)}
+              style={{
+                border: "1px solid #e2e8f0",
+                background: activeColorScheme === key ? "#f1f5f9" : "transparent",
+                fontWeight: activeColorScheme === key ? 600 : 400,
+                cursor: "pointer",
+                padding: "2px 8px",
+                borderRadius: 9999,
+                fontSize: 10,
+                lineHeight: 1.4,
+                color: "#334155",
+              }}
+            >
+              {label}
+            </button>
+          ))}
         </div>
       </div>
+
+      {/* Preview rectangle */}
       <div
         data-testid="screen-thumbnail"
         style={{
           width: `${thumbnailWidth}px`,
           height: `${thumbnailHeight}px`,
           background: isDark ? "#0f172a" : "#f8fafc",
-          borderRadius: "4px",
+          borderRadius: "8px",
           overflow: "hidden",
           position: "relative",
         }}
       >
+        {/* Overlaid title pill */}
+        <div
+          data-testid="node-title"
+          style={{
+            position: "absolute",
+            top: "8px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 2,
+            background: "rgba(255,255,255,0.92)",
+            backdropFilter: "blur(4px)",
+            padding: "3px 12px",
+            borderRadius: 9999,
+            fontSize: "11px",
+            fontWeight: 600,
+            color: "#0f172a",
+            whiteSpace: "nowrap",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+          }}
+        >
+          {data.title}
+        </div>
+
         {ScreenComponent ? (
           <>
             <div
@@ -188,6 +208,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
           </div>
         )}
       </div>
+
       <Handle type="source" position={Position.Right} id="source-right" />
     </div>
   )
