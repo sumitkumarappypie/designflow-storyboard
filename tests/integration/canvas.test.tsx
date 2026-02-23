@@ -29,6 +29,7 @@ vi.mock("@xyflow/react", () => {
 
   return {
     ReactFlow,
+    MiniMap: () => <div data-testid="minimap" />,
     Handle: ({ type, position }: any) => <div data-testid={`handle-${type}`} />,
     Position: { Top: "top", Bottom: "bottom", Left: "left", Right: "right" },
     BaseEdge: ({ path }: any) => <path d={path} />,
@@ -38,7 +39,7 @@ vi.mock("@xyflow/react", () => {
     useNodesState: (initial: any) => [initial, vi.fn(), vi.fn()],
     useEdgesState: (initial: any) => [initial, vi.fn(), vi.fn()],
     ReactFlowProvider: ({ children }: any) => <div>{children}</div>,
-    useReactFlow: () => ({ fitView: vi.fn(), setCenter: vi.fn() }),
+    useReactFlow: () => ({ fitView: vi.fn(), zoomIn: vi.fn(), zoomOut: vi.fn(), setCenter: vi.fn() }),
   }
 })
 
@@ -144,6 +145,70 @@ describe("Canvas", () => {
     const nodes = JSON.parse(rfEl.getAttribute("data-nodes") || "[]")
     expect(nodes[0].data.viewport).toBe("tablet")
     expect(nodes[0].data.resolution).toEqual({ width: 800, height: 600 })
+  })
+
+  it("should render MiniMap inside ReactFlow", () => {
+    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} />)
+    expect(screen.getByTestId("minimap")).toBeInTheDocument()
+  })
+
+  it("should render Toolbar", () => {
+    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} />)
+    expect(screen.getByTestId("toolbar")).toBeInTheDocument()
+  })
+})
+
+describe("Canvas — inferred edges merging", () => {
+  const configWithEdge: DesignFlowConfig = {
+    screens: {
+      login: { title: "Login", file: "./screens/Login.tsx", position: { x: 0, y: 0 } },
+      dashboard: { title: "Dashboard", file: "./screens/Dashboard.tsx", position: { x: 450, y: 0 } },
+      settings: { title: "Settings", file: "./screens/Settings.tsx", position: { x: 900, y: 0 } },
+    },
+    edges: [
+      { from: "login", to: "dashboard", label: "Sign in" },
+    ],
+  }
+
+  const inferredEdges = [
+    { from: "login", to: "dashboard", label: "navigate", inferred: true },
+    { from: "login", to: "settings", label: "navigate", inferred: true },
+  ]
+
+  it("should prefer explicit edges over inferred edges for the same from+to pair", () => {
+    render(<Canvas config={configWithEdge} inferredEdges={inferredEdges} onScreenSelect={vi.fn()} />)
+    const rfEl = screen.getByTestId("react-flow")
+    const edges = JSON.parse(rfEl.getAttribute("data-edges") || "[]")
+    // login->dashboard should be the explicit edge (no inferred flag)
+    const loginDash = edges.find((e: any) => e.id === "login-dashboard")
+    expect(loginDash).toBeDefined()
+    expect(loginDash.data.label).toBe("Sign in")
+    expect(loginDash.data.inferred).toBeFalsy()
+  })
+
+  it("should include inferred edges that are not covered by explicit edges", () => {
+    render(<Canvas config={configWithEdge} inferredEdges={inferredEdges} onScreenSelect={vi.fn()} />)
+    const rfEl = screen.getByTestId("react-flow")
+    const edges = JSON.parse(rfEl.getAttribute("data-edges") || "[]")
+    // login->settings is only inferred, should appear
+    const loginSettings = edges.find((e: any) => e.id === "inferred-login-settings")
+    expect(loginSettings).toBeDefined()
+    expect(loginSettings.data.inferred).toBe(true)
+  })
+
+  it("should render without inferred edges when prop is not provided", () => {
+    render(<Canvas config={configWithEdge} onScreenSelect={vi.fn()} />)
+    const rfEl = screen.getByTestId("react-flow")
+    const edges = JSON.parse(rfEl.getAttribute("data-edges") || "[]")
+    expect(edges).toHaveLength(1)
+    expect(edges[0].id).toBe("login-dashboard")
+  })
+
+  it("should render without inferred edges when prop is empty array", () => {
+    render(<Canvas config={configWithEdge} inferredEdges={[]} onScreenSelect={vi.fn()} />)
+    const rfEl = screen.getByTestId("react-flow")
+    const edges = JSON.parse(rfEl.getAttribute("data-edges") || "[]")
+    expect(edges).toHaveLength(1)
   })
 })
 

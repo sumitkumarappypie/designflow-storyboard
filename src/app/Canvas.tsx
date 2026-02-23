@@ -1,8 +1,9 @@
-import { ReactFlow, useNodesState, useEdgesState, useReactFlow, MarkerType } from "@xyflow/react"
+import { ReactFlow, MiniMap, useNodesState, useEdgesState, useReactFlow, MarkerType } from "@xyflow/react"
 import type { Node, Edge } from "@xyflow/react"
 import { useCallback, useEffect, type ComponentType } from "react"
 import { ScreenNode } from "./ScreenNode"
 import { FlowEdge } from "./FlowEdge"
+import { Toolbar } from "./Toolbar"
 import type { DesignFlowConfig } from "../types"
 
 const nodeTypes = { screen: ScreenNode }
@@ -95,6 +96,8 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId }: CanvasP
         fitView
       >
         <FocusHandler focusNodeId={focusNodeId} />
+        <MiniMap pannable zoomable />
+        <Toolbar />
       </ReactFlow>
     </div>
   )
