@@ -128,8 +128,12 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
         <div style={{ width: 1, height: 14, background: hasAccent ? "rgba(255,255,255,0.3)" : "#e2e8f0" }} />
 
         {/* Color scheme toggle */}
-        <label
+        <div
           data-testid="color-scheme-toggle"
+          style={{ display: "flex", alignItems: "center", gap: 3 }}
+        >
+        <span style={{ fontSize: 10, color: pillTextColor, opacity: isDark ? 0.4 : 1 }}>☀</span>
+        <label
           style={{
             position: "relative",
             display: "inline-block",
@@ -171,6 +175,8 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
             }}
           />
         </label>
+        <span style={{ fontSize: 10, color: pillTextColor, opacity: isDark ? 1 : 0.4 }}>☾</span>
+        </div>
       </div>
 
       {/* Preview rectangle */}

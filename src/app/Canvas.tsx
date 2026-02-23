@@ -140,6 +140,7 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredE
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         defaultEdgeOptions={{}}
+        proOptions={{ hideAttribution: true }}
         onInit={(instance) => instance.fitView()}
       >
         <FocusHandler focusNodeId={focusNodeId} />
