@@ -85,10 +85,18 @@ export async function runDev(options: DevOptions): Promise<void> {
 
   const html = buildDevHtml({ hasStylesCSS, projectName })
 
-  // Symlink wireframes/node_modules → designflow's node_modules so that all
-  // dependency resolution works (Vite imports, @tailwindcss/vite enhanced-resolve,
-  // etc.) even when running via npx from a directory without node_modules
-  const pkgNodeModules = path.resolve(pkgRoot, "node_modules")
+  // Symlink wireframes/node_modules → the node_modules that contains designflow's
+  // dependencies so all resolution works (Vite imports, @tailwindcss/vite
+  // enhanced-resolve, etc.) even when running via npx without local node_modules.
+  // npm hoists deps: if pkgRoot is .../node_modules/designflow/, the deps live
+  // in .../node_modules/ (the parent), not .../node_modules/designflow/node_modules/
+  let pkgNodeModules = path.resolve(pkgRoot, "node_modules")
+  if (!fs.existsSync(path.join(pkgNodeModules, "react"))) {
+    const parentDir = path.dirname(pkgRoot)
+    if (path.basename(parentDir) === "node_modules") {
+      pkgNodeModules = parentDir
+    }
+  }
   const wireframesNodeModules = path.join(resolvedDir, "node_modules")
   let createdSymlink = false
 
