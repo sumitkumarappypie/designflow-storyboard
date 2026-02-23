@@ -54,15 +54,18 @@ export function Viewer({ screenId, screenTitle, component: ScreenComponent, onCl
           aria-label="Close"
           style={{
             background: "none",
-            border: "1px solid #e2e8f0",
-            borderRadius: 9999,
-            padding: "4px 12px",
+            border: "none",
             cursor: "pointer",
-            fontSize: "12px",
-            color: "#64748b",
+            padding: 2,
+            display: "flex",
+            alignItems: "center",
+            color: accentColor ? "rgba(255,255,255,0.8)" : "#64748b",
           }}
         >
-          Close
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
         </button>
       </div>
 
