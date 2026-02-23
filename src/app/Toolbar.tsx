@@ -83,7 +83,7 @@ export function Toolbar({ settings, onSettingsChange, projectName }: ToolbarProp
             <button
               aria-label="Settings"
               onClick={() => setOpen((o) => !o)}
-              style={{ ...btnStyle, color: isDark ? "#e2e8f0" : "#334155" }}
+              style={{ ...btnStyle, fontSize: 16, color: isDark ? "#e2e8f0" : "#334155" }}
             >
               ⚙
             </button>
