@@ -16,6 +16,18 @@ This directory contains wireframes for the app, visualized on an infinite canvas
 - Never hardcode colors like `#fff` or `#000` — use theme tokens instead
 - Use `var(--df-background)` for page backgrounds, `var(--df-surface)` for cards
 
+### How dark mode works under the hood
+DesignFlow generates two CSS blocks from `designflow.theme.ts`:
+```css
+:root           { --df-background: #FFFFFF; --df-text: #0F172A; … }
+[data-df-color-scheme="dark"] { --df-background: #0F172A; --df-text: #F1F5F9; … }
+```
+When the dark toggle is activated, the screen wrapper gets `data-df-color-scheme="dark"`, causing descendant elements to pick up the overridden `--df-*` values.
+
+### Inline styles vs Tailwind classes
+- **Inline styles** (`style={{ background: "var(--df-background)" }}`) — reference `--df-*` directly, so dark mode works automatically.
+- **Tailwind classes** (`bg-background`) — use an intermediate variable (`--color-background: var(--df-background)`) defined in `styles.css`. This **requires `@theme inline`** (not plain `@theme`). Without `inline`, Tailwind v4 registers the properties via `@property`, which resolves `var()` references eagerly at `:root` — breaking the dark mode cascade. Always use `@theme inline` when mapping to external CSS variables.
+
 ## Registering Screens
 - Add new screens to `flows.ts` with a unique ID, title, file path, and canvas position
 - Add edges to define navigation flow between screens
@@ -27,10 +39,10 @@ This directory contains wireframes for the app, visualized on an infinite canvas
 
 ## Tailwind CSS (optional)
 - If `styles.css` exists in this directory, Tailwind v4 is active automatically
-- Create it with `designflow init --tailwind` or manually add `@import "tailwindcss"` + `@theme { ... }`
+- Create it with `designflow init --tailwind` or manually add `@import "tailwindcss"` + `@theme inline { ... }`
 - Theme tokens are mapped: `bg-primary`, `text-secondary`, `p-md`, `rounded-lg`, `shadow-sm`, etc.
 - You can mix Tailwind classes with `var(--df-*)` inline styles — both work
-- Dark mode works automatically because Tailwind vars reference `--df-*` tokens that are overridden per color scheme
+- **Important**: The `@theme` block MUST use `@theme inline`, not plain `@theme`. Without `inline`, Tailwind v4 generates `@property` declarations that eagerly resolve `var()` references at `:root`, which breaks dark mode cascading. See the "Dark Mode" section above for details.
 
 ## Running
 - `pnpm designflow dev` to open the canvas

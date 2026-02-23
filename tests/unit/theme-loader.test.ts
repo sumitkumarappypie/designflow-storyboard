@@ -111,9 +111,9 @@ describe("generateTailwindCSS", () => {
     expect(css).toMatch(/^@import "tailwindcss"/)
   })
 
-  it("should contain @theme block", () => {
+  it("should contain @theme inline block", () => {
     const css = generateTailwindCSS(sampleTheme)
-    expect(css).toContain("@theme {")
+    expect(css).toContain("@theme inline {")
   })
 
   it("should map colors to var(--df-*) references", () => {

@@ -86,13 +86,13 @@ describe("designflow init", () => {
     await expect(runInit({ dir: wireframesDir })).rejects.toThrow()
   })
 
-  it("should generate styles.css with Tailwind v4 @theme when --tailwind flag is set", async () => {
+  it("should generate styles.css with Tailwind v4 @theme inline when --tailwind flag is set", async () => {
     const wireframesDir = path.join(tmpDir, "wireframes")
     await runInit({ dir: wireframesDir, tailwind: true })
 
     const content = await fs.readFile(path.join(wireframesDir, "styles.css"), "utf-8")
     expect(content).toContain('@import "tailwindcss"')
-    expect(content).toContain("@theme {")
+    expect(content).toContain("@theme inline {")
     expect(content).toContain("--color-primary")
     expect(content).toContain("var(--df-primary)")
   })
