@@ -1,4 +1,4 @@
-import { describe, it, expectTypeOf } from "vitest"
+import { describe, it, expect, expectTypeOf } from "vitest"
 import type {
   DesignFlowConfig,
   ScreenConfig,
@@ -6,6 +6,7 @@ import type {
   DesignFlowTheme,
   Viewport,
 } from "../../src/types"
+import { VIEWPORT_RESOLUTIONS, getScreenResolution } from "../../src/types"
 
 describe("Types", () => {
   it("should accept valid Viewport values", () => {
@@ -43,6 +44,45 @@ describe("Types", () => {
       },
     }
     expectTypeOf(config).toExtend<DesignFlowConfig>()
+  })
+
+  it("should make resolution optional in ScreenConfig", () => {
+    expectTypeOf<ScreenConfig["resolution"]>().toEqualTypeOf<
+      { width: number; height: number } | undefined
+    >()
+  })
+
+  it("should accept ScreenConfig with explicit resolution", () => {
+    const screen: ScreenConfig = {
+      title: "Custom",
+      file: "./screens/Custom.tsx",
+      position: { x: 0, y: 0 },
+      resolution: { width: 1920, height: 1080 },
+    }
+    expectTypeOf(screen).toExtend<ScreenConfig>()
+  })
+
+  it("should export VIEWPORT_RESOLUTIONS with correct presets", () => {
+    expect(VIEWPORT_RESOLUTIONS).toEqual({
+      desktop: { width: 1440, height: 900 },
+      tablet: { width: 768, height: 1024 },
+      mobile: { width: 390, height: 844 },
+    })
+  })
+
+  it("should resolve explicit resolution over viewport preset", () => {
+    const result = getScreenResolution("mobile", { width: 1920, height: 1080 })
+    expect(result).toEqual({ width: 1920, height: 1080 })
+  })
+
+  it("should resolve viewport preset when no explicit resolution", () => {
+    expect(getScreenResolution("desktop")).toEqual({ width: 1440, height: 900 })
+    expect(getScreenResolution("tablet")).toEqual({ width: 768, height: 1024 })
+    expect(getScreenResolution("mobile")).toEqual({ width: 390, height: 844 })
+  })
+
+  it("should return default desktop resolution when neither viewport nor resolution given", () => {
+    expect(getScreenResolution()).toEqual({ width: 1440, height: 900 })
   })
 
   it("should accept valid DesignFlowTheme", () => {

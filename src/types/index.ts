@@ -1,10 +1,25 @@
 export type Viewport = "desktop" | "tablet" | "mobile"
 
+export const VIEWPORT_RESOLUTIONS: Record<Viewport, { width: number; height: number }> = {
+  desktop: { width: 1440, height: 900 },
+  tablet: { width: 768, height: 1024 },
+  mobile: { width: 390, height: 844 },
+}
+
+export function getScreenResolution(
+  viewport?: Viewport,
+  resolution?: { width: number; height: number },
+): { width: number; height: number } {
+  if (resolution) return resolution
+  return VIEWPORT_RESOLUTIONS[viewport ?? "desktop"]
+}
+
 export interface ScreenConfig {
   title: string
   file: string
   position: { x: number; y: number }
   viewport?: Viewport
+  resolution?: { width: number; height: number }
 }
 
 export interface EdgeConfig {

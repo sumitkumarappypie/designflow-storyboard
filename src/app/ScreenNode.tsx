@@ -1,24 +1,27 @@
 import { Handle, Position } from "@xyflow/react"
 import type { NodeProps, Node } from "@xyflow/react"
 import type { ComponentType } from "react"
+import type { Viewport } from "../types"
+import { getScreenResolution } from "../types"
 
 export type ScreenNodeData = {
   title: string
   screenId: string
   onSelect: (screenId: string) => void
   component?: ComponentType
+  viewport?: Viewport
+  resolution?: { width: number; height: number }
 }
 
 export type ScreenNodeType = Node<ScreenNodeData, "screen">
 
 const THUMBNAIL_WIDTH = 420
 const THUMBNAIL_HEIGHT = 260
-const SCALE = 0.3
-const FULL_WIDTH = THUMBNAIL_WIDTH / SCALE   // 1400px
-const FULL_HEIGHT = THUMBNAIL_HEIGHT / SCALE  // ~867px
 
 export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
   const ScreenComponent = data.component
+  const { width: fullWidth, height: fullHeight } = getScreenResolution(data.viewport, data.resolution)
+  const scale = THUMBNAIL_WIDTH / fullWidth
 
   return (
     <div
@@ -57,17 +60,34 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
         }}
       >
         {ScreenComponent ? (
-          <div
-            style={{
-              width: `${FULL_WIDTH}px`,
-              height: `${FULL_HEIGHT}px`,
-              transform: `scale(${SCALE})`,
-              transformOrigin: "top left",
-              pointerEvents: "none",
-            }}
-          >
-            <ScreenComponent />
-          </div>
+          <>
+            <div
+              style={{
+                width: `${fullWidth}px`,
+                height: `${fullHeight}px`,
+                transform: `scale(${scale})`,
+                transformOrigin: "top left",
+                pointerEvents: "none",
+              }}
+            >
+              <ScreenComponent />
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                bottom: "4px",
+                right: "4px",
+                fontSize: "9px",
+                color: "#94a3b8",
+                background: "rgba(255,255,255,0.85)",
+                padding: "1px 4px",
+                borderRadius: "2px",
+                lineHeight: 1.2,
+              }}
+            >
+              {fullWidth}&times;{fullHeight}
+            </div>
+          </>
         ) : (
           <div
             style={{

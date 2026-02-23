@@ -1,25 +1,31 @@
-import { describe, it, expect, vi } from "vitest"
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest"
 import { render, screen } from "@testing-library/react"
 import { Canvas } from "../../src/app/Canvas"
 import type { DesignFlowConfig } from "../../src/types"
 
+// Track onNodeDragStop callback passed to ReactFlow
+let capturedOnNodeDragStop: ((...args: any[]) => void) | undefined
+
 // Mock React Flow since jsdom doesn't support full rendering
 vi.mock("@xyflow/react", () => {
-  const ReactFlow = ({ nodes, edges, children, ...props }: any) => (
-    <div data-testid="react-flow" data-nodes={JSON.stringify(nodes)} data-edges={JSON.stringify(edges)}>
-      {nodes?.map((n: any) => (
-        <div key={n.id} data-testid={`node-${n.id}`}>
-          {n.data?.title}
-        </div>
-      ))}
-      {edges?.map((e: any) => (
-        <div key={e.id} data-testid={`edge-${e.id}`}>
-          {e.data?.label}
-        </div>
-      ))}
-      {children}
-    </div>
-  )
+  const ReactFlow = ({ nodes, edges, children, onNodeDragStop, ...props }: any) => {
+    capturedOnNodeDragStop = onNodeDragStop
+    return (
+      <div data-testid="react-flow" data-nodes={JSON.stringify(nodes)} data-edges={JSON.stringify(edges)} data-has-drag-handler={String(!!onNodeDragStop)}>
+        {nodes?.map((n: any) => (
+          <div key={n.id} data-testid={`node-${n.id}`}>
+            {n.data?.title}
+          </div>
+        ))}
+        {edges?.map((e: any) => (
+          <div key={e.id} data-testid={`edge-${e.id}`}>
+            {e.data?.label}
+          </div>
+        ))}
+        {children}
+      </div>
+    )
+  }
 
   return {
     ReactFlow,
@@ -90,5 +96,92 @@ describe("Canvas", () => {
   it("should accept focusNodeId prop", () => {
     render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} focusNodeId="login" />)
     expect(screen.getByTestId("react-flow")).toBeInTheDocument()
+  })
+
+  it("should pass viewport through node data", () => {
+    const configWithViewport: DesignFlowConfig = {
+      screens: {
+        login: { title: "Login", file: "./screens/Login.tsx", position: { x: 0, y: 0 }, viewport: "mobile" },
+      },
+    }
+    render(<Canvas config={configWithViewport} onScreenSelect={vi.fn()} />)
+    const rfEl = screen.getByTestId("react-flow")
+    const nodes = JSON.parse(rfEl.getAttribute("data-nodes") || "[]")
+    expect(nodes[0].data.viewport).toBe("mobile")
+  })
+
+  it("should pass resolution through node data", () => {
+    const configWithRes: DesignFlowConfig = {
+      screens: {
+        login: {
+          title: "Login",
+          file: "./screens/Login.tsx",
+          position: { x: 0, y: 0 },
+          resolution: { width: 1920, height: 1080 },
+        },
+      },
+    }
+    render(<Canvas config={configWithRes} onScreenSelect={vi.fn()} />)
+    const rfEl = screen.getByTestId("react-flow")
+    const nodes = JSON.parse(rfEl.getAttribute("data-nodes") || "[]")
+    expect(nodes[0].data.resolution).toEqual({ width: 1920, height: 1080 })
+  })
+
+  it("should pass both viewport and resolution through node data", () => {
+    const configBoth: DesignFlowConfig = {
+      screens: {
+        login: {
+          title: "Login",
+          file: "./screens/Login.tsx",
+          position: { x: 0, y: 0 },
+          viewport: "tablet",
+          resolution: { width: 800, height: 600 },
+        },
+      },
+    }
+    render(<Canvas config={configBoth} onScreenSelect={vi.fn()} />)
+    const rfEl = screen.getByTestId("react-flow")
+    const nodes = JSON.parse(rfEl.getAttribute("data-nodes") || "[]")
+    expect(nodes[0].data.viewport).toBe("tablet")
+    expect(nodes[0].data.resolution).toEqual({ width: 800, height: 600 })
+  })
+})
+
+describe("Canvas — position persistence", () => {
+  beforeEach(() => {
+    capturedOnNodeDragStop = undefined
+    vi.stubGlobal("fetch", vi.fn(() => Promise.resolve({ ok: true })))
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  it("should pass onNodeDragStop handler to ReactFlow", () => {
+    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} />)
+    const rfEl = screen.getByTestId("react-flow")
+    expect(rfEl.getAttribute("data-has-drag-handler")).toBe("true")
+  })
+
+  it("should send position update to dev server when node is dragged", () => {
+    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} />)
+
+    expect(capturedOnNodeDragStop).toBeDefined()
+
+    // Simulate drag stop event
+    const mockEvent = {} as any
+    const mockNode = { id: "login", position: { x: 100, y: 200 } }
+    capturedOnNodeDragStop!(mockEvent, mockNode)
+
+    expect(fetch).toHaveBeenCalledWith(
+      "/__designflow/update-positions",
+      expect.objectContaining({
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          positions: { login: { x: 100, y: 200 } },
+        }),
+      }),
+    )
   })
 })
