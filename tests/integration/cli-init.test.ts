@@ -112,4 +112,22 @@ describe("designflow init", () => {
     const exists = await fs.access(path.join(wireframesDir, "tailwind.config.ts")).then(() => true).catch(() => false)
     expect(exists).toBe(false)
   })
+
+  it("should scaffold Tailwind-class screens when --tailwind flag is set", async () => {
+    const wireframesDir = path.join(tmpDir, "wireframes")
+    await runInit({ dir: wireframesDir, tailwind: true })
+
+    const loginContent = await fs.readFile(path.join(wireframesDir, "screens/Login.tsx"), "utf-8")
+    expect(loginContent).toContain("className=")
+    expect(loginContent).not.toContain("style={{")
+  })
+
+  it("should scaffold inline-style screens by default", async () => {
+    const wireframesDir = path.join(tmpDir, "wireframes")
+    await runInit({ dir: wireframesDir })
+
+    const loginContent = await fs.readFile(path.join(wireframesDir, "screens/Login.tsx"), "utf-8")
+    expect(loginContent).toContain("style={{")
+    expect(loginContent).not.toContain("className=")
+  })
 })
