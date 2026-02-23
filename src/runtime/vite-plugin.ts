@@ -1,7 +1,10 @@
 import type { Plugin } from "vite"
+import type { IncomingMessage, ServerResponse } from "http"
 import path from "path"
 import { fileURLToPath } from "url"
 import { scanScreens } from "./screen-scanner"
+import { updateScreenPosition, writeFlowConfig } from "./flow-writer"
+import type { DesignFlowConfig } from "../types"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -71,10 +74,11 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
     configureServer(server) {
       const screensDir = path.resolve(dir, "screens")
       const themePath = path.resolve(dir, "designflow.theme.ts")
+      const flowsPath = path.resolve(dir, "flows.ts")
 
       server.watcher.add([screensDir, themePath])
 
-      server.watcher.on("change", (changedPath: string) => {
+      function invalidateAndReload(changedPath: string) {
         if (changedPath.startsWith(screensDir) || changedPath === themePath) {
           const themeModule = server.moduleGraph.getModuleById(RESOLVED_THEME)
           const screensModule =
@@ -89,6 +93,45 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
 
           server.ws.send({ type: "full-reload" })
         }
+      }
+
+      server.watcher.on("change", invalidateAndReload)
+      server.watcher.on("add", invalidateAndReload)
+      server.watcher.on("unlink", invalidateAndReload)
+
+      // API middleware for position persistence
+      server.middlewares.use((req: IncomingMessage, res: ServerResponse, next: () => void) => {
+        if (req.url !== "/__designflow/update-positions" || req.method !== "POST") {
+          return next()
+        }
+
+        let body = ""
+        req.on("data", (chunk: Buffer) => { body += chunk.toString() })
+        req.on("end", async () => {
+          try {
+            const { positions } = JSON.parse(body) as {
+              positions: Record<string, { x: number; y: number }>
+            }
+
+            // Read current config from flows.ts
+            const flowsModule = await import(flowsPath)
+            let config: DesignFlowConfig = flowsModule.default
+
+            // Update each position
+            for (const [screenId, position] of Object.entries(positions)) {
+              config = updateScreenPosition(config, screenId, position)
+            }
+
+            // Write back to flows.ts
+            await writeFlowConfig(flowsPath, config)
+
+            res.writeHead(200, { "Content-Type": "application/json" })
+            res.end(JSON.stringify({ ok: true }))
+          } catch (err) {
+            res.writeHead(500, { "Content-Type": "application/json" })
+            res.end(JSON.stringify({ error: String(err) }))
+          }
+        })
       })
     },
   }

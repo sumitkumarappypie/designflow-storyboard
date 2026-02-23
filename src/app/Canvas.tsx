@@ -1,6 +1,6 @@
 import { ReactFlow, useNodesState, useEdgesState, useReactFlow, MarkerType } from "@xyflow/react"
 import type { Node, Edge } from "@xyflow/react"
-import { useEffect, type ComponentType } from "react"
+import { useCallback, useEffect, type ComponentType } from "react"
 import { ScreenNode } from "./ScreenNode"
 import { FlowEdge } from "./FlowEdge"
 import type { DesignFlowConfig } from "../types"
@@ -69,6 +69,16 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId }: CanvasP
   const [nodes, , onNodesChange] = useNodesState(initialNodes)
   const [edges, , onEdgesChange] = useEdgesState(initialEdges)
 
+  const onNodeDragStop = useCallback((_event: React.MouseEvent, node: Node) => {
+    fetch("/__designflow/update-positions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        positions: { [node.id]: { x: node.position.x, y: node.position.y } },
+      }),
+    })
+  }, [])
+
   return (
     <div style={{ width: "100%", height: "100vh" }}>
       <ReactFlow
@@ -76,6 +86,7 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId }: CanvasP
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        onNodeDragStop={onNodeDragStop}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         defaultEdgeOptions={{
