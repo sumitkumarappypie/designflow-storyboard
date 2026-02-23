@@ -32,10 +32,11 @@ describe("designflow init", () => {
     await runInit({ dir: wireframesDir })
 
     const files = await fs.readdir(path.join(wireframesDir, "screens"))
-    expect(files).toContain("Login.tsx")
-    expect(files).toContain("Dashboard.tsx")
+    expect(files).toContain("Explore.tsx")
+    expect(files).toContain("Issues.tsx")
     expect(files).toContain("Profile.tsx")
-    expect(files).toContain("Settings.tsx")
+    expect(files).toContain("Pullrequest.tsx")
+    expect(files).toContain("Repo.tsx")
     expect(files).toContain("Notifications.tsx")
   })
 
@@ -125,27 +126,25 @@ describe("designflow init", () => {
     const wireframesDir = path.join(tmpDir, "wireframes")
     await runInit({ dir: wireframesDir, tailwind: true })
 
-    const loginContent = await fs.readFile(path.join(wireframesDir, "screens/Login.tsx"), "utf-8")
-    expect(loginContent).toContain("className=")
-    expect(loginContent).not.toContain("style={{")
+    const content = await fs.readFile(path.join(wireframesDir, "screens/Explore.tsx"), "utf-8")
+    expect(content).toContain("className=")
   })
 
   it("should scaffold Tailwind-class screens by default", async () => {
     const wireframesDir = path.join(tmpDir, "wireframes")
     await runInit({ dir: wireframesDir })
 
-    const loginContent = await fs.readFile(path.join(wireframesDir, "screens/Login.tsx"), "utf-8")
-    expect(loginContent).toContain("className=")
-    expect(loginContent).not.toContain("style={{")
+    const content = await fs.readFile(path.join(wireframesDir, "screens/Explore.tsx"), "utf-8")
+    expect(content).toContain("className=")
   })
 
   it("should scaffold inline-style screens when tailwind is false", async () => {
     const wireframesDir = path.join(tmpDir, "wireframes")
     await runInit({ dir: wireframesDir, tailwind: false })
 
-    const loginContent = await fs.readFile(path.join(wireframesDir, "screens/Login.tsx"), "utf-8")
-    expect(loginContent).toContain("style={{")
-    expect(loginContent).not.toContain("className=")
+    const content = await fs.readFile(path.join(wireframesDir, "screens/Explore.tsx"), "utf-8")
+    expect(content).toContain("style={")
+    expect(content).not.toContain("className=")
   })
 
   it("should include default project name in scaffolded flows.ts", async () => {

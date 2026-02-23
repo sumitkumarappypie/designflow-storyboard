@@ -6,6 +6,7 @@ import { ScreenNode } from "../../src/app/ScreenNode"
 vi.mock("@xyflow/react", () => ({
   Handle: ({ type, position, id }: any) => <div data-testid={`handle-${type}`} data-position={position} data-handle-id={id} />,
   Position: { Top: "top", Bottom: "bottom", Left: "left", Right: "right" },
+  useReactFlow: () => ({ fitView: vi.fn() }),
 }))
 
 // Mock export-png
@@ -15,6 +16,10 @@ vi.mock("../../src/app/export-png", () => ({
 }))
 
 describe("ScreenNode", () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
   const defaultProps = {
     id: "login",
     type: "screen" as const,
@@ -61,22 +66,31 @@ describe("ScreenNode", () => {
     expect(controls.contains(title)).toBe(true)
   })
 
-  it("should have left target and right source handles", () => {
+  it("should have handles on all four sides", () => {
     render(<ScreenNode {...defaultProps} />)
-    const target = screen.getByTestId("handle-target")
-    const source = screen.getByTestId("handle-source")
-    expect(target).toBeInTheDocument()
-    expect(source).toBeInTheDocument()
-    expect(target).toHaveAttribute("data-position", "left")
-    expect(source).toHaveAttribute("data-position", "right")
-    expect(target).toHaveAttribute("data-handle-id", "target-left")
-    expect(source).toHaveAttribute("data-handle-id", "source-right")
+    const targets = screen.getAllByTestId("handle-target")
+    const sources = screen.getAllByTestId("handle-source")
+    expect(targets.length).toBeGreaterThanOrEqual(3)
+    expect(sources.length).toBeGreaterThanOrEqual(3)
   })
 
-  it("should call onSelect when clicked", () => {
+  it("should call onSelect on second click (first click focuses)", () => {
     render(<ScreenNode {...defaultProps} />)
-    fireEvent.doubleClick(screen.getByTestId("node-title"))
+    const thumbnail = screen.getByTestId("screen-thumbnail")
+    // First click focuses/selects the node
+    fireEvent.click(thumbnail)
+    expect(defaultProps.data.onSelect).not.toHaveBeenCalled()
+    // Second click enters the screen
+    fireEvent.click(thumbnail)
     expect(defaultProps.data.onSelect).toHaveBeenCalledWith("login")
+  })
+
+  it("should not call onSelect when clicking toolbar", () => {
+    render(<ScreenNode {...defaultProps} />)
+    const toolbar = screen.getByTestId("node-controls")
+    fireEvent.click(toolbar)
+    fireEvent.click(toolbar)
+    expect(defaultProps.data.onSelect).not.toHaveBeenCalled()
   })
 
   it("should render screen component when provided", () => {

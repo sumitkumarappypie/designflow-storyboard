@@ -50,7 +50,39 @@ function pairKey(a: string, b: string): string {
   return a < b ? `${a}:${b}` : `${b}:${a}`
 }
 
-function configToEdges(config: DesignFlowConfig, inferredEdges?: EdgeConfig[], settings?: CanvasSettings): Edge[] {
+function pickHandles(
+  positions: Record<string, { x: number; y: number }>,
+  fromId: string,
+  toId: string,
+): { sourceHandle: string; targetHandle: string } {
+  const fromPos = positions[fromId]
+  const toPos = positions[toId]
+  if (!fromPos || !toPos) return { sourceHandle: "source-right", targetHandle: "target-left" }
+
+  const dx = toPos.x - fromPos.x
+  const dy = toPos.y - fromPos.y
+
+  if (Math.abs(dx) >= Math.abs(dy)) {
+    // Horizontal dominant
+    if (dx >= 0) return { sourceHandle: "source-right", targetHandle: "target-left" }
+    return { sourceHandle: "source-left", targetHandle: "target-right" }
+  } else {
+    // Vertical dominant
+    if (dy >= 0) return { sourceHandle: "source-bottom", targetHandle: "target-top" }
+    return { sourceHandle: "source-top", targetHandle: "target-bottom" }
+  }
+}
+
+function getPositions(config: DesignFlowConfig, nodeOverrides?: Record<string, { x: number; y: number }>): Record<string, { x: number; y: number }> {
+  const positions: Record<string, { x: number; y: number }> = {}
+  for (const [id, screen] of Object.entries(config.screens)) {
+    positions[id] = nodeOverrides?.[id] ?? screen.position
+  }
+  return positions
+}
+
+function configToEdges(config: DesignFlowConfig, inferredEdges?: EdgeConfig[], settings?: CanvasSettings, nodePositions?: Record<string, { x: number; y: number }>): Edge[] {
+  const positions = nodePositions ?? getPositions(config)
   const seenPairs = new Set<string>()
 
   const explicitEdges: Edge[] = (config.edges ?? [])
@@ -60,15 +92,17 @@ function configToEdges(config: DesignFlowConfig, inferredEdges?: EdgeConfig[], s
       seenPairs.add(key)
       return true
     })
-    .map((edge) => ({
-      id: `${edge.from}-${edge.to}`,
-      type: "flow",
-      source: edge.from,
-      target: edge.to,
-      sourceHandle: "source-right",
-      targetHandle: "target-left",
-      data: { label: edge.label, accentColor: settings?.accentColor, lineStyle: settings?.lineStyle },
-    }))
+    .map((edge) => {
+      const handles = pickHandles(positions, edge.from, edge.to)
+      return {
+        id: `${edge.from}-${edge.to}`,
+        type: "flow",
+        source: edge.from,
+        target: edge.to,
+        ...handles,
+        data: { label: edge.label, accentColor: settings?.accentColor, lineStyle: settings?.lineStyle },
+      }
+    })
 
   if (!inferredEdges?.length) return explicitEdges
 
@@ -79,15 +113,17 @@ function configToEdges(config: DesignFlowConfig, inferredEdges?: EdgeConfig[], s
       seenPairs.add(key)
       return true
     })
-    .map((edge) => ({
-      id: `inferred-${edge.from}-${edge.to}`,
-      type: "flow",
-      source: edge.from,
-      target: edge.to,
-      sourceHandle: "source-right",
-      targetHandle: "target-left",
-      data: { label: edge.label, inferred: true, accentColor: settings?.accentColor, lineStyle: settings?.lineStyle },
-    }))
+    .map((edge) => {
+      const handles = pickHandles(positions, edge.from, edge.to)
+      return {
+        id: `inferred-${edge.from}-${edge.to}`,
+        type: "flow",
+        source: edge.from,
+        target: edge.to,
+        ...handles,
+        data: { label: edge.label, inferred: true, accentColor: settings?.accentColor, lineStyle: settings?.lineStyle },
+      }
+    })
 
   return [...explicitEdges, ...inferred]
 }
@@ -139,7 +175,16 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredE
         positions: { [node.id]: { x: node.position.x, y: node.position.y } },
       }),
     })
-  }, [])
+    // Recalculate edges with updated node positions
+    setNodes((currentNodes) => {
+      const livePositions: Record<string, { x: number; y: number }> = {}
+      for (const n of currentNodes) {
+        livePositions[n.id] = n.position
+      }
+      setEdges(configToEdges(config, inferredEdges, settings, livePositions))
+      return currentNodes
+    })
+  }, [config, inferredEdges, settings, setEdges, setNodes])
 
   const isDarkCanvas = settings?.appearance === "dark"
 

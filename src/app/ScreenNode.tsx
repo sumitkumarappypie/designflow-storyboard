@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react"
-import { Handle, Position } from "@xyflow/react"
+import React, { useState, useEffect, useRef, useCallback } from "react"
+import { Handle, Position, useReactFlow } from "@xyflow/react"
 import type { NodeProps, Node } from "@xyflow/react"
 import type { ComponentType } from "react"
 import type { Viewport, ColorScheme } from "../types"
@@ -56,12 +56,14 @@ const viewportIcons: Record<Viewport, () => React.ReactElement> = {
   mobile: MobileIcon,
 }
 
-export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
+export function ScreenNode({ data, id, selected }: NodeProps<ScreenNodeType>) {
   const ScreenComponent = data.component
   const [activeViewport, setActiveViewport] = useState<Viewport>(data.viewport ?? "desktop")
   const [activeColor, setActiveColor] = useState<string | undefined>(data.color)
   const [colorPickerOpen, setColorPickerOpen] = useState(false)
   const colorPickerRef = useRef<HTMLDivElement>(null)
+  const { fitView } = useReactFlow()
+  const [focusedOnce, setFocusedOnce] = useState(false)
 
   const handleViewportChange = (viewport: Viewport) => {
     setActiveViewport(viewport)
@@ -112,17 +114,30 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
   const hasAccent = !!pillColor
   const pillTextColor = hasAccent ? "#fff" : "#334155"
 
+  // Reset focusedOnce when node loses selection
+  useEffect(() => {
+    if (!selected) setFocusedOnce(false)
+  }, [selected])
+
+  const handleNodeClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (focusedOnce) {
+      data.onSelect(data.screenId)
+    } else {
+      setFocusedOnce(true)
+      fitView({ nodes: [{ id }], duration: 300, padding: 0.5 })
+    }
+  }, [focusedOnce, data, id, fitView])
+
   return (
     <div
       data-df-screen-id={data.screenId}
-      onDoubleClick={() => data.onSelect(data.screenId)}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <Handle type="target" position={Position.Left} id="target-left" />
-
       {/* Pill bar with title and controls */}
       <div
         data-testid="node-controls"
+        onClick={(e) => e.stopPropagation()}
         style={{
           display: "flex",
           alignItems: "center",
@@ -312,6 +327,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
       {/* Preview rectangle */}
       <div
         data-testid="screen-thumbnail"
+        onClick={handleNodeClick}
         style={{
           width: `${thumbnailWidth}px`,
           height: `${thumbnailHeight}px`,
@@ -322,6 +338,14 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
           position: "relative",
         }}
       >
+        <Handle type="target" position={Position.Left} id="target-left" />
+        <Handle type="target" position={Position.Top} id="target-top" />
+        <Handle type="source" position={Position.Right} id="source-right" />
+        <Handle type="source" position={Position.Bottom} id="source-bottom" />
+        <Handle type="source" position={Position.Left} id="source-left" />
+        <Handle type="target" position={Position.Right} id="target-right" />
+        <Handle type="target" position={Position.Bottom} id="target-bottom" />
+        <Handle type="source" position={Position.Top} id="source-top" />
         {ScreenComponent ? (
           <div
             style={{ colorScheme: activeColorScheme }}
@@ -357,7 +381,6 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
         )}
       </div>
 
-      <Handle type="source" position={Position.Right} id="source-right" />
     </div>
   )
 }
