@@ -13,18 +13,18 @@ export interface CanvasSettings {
 
 export const DEFAULT_CANVAS_SETTINGS: CanvasSettings = {
   appearance: "light",
-  accentColor: "#2563eb",
+  accentColor: "#4488ff",
   backgroundStyle: "grid",
   lineStyle: "solid",
 }
 
 export const ACCENT_COLORS = [
-  "#2563eb", // blue (default)
-  "#7c3aed", // purple
-  "#059669", // green
-  "#dc2626", // red
-  "#ea580c", // orange
-  "#db2777", // pink
+  "#4488ff", // blue
+  "#ffb400", // yellow
+  "#f76540", // orange
+  "#ef3060", // red
+  "#ff80ff", // fuchsia
+  "#ffcccc", // salmon
 ]
 
 export const VIEWPORT_RESOLUTIONS: Record<Viewport, { width: number; height: number }> = {

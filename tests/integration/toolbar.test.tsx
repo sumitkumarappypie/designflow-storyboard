@@ -154,8 +154,8 @@ describe("Toolbar", () => {
         const onChange = vi.fn()
         render(<Toolbar settings={defaultSettings} onSettingsChange={onChange} />)
         fireEvent.click(screen.getByRole("button", { name: /settings/i }))
-        fireEvent.click(screen.getByTestId("accent-#dc2626"))
-        expect(onChange).toHaveBeenCalledWith({ ...defaultSettings, accentColor: "#dc2626" })
+        fireEvent.click(screen.getByTestId("accent-#ef3060"))
+        expect(onChange).toHaveBeenCalledWith({ ...defaultSettings, accentColor: "#ef3060" })
       })
     })
 

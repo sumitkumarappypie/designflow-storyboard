@@ -124,9 +124,9 @@ describe("App", () => {
     it("should persist accent color change to localStorage", () => {
       render(<App config={sampleConfig} screens={{ login: MockScreen }} />)
       fireEvent.click(screen.getByRole("button", { name: /settings/i }))
-      fireEvent.click(screen.getByTestId("accent-#dc2626"))
+      fireEvent.click(screen.getByTestId("accent-#ef3060"))
       const stored = JSON.parse(localStorage.getItem("df-appearance") || "{}")
-      expect(stored.accentColor).toBe("#dc2626")
+      expect(stored.accentColor).toBe("#ef3060")
     })
   })
 })
