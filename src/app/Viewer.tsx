@@ -82,22 +82,27 @@ export function Viewer({ screenId, screenTitle, component: ScreenComponent, onCl
         inset: 0,
         zIndex: 50,
         background: "rgba(0, 0, 0, 0.5)",
-        display: "flex",
-        flexDirection: "column",
       }}
     >
-      {/* Header bar */}
+      {/* Floating pill header */}
       <div
         style={{
+          position: "absolute",
+          top: 16,
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 60,
           display: "flex",
-          justifyContent: "space-between",
           alignItems: "center",
-          padding: "12px 16px",
-          background: "white",
-          borderBottom: "1px solid #e2e8f0",
+          gap: "10px",
+          padding: "6px 8px 6px 16px",
+          background: "rgba(255, 255, 255, 0.95)",
+          backdropFilter: "blur(8px)",
+          border: "1px solid #e2e8f0",
+          borderRadius: 9999,
         }}
       >
-        <h2 style={{ margin: 0, fontSize: "14px", fontWeight: 600, color: "#0f172a" }}>
+        <h2 style={{ margin: 0, fontSize: "13px", fontWeight: 600, color: "#0f172a", whiteSpace: "nowrap" }}>
           {screenTitle}
         </h2>
         <button
@@ -106,10 +111,10 @@ export function Viewer({ screenId, screenTitle, component: ScreenComponent, onCl
           style={{
             background: "none",
             border: "1px solid #e2e8f0",
-            borderRadius: "6px",
+            borderRadius: 9999,
             padding: "4px 12px",
             cursor: "pointer",
-            fontSize: "13px",
+            fontSize: "12px",
             color: "#64748b",
           }}
         >
@@ -121,10 +126,10 @@ export function Viewer({ screenId, screenTitle, component: ScreenComponent, onCl
       <div
         ref={contentRef}
         style={{
-          flex: 1,
+          position: "absolute",
+          inset: 0,
           overflow: "auto",
           background: "white",
-          position: "relative",
         }}
       >
         <ScreenComponent key={screenId} />
