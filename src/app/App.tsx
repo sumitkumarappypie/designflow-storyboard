@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ReactFlowProvider } from "@xyflow/react"
 import { Canvas } from "./Canvas"
 import { Viewer } from "./Viewer"
@@ -33,6 +33,10 @@ export function App({ config, screens, inferredEdges }: AppProps) {
   const [viewingScreen, setViewingScreen] = useState<string | null>(null)
   const [focusNodeId, setFocusNodeId] = useState<string | null>(null)
   const [settings, setSettings] = useState<CanvasSettings>(getInitialSettings)
+
+  useEffect(() => {
+    document.title = config.name ? `${config.name} — DesignFlow` : "DesignFlow"
+  }, [config.name])
 
   const viewingConfig = viewingScreen ? config.screens[viewingScreen] : null
 
