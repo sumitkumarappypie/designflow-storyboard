@@ -185,7 +185,7 @@ const btnStyle: React.CSSProperties = {
   cursor: "pointer",
   padding: "6px 10px",
   borderRadius: 4,
-  fontSize: 15,
+  fontSize: 18,
   lineHeight: 1,
   color: "#334155",
 }

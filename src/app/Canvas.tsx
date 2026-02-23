@@ -149,7 +149,9 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredE
           <Background
             variant={bgVariantMap[settings.backgroundStyle]}
             color={isDarkCanvas ? "#222" : "#e2e8f0"}
-            style={{ opacity: 0.4 }}
+            size={settings.backgroundStyle === "dots" ? 2 : undefined}
+            gap={settings.backgroundStyle === "dots" ? 16 : undefined}
+            style={{ opacity: settings.backgroundStyle === "dots" ? 0.7 : 0.4 }}
           />
         )}
         <Toolbar settings={settings} onSettingsChange={onSettingsChange} />
