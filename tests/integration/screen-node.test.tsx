@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest"
-import { render, screen, fireEvent } from "@testing-library/react"
+import { render, screen, fireEvent, act } from "@testing-library/react"
 import { ScreenNode } from "../../src/app/ScreenNode"
 
 // Mock Handle from React Flow
@@ -351,6 +351,32 @@ describe("ScreenNode", () => {
       expect(toggle.checked).toBe(true)
       const thumbnail = screen.getByTestId("screen-thumbnail")
       expect(thumbnail.style.background).toContain("15, 23, 42")
+    })
+
+    it("should sync color scheme when data prop changes", () => {
+      function TestScreen() {
+        return <div>Content</div>
+      }
+      const props = {
+        ...defaultProps,
+        data: { ...defaultProps.data, component: TestScreen, colorScheme: "light" as const },
+      }
+      const { rerender } = render(<ScreenNode {...props} />)
+
+      // Starts light
+      const thumbnail = screen.getByTestId("screen-thumbnail")
+      expect(thumbnail.style.background).toContain("248, 250, 252")
+
+      // Rerender with dark from parent (toolbar toggle)
+      const darkProps = {
+        ...defaultProps,
+        data: { ...defaultProps.data, component: TestScreen, colorScheme: "dark" as const },
+      }
+      act(() => { rerender(<ScreenNode {...darkProps} />) })
+
+      expect(thumbnail.style.background).toContain("15, 23, 42")
+      const toggle = screen.getByTestId("color-scheme-toggle").querySelector("input") as HTMLInputElement
+      expect(toggle.checked).toBe(true)
     })
   })
 })

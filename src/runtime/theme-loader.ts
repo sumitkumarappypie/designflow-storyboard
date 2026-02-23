@@ -54,7 +54,21 @@ export function generateThemeCSS(theme: Partial<DesignFlowTheme>): string {
     }
   }
 
-  return `:root {\n${props.join("\n")}\n}`
+  let css = `:root {\n${props.join("\n")}\n}`
+
+  if (theme.darkColors) {
+    const darkProps: string[] = []
+    for (const [key, value] of Object.entries(theme.darkColors)) {
+      if (value != null) {
+        darkProps.push(`  --df-${camelToKebab(key)}: ${value};`)
+      }
+    }
+    if (darkProps.length > 0) {
+      css += `\n\n[data-df-color-scheme="dark"] {\n${darkProps.join("\n")}\n}`
+    }
+  }
+
+  return css
 }
 
 export function generateThemeFile(theme: DesignFlowTheme): string {

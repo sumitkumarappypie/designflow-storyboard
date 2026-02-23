@@ -51,6 +51,21 @@ describe("generateThemeCSS", () => {
     expect(css).toContain("--df-shadow-md: 0 4px 6px rgba(0,0,0,0.07);")
   })
 
+  it("should generate dark color overrides scoped to data-df-color-scheme", () => {
+    const css = generateThemeCSS(sampleTheme)
+    expect(css).toContain('[data-df-color-scheme="dark"]')
+    expect(css).toContain("--df-background: #0F172A;")
+    expect(css).toContain("--df-surface: #1E293B;")
+    expect(css).toContain("--df-text: #F1F5F9;")
+    expect(css).toContain("--df-text-muted: #94A3B8;")
+  })
+
+  it("should not generate dark block when darkColors is absent", () => {
+    const { darkColors, ...themeWithoutDark } = sampleTheme
+    const css = generateThemeCSS(themeWithoutDark)
+    expect(css).not.toContain('[data-df-color-scheme="dark"]')
+  })
+
   it("should handle partial theme with only colors", () => {
     const partial = { colors: { primary: "#000", secondary: "#111", accent: "#222", background: "#fff", surface: "#eee", surfaceAlt: "#ddd", border: "#ccc", text: "#333", textMuted: "#666", textInvert: "#fff", success: "#0f0", warning: "#ff0", error: "#f00", info: "#00f" } } as any
     const css = generateThemeCSS(partial)

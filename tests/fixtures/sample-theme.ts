@@ -17,6 +17,15 @@ export const sampleTheme: DesignFlowTheme = {
     error: "#EF4444",
     info: "#3B82F6",
   },
+  darkColors: {
+    background: "#0F172A",
+    surface: "#1E293B",
+    surfaceAlt: "#334155",
+    border: "#475569",
+    text: "#F1F5F9",
+    textMuted: "#94A3B8",
+    textInvert: "#0F172A",
+  },
   radius: { sm: "4px", md: "8px", lg: "12px", xl: "16px", full: "9999px" },
   spacing: { xs: "4px", sm: "8px", md: "16px", lg: "24px", xl: "32px", xxl: "48px" },
   typography: {

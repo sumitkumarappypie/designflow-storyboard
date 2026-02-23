@@ -34,7 +34,9 @@ describe("designflow init", () => {
     const files = await fs.readdir(path.join(wireframesDir, "screens"))
     expect(files).toContain("Login.tsx")
     expect(files).toContain("Dashboard.tsx")
+    expect(files).toContain("Profile.tsx")
     expect(files).toContain("Settings.tsx")
+    expect(files).toContain("Notifications.tsx")
   })
 
   it("should scaffold flows.ts", async () => {

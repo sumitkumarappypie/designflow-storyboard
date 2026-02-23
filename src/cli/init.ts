@@ -30,7 +30,9 @@ export async function runInit(options: InitOptions): Promise<void> {
   const filesToCopy = [
     { src: "screens/Login.tsx", dest: "screens/Login.tsx" },
     { src: "screens/Dashboard.tsx", dest: "screens/Dashboard.tsx" },
+    { src: "screens/Profile.tsx", dest: "screens/Profile.tsx" },
     { src: "screens/Settings.tsx", dest: "screens/Settings.tsx" },
+    { src: "screens/Notifications.tsx", dest: "screens/Notifications.tsx" },
     { src: "flows.ts", dest: "flows.ts" },
     { src: "designflow.theme.ts", dest: "designflow.theme.ts" },
     { src: "CLAUDE.md", dest: "CLAUDE.md" },

@@ -9,6 +9,8 @@ export type {
   BackgroundStyle,
   LineStyle,
   CanvasSettings,
+  ThemeColors,
+  DesignFlowTheme,
 } from "./types"
 
 export { DEFAULT_CANVAS_SETTINGS, ACCENT_COLORS } from "./types"

@@ -162,23 +162,6 @@ export function Toolbar({ settings, onSettingsChange }: ToolbarProps) {
   )
 }
 
-function ToggleButton({ label, icon, active, onClick }: { label: string; icon?: string; active: boolean; onClick: () => void }) {
-  return (
-    <button
-      aria-label={label}
-      onClick={onClick}
-      style={{
-        ...btnStyle,
-        background: active ? "#e2e8f0" : "transparent",
-        fontWeight: active ? 600 : 400,
-        flex: 1,
-      }}
-    >
-      {icon ? `${icon} ${label}` : label}
-    </button>
-  )
-}
-
 const btnStyle: React.CSSProperties = {
   border: "none",
   background: "transparent",
@@ -188,4 +171,27 @@ const btnStyle: React.CSSProperties = {
   fontSize: 18,
   lineHeight: 1,
   color: "#334155",
+}
+
+const popoverBtnStyle: React.CSSProperties = {
+  ...btnStyle,
+  fontSize: 11,
+  padding: "4px 8px",
+}
+
+function ToggleButton({ label, icon, active, onClick }: { label: string; icon?: string; active: boolean; onClick: () => void }) {
+  return (
+    <button
+      aria-label={label}
+      onClick={onClick}
+      style={{
+        ...popoverBtnStyle,
+        background: active ? "#e2e8f0" : "transparent",
+        fontWeight: active ? 600 : 400,
+        flex: 1,
+      }}
+    >
+      {icon ? `${icon} ${label}` : label}
+    </button>
+  )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Handle, Position } from "@xyflow/react"
 import type { NodeProps, Node } from "@xyflow/react"
 import type { ComponentType } from "react"
@@ -57,6 +57,11 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
   const ScreenComponent = data.component
   const [activeViewport, setActiveViewport] = useState<Viewport>(data.viewport ?? "desktop")
   const [activeColorScheme, setActiveColorScheme] = useState<ColorScheme>(data.colorScheme ?? "light")
+
+  useEffect(() => {
+    if (data.colorScheme) setActiveColorScheme(data.colorScheme)
+  }, [data.colorScheme])
+
   const { width: fullWidth, height: fullHeight } = getScreenResolution(activeViewport)
   const scale = MAX_THUMBNAIL_DIM / Math.max(fullWidth, fullHeight)
   const thumbnailWidth = Math.round(fullWidth * scale)

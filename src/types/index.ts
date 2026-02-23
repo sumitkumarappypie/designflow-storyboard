@@ -57,3 +57,33 @@ export interface DesignFlowConfig {
   screens: Record<string, ScreenConfig>
   edges?: EdgeConfig[]
 }
+
+export interface ThemeColors {
+  primary: string
+  secondary: string
+  accent: string
+  background: string
+  surface: string
+  surfaceAlt: string
+  border: string
+  text: string
+  textMuted: string
+  textInvert: string
+  success: string
+  warning: string
+  error: string
+  info: string
+}
+
+export interface DesignFlowTheme {
+  colors: ThemeColors
+  darkColors?: Partial<ThemeColors>
+  radius: Record<string, string>
+  spacing: Record<string, string>
+  typography: {
+    fontFamily: string
+    heading: { weight: number; sizes: Record<string, string> }
+    body: { weight: number; sizes: Record<string, string> }
+  }
+  shadows: Record<string, string>
+}

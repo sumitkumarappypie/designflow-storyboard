@@ -17,6 +17,15 @@ const theme: DesignFlowTheme = {
     error: "#EF4444",
     info: "#3B82F6",
   },
+  darkColors: {
+    background: "#0F172A",
+    surface: "#1E293B",
+    surfaceAlt: "#334155",
+    border: "#475569",
+    text: "#F1F5F9",
+    textMuted: "#94A3B8",
+    textInvert: "#0F172A",
+  },
   radius: {
     sm: "4px",
     md: "8px",
