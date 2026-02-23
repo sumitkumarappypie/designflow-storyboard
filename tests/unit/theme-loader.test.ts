@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { generateThemeCSS, generateThemeFile, generateTailwindConfig } from "../../src/runtime/theme-loader"
+import { generateThemeCSS, generateThemeFile, generateTailwindCSS } from "../../src/runtime/theme-loader"
 import { sampleTheme } from "../fixtures/sample-theme"
 
 describe("generateThemeCSS", () => {
@@ -105,48 +105,57 @@ describe("generateThemeFile", () => {
   })
 })
 
-describe("generateTailwindConfig", () => {
-  it("should generate a valid TypeScript Tailwind config", () => {
-    const config = generateTailwindConfig(sampleTheme)
-    expect(config).toContain('import type { Config } from "tailwindcss"')
-    expect(config).toContain("const config: Config =")
-    expect(config).toContain("export default config")
+describe("generateTailwindCSS", () => {
+  it("should start with @import tailwindcss", () => {
+    const css = generateTailwindCSS(sampleTheme)
+    expect(css).toMatch(/^@import "tailwindcss"/)
   })
 
-  it("should include color tokens mapped to kebab-case", () => {
-    const config = generateTailwindConfig(sampleTheme)
-    expect(config).toContain('"primary"')
-    expect(config).toContain('"surface-alt"')
-    expect(config).toContain('"text-muted"')
+  it("should contain @theme block", () => {
+    const css = generateTailwindCSS(sampleTheme)
+    expect(css).toContain("@theme {")
   })
 
-  it("should include spacing tokens", () => {
-    const config = generateTailwindConfig(sampleTheme)
-    expect(config).toContain('"xs"')
-    expect(config).toContain('"4px"')
-    expect(config).toContain('"xxl"')
+  it("should map colors to var(--df-*) references", () => {
+    const css = generateTailwindCSS(sampleTheme)
+    expect(css).toContain("--color-primary: var(--df-primary);")
+    expect(css).toContain("--color-secondary: var(--df-secondary);")
+    expect(css).toContain("--color-surface-alt: var(--df-surface-alt);")
+    expect(css).toContain("--color-text-muted: var(--df-text-muted);")
+    expect(css).toContain("--color-text-invert: var(--df-text-invert);")
+    expect(css).toContain("--color-success: var(--df-success);")
   })
 
-  it("should include border radius tokens", () => {
-    const config = generateTailwindConfig(sampleTheme)
-    expect(config).toContain('"borderRadius"')
-    expect(config).toContain('"full"')
-    expect(config).toContain('"9999px"')
+  it("should map radius to var(--df-radius-*) references", () => {
+    const css = generateTailwindCSS(sampleTheme)
+    expect(css).toContain("--radius-sm: var(--df-radius-sm);")
+    expect(css).toContain("--radius-md: var(--df-radius-md);")
+    expect(css).toContain("--radius-full: var(--df-radius-full);")
   })
 
-  it("should include font family", () => {
-    const config = generateTailwindConfig(sampleTheme)
-    expect(config).toContain('"fontFamily"')
-    expect(config).toContain("Inter, system-ui, sans-serif")
+  it("should map spacing to var(--df-spacing-*) references", () => {
+    const css = generateTailwindCSS(sampleTheme)
+    expect(css).toContain("--spacing-xs: var(--df-spacing-xs);")
+    expect(css).toContain("--spacing-md: var(--df-spacing-md);")
+    expect(css).toContain("--spacing-xxl: var(--df-spacing-xxl);")
   })
 
-  it("should include box shadow tokens", () => {
-    const config = generateTailwindConfig(sampleTheme)
-    expect(config).toContain('"boxShadow"')
+  it("should map font family to var(--df-font-family)", () => {
+    const css = generateTailwindCSS(sampleTheme)
+    expect(css).toContain("--font-sans: var(--df-font-family);")
   })
 
-  it("should include content glob for screens", () => {
-    const config = generateTailwindConfig(sampleTheme)
-    expect(config).toContain("./screens/**/*.tsx")
+  it("should map shadows to var(--df-shadow-*) references", () => {
+    const css = generateTailwindCSS(sampleTheme)
+    expect(css).toContain("--shadow-sm: var(--df-shadow-sm);")
+    expect(css).toContain("--shadow-md: var(--df-shadow-md);")
+    expect(css).toContain("--shadow-lg: var(--df-shadow-lg);")
+  })
+
+  it("should not contain v3 syntax", () => {
+    const css = generateTailwindCSS(sampleTheme)
+    expect(css).not.toContain('import type { Config }')
+    expect(css).not.toContain("content:")
+    expect(css).not.toContain("theme: {")
   })
 })

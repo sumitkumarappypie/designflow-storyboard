@@ -86,19 +86,28 @@ describe("designflow init", () => {
     await expect(runInit({ dir: wireframesDir })).rejects.toThrow()
   })
 
-  it("should generate tailwind.config.ts when --tailwind flag is set", async () => {
+  it("should generate styles.css with Tailwind v4 @theme when --tailwind flag is set", async () => {
     const wireframesDir = path.join(tmpDir, "wireframes")
     await runInit({ dir: wireframesDir, tailwind: true })
 
-    const tailwindContent = await fs.readFile(path.join(wireframesDir, "tailwind.config.ts"), "utf-8")
-    expect(tailwindContent).toContain("theme")
-    expect(tailwindContent).toContain("colors")
-    expect(tailwindContent).toContain("designflow.theme")
+    const content = await fs.readFile(path.join(wireframesDir, "styles.css"), "utf-8")
+    expect(content).toContain('@import "tailwindcss"')
+    expect(content).toContain("@theme {")
+    expect(content).toContain("--color-primary")
+    expect(content).toContain("var(--df-primary)")
   })
 
-  it("should not generate tailwind.config.ts by default", async () => {
+  it("should not generate styles.css by default", async () => {
     const wireframesDir = path.join(tmpDir, "wireframes")
     await runInit({ dir: wireframesDir })
+
+    const exists = await fs.access(path.join(wireframesDir, "styles.css")).then(() => true).catch(() => false)
+    expect(exists).toBe(false)
+  })
+
+  it("should not generate tailwind.config.ts even with --tailwind", async () => {
+    const wireframesDir = path.join(tmpDir, "wireframes")
+    await runInit({ dir: wireframesDir, tailwind: true })
 
     const exists = await fs.access(path.join(wireframesDir, "tailwind.config.ts")).then(() => true).catch(() => false)
     expect(exists).toBe(false)

@@ -25,5 +25,12 @@ This directory contains wireframes for the app, visualized on an infinite canvas
 - Never hardcode colors, spacing, or radii — always use `var(--df-*)` properties
 - Available tokens: colors, darkColors, radius, spacing, typography, shadows
 
+## Tailwind CSS (optional)
+- If `styles.css` exists in this directory, Tailwind v4 is active automatically
+- Create it with `designflow init --tailwind` or manually add `@import "tailwindcss"` + `@theme { ... }`
+- Theme tokens are mapped: `bg-primary`, `text-secondary`, `p-md`, `rounded-lg`, `shadow-sm`, etc.
+- You can mix Tailwind classes with `var(--df-*)` inline styles — both work
+- Dark mode works automatically because Tailwind vars reference `--df-*` tokens that are overridden per color scheme
+
 ## Running
 - `pnpm designflow dev` to open the canvas

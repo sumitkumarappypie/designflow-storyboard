@@ -2,6 +2,7 @@ import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
 import { createServer } from "vite"
+import tailwindcss from "@tailwindcss/vite"
 import { designflowPlugin } from "../runtime/vite-plugin"
 
 const __filename = fileURLToPath(import.meta.url)
@@ -12,24 +13,12 @@ export interface DevOptions {
   port: number
 }
 
-export async function runDev(options: DevOptions): Promise<void> {
-  const { dir, port } = options
-  const resolvedDir = path.resolve(dir)
+export function buildDevHtml(opts: { hasStylesCSS: boolean }): string {
+  const stylesLink = opts.hasStylesCSS
+    ? `\n  <link rel="stylesheet" href="/styles.css" />`
+    : ""
 
-  // Validate wireframes directory exists
-  if (!fs.existsSync(resolvedDir)) {
-    throw new Error(
-      `Wireframes directory not found: ${resolvedDir}\nRun "designflow init --dir ${dir}" first.`,
-    )
-  }
-
-  // Resolve paths for the App component and package root
-  const pkgRoot = path.resolve(__dirname, "../..")
-  const appPath = path.resolve(__dirname, "../app/App").replace(/\\/g, "/")
-
-  // Create the index.html content that loads the canvas app
-  // Use paths relative to Vite root (the wireframes dir) and virtual modules
-  const html = `<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -38,7 +27,7 @@ export async function runDev(options: DevOptions): Promise<void> {
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: Inter, system-ui, sans-serif; }
-  </style>
+  </style>${stylesLink}
 </head>
 <body>
   <div id="root"></div>
@@ -58,10 +47,31 @@ export async function runDev(options: DevOptions): Promise<void> {
   </script>
 </body>
 </html>`
+}
+
+export async function runDev(options: DevOptions): Promise<void> {
+  const { dir, port } = options
+  const resolvedDir = path.resolve(dir)
+
+  // Validate wireframes directory exists
+  if (!fs.existsSync(resolvedDir)) {
+    throw new Error(
+      `Wireframes directory not found: ${resolvedDir}\nRun "designflow init --dir ${dir}" first.`,
+    )
+  }
+
+  // Resolve paths for the App component and package root
+  const pkgRoot = path.resolve(__dirname, "../..")
+  const appPath = path.resolve(__dirname, "../app/App").replace(/\\/g, "/")
+
+  // Auto-detect styles.css for Tailwind support
+  const hasStylesCSS = fs.existsSync(path.join(resolvedDir, "styles.css"))
+  const html = buildDevHtml({ hasStylesCSS })
 
   const server = await createServer({
     root: resolvedDir,
     plugins: [
+      tailwindcss(),
       designflowPlugin({ dir: resolvedDir }),
       {
         name: "designflow-html",

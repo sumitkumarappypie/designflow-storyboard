@@ -80,42 +80,32 @@ export default theme
 `
 }
 
-export function generateTailwindConfig(theme: DesignFlowTheme): string {
-  const colors: Record<string, string> = {}
-  for (const [key, value] of Object.entries(theme.colors)) {
-    colors[camelToKebab(key)] = value
+export function generateTailwindCSS(theme: DesignFlowTheme): string {
+  const lines: string[] = []
+
+  // Colors → --color-<kebab>: var(--df-<kebab>)
+  for (const key of Object.keys(theme.colors)) {
+    const kebab = camelToKebab(key)
+    lines.push(`  --color-${kebab}: var(--df-${kebab});`)
   }
 
-  const spacing: Record<string, string> = {}
-  for (const [key, value] of Object.entries(theme.spacing)) {
-    spacing[key] = value
+  // Radius → --radius-<key>: var(--df-radius-<key>)
+  for (const key of Object.keys(theme.radius)) {
+    lines.push(`  --radius-${key}: var(--df-radius-${key});`)
   }
 
-  const borderRadius: Record<string, string> = {}
-  for (const [key, value] of Object.entries(theme.radius)) {
-    borderRadius[key] = value
+  // Spacing → --spacing-<key>: var(--df-spacing-<key>)
+  for (const key of Object.keys(theme.spacing)) {
+    lines.push(`  --spacing-${key}: var(--df-spacing-${key});`)
   }
 
-  const config = {
-    content: ["./screens/**/*.tsx"],
-    theme: {
-      extend: {
-        colors,
-        spacing,
-        borderRadius,
-        fontFamily: {
-          sans: [theme.typography.fontFamily],
-        },
-        boxShadow: { ...theme.shadows },
-      },
-    },
-    plugins: [],
+  // Font → --font-sans: var(--df-font-family)
+  lines.push(`  --font-sans: var(--df-font-family);`)
+
+  // Shadows → --shadow-<key>: var(--df-shadow-<key>)
+  for (const key of Object.keys(theme.shadows)) {
+    lines.push(`  --shadow-${key}: var(--df-shadow-${key});`)
   }
 
-  return `import type { Config } from "tailwindcss"
-
-const config: Config = ${JSON.stringify(config, null, 2)}
-
-export default config
-`
+  return `@import "tailwindcss";\n\n@theme {\n${lines.join("\n")}\n}\n`
 }

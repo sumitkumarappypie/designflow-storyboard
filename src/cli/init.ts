@@ -1,6 +1,8 @@
 import fs from "fs/promises"
 import path from "path"
 import { fileURLToPath } from "url"
+import { generateTailwindCSS } from "../runtime/theme-loader"
+import { DEFAULT_THEME } from "../runtime/default-theme"
 
 export interface InitOptions {
   dir: string
@@ -44,34 +46,8 @@ export async function runInit(options: InitOptions): Promise<void> {
     await fs.copyFile(srcPath, destPath)
   }
 
-  // Generate tailwind.config.ts if requested
+  // Generate styles.css with Tailwind v4 @theme block if requested
   if (tailwind) {
-    const tailwindConfig = `import theme from "./designflow.theme"
-
-export default {
-  content: ["./screens/**/*.tsx"],
-  theme: {
-    extend: {
-      colors: {
-        primary: theme.colors.primary,
-        secondary: theme.colors.secondary,
-        accent: theme.colors.accent,
-        surface: theme.colors.surface,
-        "surface-alt": theme.colors.surfaceAlt,
-        border: theme.colors.border,
-        success: theme.colors.success,
-        warning: theme.colors.warning,
-        error: theme.colors.error,
-        info: theme.colors.info,
-      },
-      borderRadius: theme.radius,
-      spacing: theme.spacing,
-      fontFamily: { sans: [theme.typography.fontFamily] },
-      boxShadow: theme.shadows,
-    },
-  },
-}
-`
-    await fs.writeFile(path.join(dir, "tailwind.config.ts"), tailwindConfig)
+    await fs.writeFile(path.join(dir, "styles.css"), generateTailwindCSS(DEFAULT_THEME))
   }
 }
