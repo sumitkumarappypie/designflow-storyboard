@@ -11,11 +11,11 @@ export type ScreenNodeData = {
 
 export type ScreenNodeType = Node<ScreenNodeData, "screen">
 
-const THUMBNAIL_WIDTH = 280
-const THUMBNAIL_HEIGHT = 160
-const SCALE = 0.25
-const FULL_WIDTH = THUMBNAIL_WIDTH / SCALE   // 1120px
-const FULL_HEIGHT = THUMBNAIL_HEIGHT / SCALE  // 640px
+const THUMBNAIL_WIDTH = 420
+const THUMBNAIL_HEIGHT = 260
+const SCALE = 0.3
+const FULL_WIDTH = THUMBNAIL_WIDTH / SCALE   // 1400px
+const FULL_HEIGHT = THUMBNAIL_HEIGHT / SCALE  // ~867px
 
 export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
   const ScreenComponent = data.component
@@ -32,7 +32,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
         cursor: "pointer",
       }}
     >
-      <Handle type="target" position={Position.Top} />
+      <Handle type="target" position={Position.Left} id="target-left" />
       <div
         style={{
           padding: "4px 8px",
@@ -56,7 +56,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
           position: "relative",
         }}
       >
-        {ScreenComponent && (
+        {ScreenComponent ? (
           <div
             style={{
               width: `${FULL_WIDTH}px`,
@@ -68,9 +68,22 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
           >
             <ScreenComponent />
           </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+              color: "#94a3b8",
+              fontSize: "12px",
+            }}
+          >
+            No preview
+          </div>
         )}
       </div>
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="source" position={Position.Right} id="source-right" />
     </div>
   )
 }

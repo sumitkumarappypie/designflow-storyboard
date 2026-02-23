@@ -1,6 +1,10 @@
 import type { Plugin } from "vite"
 import path from "path"
+import { fileURLToPath } from "url"
 import { scanScreens } from "./screen-scanner"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export interface DesignflowPluginOptions {
   dir: string
@@ -25,10 +29,11 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
 
     async load(id: string) {
       if (id === RESOLVED_THEME) {
-        const themePath = path.resolve(dir, "designflow.theme.ts")
+        const themePath = path.resolve(dir, "designflow.theme.ts").replace(/\\/g, "/")
+        const themeLoaderPath = path.resolve(__dirname, "theme-loader").replace(/\\/g, "/")
         return `
           import theme from "${themePath}"
-          import { generateThemeCSS } from "${path.resolve(__dirname, "theme-loader")}"
+          import { generateThemeCSS } from "${themeLoaderPath}"
           const css = generateThemeCSS(theme)
           const style = document.createElement("style")
           style.setAttribute("data-designflow-theme", "")
@@ -41,7 +46,7 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
         const screensDir = path.resolve(dir, "screens")
         const screens = await scanScreens(screensDir)
         const imports = screens
-          .map((s, i) => `import Screen${i} from "${s.filePath}"`)
+          .map((s, i) => `import Screen${i} from "${s.filePath.replace(/\\/g, "/")}"`)
           .join("\n")
         const entries = screens
           .map((s, i) => `  "${s.id}": Screen${i}`)

@@ -27,7 +27,8 @@ vi.mock("@xyflow/react", () => {
     Position: { Top: "top", Bottom: "bottom", Left: "left", Right: "right" },
     BaseEdge: ({ path }: any) => <path d={path} />,
     EdgeLabelRenderer: ({ children }: any) => <div>{children}</div>,
-    getBezierPath: () => ["M0,0", 0, 0],
+    getSmoothStepPath: () => ["M0,0", 0, 0],
+    MarkerType: { ArrowClosed: "arrowclosed" },
     useNodesState: (initial: any) => [initial, vi.fn(), vi.fn()],
     useEdgesState: (initial: any) => [initial, vi.fn(), vi.fn()],
     ReactFlowProvider: ({ children }: any) => <div>{children}</div>,
@@ -63,9 +64,16 @@ describe("Canvas", () => {
     expect(screen.getByText("Dashboard")).toBeInTheDocument()
   })
 
-  it("should create edges from edge config", () => {
+  it("should create edges with handle IDs from edge config", () => {
     render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} />)
-    expect(screen.getByTestId("edge-login-dashboard")).toBeInTheDocument()
+    const edgeEl = screen.getByTestId("edge-login-dashboard")
+    expect(edgeEl).toBeInTheDocument()
+    // Verify edge data includes sourceHandle and targetHandle
+    const rfEl = screen.getByTestId("react-flow")
+    const edges = JSON.parse(rfEl.getAttribute("data-edges") || "[]")
+    const edge = edges.find((e: any) => e.id === "login-dashboard")
+    expect(edge.sourceHandle).toBe("source-right")
+    expect(edge.targetHandle).toBe("target-left")
   })
 
   it("should show edge labels", () => {

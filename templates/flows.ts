@@ -5,19 +5,19 @@ const config: DesignFlowConfig = {
     login: {
       title: "Login",
       file: "./screens/Login.tsx",
-      position: { x: 0, y: 0 },
+      position: { x: 0, y: 200 },
       viewport: "mobile",
     },
     dashboard: {
       title: "Dashboard",
       file: "./screens/Dashboard.tsx",
-      position: { x: 450, y: 0 },
+      position: { x: 600, y: 0 },
       viewport: "desktop",
     },
     settings: {
       title: "Settings",
       file: "./screens/Settings.tsx",
-      position: { x: 900, y: 0 },
+      position: { x: 1200, y: 200 },
     },
   },
 

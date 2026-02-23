@@ -18,16 +18,16 @@ describe("scanScreens", () => {
     expect(filenames).not.toContain("not-a-screen.txt")
   })
 
-  it("should return screen id derived from filename", async () => {
+  it("should return screen id derived from filename in lowercase", async () => {
     const screens = await scanScreens(fixturesDir)
     const ids = screens.map((s) => s.id)
-    expect(ids).toContain("SimpleScreen")
-    expect(ids).toContain("NavigatingScreen")
+    expect(ids).toContain("simplescreen")
+    expect(ids).toContain("navigatingscreen")
   })
 
   it("should include full file paths", async () => {
     const screens = await scanScreens(fixturesDir)
-    const simpleScreen = screens.find((s) => s.id === "SimpleScreen")
+    const simpleScreen = screens.find((s) => s.id === "simplescreen")
     expect(simpleScreen?.filePath).toBe(path.join(fixturesDir, "SimpleScreen.tsx"))
   })
 

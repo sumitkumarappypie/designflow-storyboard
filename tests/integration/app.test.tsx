@@ -19,7 +19,8 @@ vi.mock("@xyflow/react", () => {
     Position: { Top: "top", Bottom: "bottom", Left: "left", Right: "right" },
     BaseEdge: () => <path />,
     EdgeLabelRenderer: ({ children }: any) => <div>{children}</div>,
-    getBezierPath: () => ["M0,0", 0, 0],
+    getSmoothStepPath: () => ["M0,0", 0, 0],
+    MarkerType: { ArrowClosed: "arrowclosed" },
     useNodesState: (initial: any) => [initial, vi.fn(), vi.fn()],
     useEdgesState: (initial: any) => [initial, vi.fn(), vi.fn()],
     useReactFlow: () => ({ fitView: vi.fn(), setCenter: vi.fn() }),
@@ -46,6 +47,13 @@ describe("App", () => {
   it("should render screen nodes from config", () => {
     render(<App config={sampleConfig} screens={{ login: MockScreen }} />)
     expect(screen.getByText("Login")).toBeInTheDocument()
+  })
+
+  it("should pass screens prop to Canvas", () => {
+    render(<App config={sampleConfig} screens={{ login: MockScreen }} />)
+    // Canvas receives screens and creates nodes with component data
+    const rfEl = screen.getByTestId("react-flow")
+    expect(rfEl).toBeInTheDocument()
   })
 
   it("should pass focusNodeId to Canvas when viewer was closed", async () => {

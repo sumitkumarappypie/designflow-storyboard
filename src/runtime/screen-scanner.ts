@@ -18,7 +18,7 @@ export async function scanScreens(dir: string): Promise<ScannedScreen[]> {
   return entries
     .filter((entry) => entry.endsWith(".tsx"))
     .map((filename) => ({
-      id: filename.replace(/\.tsx$/, ""),
+      id: filename.replace(/\.tsx$/, "").toLowerCase(),
       filename,
       filePath: path.join(dir, filename),
     }))

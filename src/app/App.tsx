@@ -24,7 +24,7 @@ export function App({ config, screens }: AppProps) {
   return (
     <ReactFlowProvider>
       <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
-        <Canvas config={config} onScreenSelect={setViewingScreen} focusNodeId={focusNodeId} />
+        <Canvas config={config} screens={screens} onScreenSelect={setViewingScreen} focusNodeId={focusNodeId} />
         {viewingScreen && viewingConfig && screens[viewingScreen] && (
           <Viewer
             screenId={viewingScreen}

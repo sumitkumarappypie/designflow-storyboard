@@ -7,7 +7,7 @@ vi.mock("@xyflow/react", () => ({
     <path data-testid={`base-edge-${id}`} d={path} style={style} />
   ),
   EdgeLabelRenderer: ({ children }: any) => <div data-testid="edge-label-renderer">{children}</div>,
-  getBezierPath: () => ["M0,0 C50,0 50,100 100,100", 50, 50],
+  getSmoothStepPath: () => ["M0,0 L50,0 L50,100 L100,100", 50, 50],
 }))
 
 describe("FlowEdge", () => {
@@ -58,13 +58,14 @@ describe("FlowEdge", () => {
     expect(screen.queryByText("Sign in")).not.toBeInTheDocument()
   })
 
-  it("should have animated dash style", () => {
+  it("should have solid stroke style without dashes", () => {
     render(
       <svg>
         <FlowEdge {...defaultProps} />
       </svg>
     )
     const edge = screen.getByTestId(`base-edge-${defaultProps.id}`)
-    expect(edge).toHaveStyle({ strokeDasharray: "5 5" })
+    expect(edge).toHaveStyle({ stroke: "#94a3b8", strokeWidth: "1.5" })
+    expect(edge.style.strokeDasharray).toBeFalsy()
   })
 })

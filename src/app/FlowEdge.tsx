@@ -1,4 +1,4 @@
-import { BaseEdge, EdgeLabelRenderer, getBezierPath } from "@xyflow/react"
+import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath } from "@xyflow/react"
 import type { EdgeProps, Edge } from "@xyflow/react"
 
 export type FlowEdgeData = {
@@ -17,7 +17,7 @@ export function FlowEdge({
   targetPosition,
   data,
 }: EdgeProps<FlowEdgeType>) {
-  const [edgePath, labelX, labelY] = getBezierPath({
+  const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX,
     sourceY,
     targetX,
@@ -31,7 +31,7 @@ export function FlowEdge({
       <BaseEdge
         id={id}
         path={edgePath}
-        style={{ strokeDasharray: "5 5", stroke: "#94a3b8", strokeWidth: 1.5 }}
+        style={{ stroke: "#94a3b8", strokeWidth: 1.5 }}
       />
       {data?.label && (
         <EdgeLabelRenderer>

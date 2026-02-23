@@ -1,4 +1,4 @@
-import { ReactFlow, useNodesState, useEdgesState, useReactFlow } from "@xyflow/react"
+import { ReactFlow, useNodesState, useEdgesState, useReactFlow, MarkerType } from "@xyflow/react"
 import type { Node, Edge } from "@xyflow/react"
 import { useEffect, type ComponentType } from "react"
 import { ScreenNode } from "./ScreenNode"
@@ -40,6 +40,8 @@ function configToEdges(config: DesignFlowConfig): Edge[] {
     type: "flow",
     source: edge.from,
     target: edge.to,
+    sourceHandle: "source-right",
+    targetHandle: "target-left",
     data: { label: edge.label },
   }))
 }
@@ -74,6 +76,9 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId }: CanvasP
         onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
+        defaultEdgeOptions={{
+          markerEnd: { type: MarkerType.ArrowClosed, color: "#94a3b8" },
+        }}
         fitView
       >
         <FocusHandler focusNodeId={focusNodeId} />

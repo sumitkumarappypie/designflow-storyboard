@@ -4,7 +4,7 @@ import { ScreenNode } from "../../src/app/ScreenNode"
 
 // Mock Handle from React Flow
 vi.mock("@xyflow/react", () => ({
-  Handle: ({ type, position }: any) => <div data-testid={`handle-${type}`} />,
+  Handle: ({ type, position, id }: any) => <div data-testid={`handle-${type}`} data-position={position} data-handle-id={id} />,
   Position: { Top: "top", Bottom: "bottom", Left: "left", Right: "right" },
 }))
 
@@ -37,10 +37,16 @@ describe("ScreenNode", () => {
     expect(screen.getByText("Login")).toBeInTheDocument()
   })
 
-  it("should have source and target handles", () => {
+  it("should have left target and right source handles", () => {
     render(<ScreenNode {...defaultProps} />)
-    expect(screen.getByTestId("handle-source")).toBeInTheDocument()
-    expect(screen.getByTestId("handle-target")).toBeInTheDocument()
+    const target = screen.getByTestId("handle-target")
+    const source = screen.getByTestId("handle-source")
+    expect(target).toBeInTheDocument()
+    expect(source).toBeInTheDocument()
+    expect(target).toHaveAttribute("data-position", "left")
+    expect(source).toHaveAttribute("data-position", "right")
+    expect(target).toHaveAttribute("data-handle-id", "target-left")
+    expect(source).toHaveAttribute("data-handle-id", "source-right")
   })
 
   it("should call onSelect when clicked", () => {

@@ -14,6 +14,6 @@ export default defineConfig([
     format: ["esm"],
     banner: { js: "#!/usr/bin/env node" },
     sourcemap: true,
-    external: ["react", "react-dom", "@xyflow/react"],
+    external: ["react", "react-dom", "@xyflow/react", "vite", "cac"],
   },
 ])
