@@ -86,8 +86,9 @@ describe("ScreenNode", () => {
     }
     render(<ScreenNode {...props} />)
     const thumbnail = screen.getByTestId("screen-thumbnail")
-    // The inner content wrapper should have a transform scale
-    const inner = thumbnail.firstElementChild
+    // Content div is inside color-scheme wrapper
+    const colorSchemeWrapper = thumbnail.firstElementChild as HTMLElement
+    const inner = colorSchemeWrapper.firstElementChild
     expect(inner).toBeTruthy()
     expect((inner as HTMLElement).style.transform).toContain("scale")
   })
@@ -102,7 +103,7 @@ describe("ScreenNode", () => {
     }
     render(<ScreenNode {...props} />)
     const thumbnail = screen.getByTestId("screen-thumbnail")
-    const inner = thumbnail.firstElementChild as HTMLElement
+    const inner = (thumbnail.firstElementChild as HTMLElement).firstElementChild as HTMLElement
     // Default desktop: 1440x900, scale = 420/max(1440,900) ≈ 0.292
     expect(inner.style.width).toBe("1440px")
     expect(inner.style.height).toBe("900px")
@@ -118,7 +119,7 @@ describe("ScreenNode", () => {
     }
     render(<ScreenNode {...props} />)
     const thumbnail = screen.getByTestId("screen-thumbnail")
-    const inner = thumbnail.firstElementChild as HTMLElement
+    const inner = (thumbnail.firstElementChild as HTMLElement).firstElementChild as HTMLElement
     // Mobile: 390x844
     expect(inner.style.width).toBe("390px")
     expect(inner.style.height).toBe("844px")
@@ -134,7 +135,7 @@ describe("ScreenNode", () => {
     }
     render(<ScreenNode {...props} />)
     const thumbnail = screen.getByTestId("screen-thumbnail")
-    const inner = thumbnail.firstElementChild as HTMLElement
+    const inner = (thumbnail.firstElementChild as HTMLElement).firstElementChild as HTMLElement
     // Tablet: 768x1024
     expect(inner.style.width).toBe("768px")
     expect(inner.style.height).toBe("1024px")
@@ -193,7 +194,7 @@ describe("ScreenNode", () => {
       render(<ScreenNode {...props} />)
       // Initially desktop: 1440x900
       const thumbnail = screen.getByTestId("screen-thumbnail")
-      const inner = thumbnail.firstElementChild as HTMLElement
+      const inner = (thumbnail.firstElementChild as HTMLElement).firstElementChild as HTMLElement
       expect(inner.style.width).toBe("1440px")
 
       // Click mobile
@@ -217,7 +218,7 @@ describe("ScreenNode", () => {
       fireEvent.click(screen.getByRole("button", { name: /tablet/i }))
 
       const thumbnail = screen.getByTestId("screen-thumbnail")
-      const inner = thumbnail.firstElementChild as HTMLElement
+      const inner = (thumbnail.firstElementChild as HTMLElement).firstElementChild as HTMLElement
       expect(inner.style.width).toBe("768px")
       expect(inner.style.height).toBe("1024px")
     })
@@ -258,6 +259,89 @@ describe("ScreenNode", () => {
       // Switch to mobile
       fireEvent.click(screen.getByRole("button", { name: /mobile/i }))
       expect(screen.getByText("390\u00d7844")).toBeInTheDocument()
+    })
+  })
+
+  describe("per-screen color scheme toggle", () => {
+    it("should render light/dark toggle buttons", () => {
+      render(<ScreenNode {...defaultProps} />)
+      expect(screen.getByTestId("color-scheme-toggle")).toBeInTheDocument()
+      expect(screen.getByRole("button", { name: /light/i })).toBeInTheDocument()
+      expect(screen.getByRole("button", { name: /dark/i })).toBeInTheDocument()
+    })
+
+    it("should default to light active", () => {
+      render(<ScreenNode {...defaultProps} />)
+      const lightBtn = screen.getByRole("button", { name: /light/i })
+      expect(lightBtn).toHaveAttribute("data-active", "true")
+    })
+
+    it("should change color-scheme CSS property when toggling to dark", () => {
+      function TestScreen() {
+        return <div>Content</div>
+      }
+      const props = {
+        ...defaultProps,
+        data: { ...defaultProps.data, component: TestScreen },
+      }
+      render(<ScreenNode {...props} />)
+
+      fireEvent.click(screen.getByRole("button", { name: /dark/i }))
+
+      const wrapper = screen.getByTestId("screen-thumbnail").querySelector("[data-df-color-scheme]") as HTMLElement
+      expect(wrapper).toBeTruthy()
+      expect(wrapper.style.colorScheme).toBe("dark")
+    })
+
+    it("should set data-df-color-scheme attribute on wrapper", () => {
+      function TestScreen() {
+        return <div>Content</div>
+      }
+      const props = {
+        ...defaultProps,
+        data: { ...defaultProps.data, component: TestScreen },
+      }
+      render(<ScreenNode {...props} />)
+
+      fireEvent.click(screen.getByRole("button", { name: /dark/i }))
+
+      const wrapper = screen.getByTestId("screen-thumbnail").querySelector("[data-df-color-scheme]") as HTMLElement
+      expect(wrapper).toHaveAttribute("data-df-color-scheme", "dark")
+    })
+
+    it("should change thumbnail background for dark mode", () => {
+      function TestScreen() {
+        return <div>Content</div>
+      }
+      const props = {
+        ...defaultProps,
+        data: { ...defaultProps.data, component: TestScreen },
+      }
+      render(<ScreenNode {...props} />)
+
+      // Default light background
+      const thumbnail = screen.getByTestId("screen-thumbnail")
+      expect(thumbnail.style.background).toContain("248, 250, 252")
+
+      // Toggle to dark
+      fireEvent.click(screen.getByRole("button", { name: /dark/i }))
+      expect(thumbnail.style.background).toContain("15, 23, 42")
+    })
+
+    it("should initialize from colorScheme data prop", () => {
+      function TestScreen() {
+        return <div>Content</div>
+      }
+      const props = {
+        ...defaultProps,
+        data: { ...defaultProps.data, component: TestScreen, colorScheme: "dark" as const },
+      }
+      render(<ScreenNode {...props} />)
+
+      const darkBtn = screen.getByRole("button", { name: /dark/i })
+      expect(darkBtn).toHaveAttribute("data-active", "true")
+      const thumbnail = screen.getByTestId("screen-thumbnail")
+      expect(thumbnail.style.background).toContain("15, 23, 42")
     })
   })
 })

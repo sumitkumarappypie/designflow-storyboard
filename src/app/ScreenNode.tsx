@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Handle, Position } from "@xyflow/react"
 import type { NodeProps, Node } from "@xyflow/react"
 import type { ComponentType } from "react"
-import type { Viewport } from "../types"
+import type { Viewport, ColorScheme } from "../types"
 import { getScreenResolution } from "../types"
 
 export type ScreenNodeData = {
@@ -11,6 +11,7 @@ export type ScreenNodeData = {
   onSelect: (screenId: string) => void
   component?: ComponentType
   viewport?: Viewport
+  colorScheme?: ColorScheme
 }
 
 export type ScreenNodeType = Node<ScreenNodeData, "screen">
@@ -23,13 +24,20 @@ const viewportLabels: { key: Viewport; label: string }[] = [
   { key: "mobile", label: "M" },
 ]
 
+const colorSchemeLabels: { key: ColorScheme; label: string }[] = [
+  { key: "light", label: "\u2600" },
+  { key: "dark", label: "\u263E" },
+]
+
 export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
   const ScreenComponent = data.component
   const [activeViewport, setActiveViewport] = useState<Viewport>(data.viewport ?? "desktop")
+  const [activeColorScheme, setActiveColorScheme] = useState<ColorScheme>(data.colorScheme ?? "light")
   const { width: fullWidth, height: fullHeight } = getScreenResolution(activeViewport)
   const scale = MAX_THUMBNAIL_DIM / Math.max(fullWidth, fullHeight)
   const thumbnailWidth = Math.round(fullWidth * scale)
   const thumbnailHeight = Math.round(fullHeight * scale)
+  const isDark = activeColorScheme === "dark"
 
   return (
     <div
@@ -57,34 +65,66 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
         }}
       >
         {data.title}
-        <div
-          data-testid="viewport-toggle"
-          style={{
-            display: "flex",
-            gap: "4px",
-          }}
-        >
-          {viewportLabels.map(({ key, label }) => (
-            <button
-              key={key}
-              aria-label={key}
-              data-active={String(activeViewport === key)}
-              onClick={() => setActiveViewport(key)}
-              style={{
-                border: "1px solid #e2e8f0",
-                background: activeViewport === key ? "#f1f5f9" : "transparent",
-                fontWeight: activeViewport === key ? 600 : 400,
-                cursor: "pointer",
-                padding: "2px 8px",
-                borderRadius: 9999,
-                fontSize: 10,
-                lineHeight: 1.4,
-                color: "#334155",
-              }}
-            >
-              {label}
-            </button>
-          ))}
+        <div style={{ display: "flex", gap: "4px", alignItems: "center" }}>
+          <div
+            data-testid="viewport-toggle"
+            style={{
+              display: "flex",
+              gap: "4px",
+            }}
+          >
+            {viewportLabels.map(({ key, label }) => (
+              <button
+                key={key}
+                aria-label={key}
+                data-active={String(activeViewport === key)}
+                onClick={() => setActiveViewport(key)}
+                style={{
+                  border: "1px solid #e2e8f0",
+                  background: activeViewport === key ? "#f1f5f9" : "transparent",
+                  fontWeight: activeViewport === key ? 600 : 400,
+                  cursor: "pointer",
+                  padding: "2px 8px",
+                  borderRadius: 9999,
+                  fontSize: 10,
+                  lineHeight: 1.4,
+                  color: "#334155",
+                }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <div style={{ width: 1, height: 14, background: "#e2e8f0" }} />
+          <div
+            data-testid="color-scheme-toggle"
+            style={{
+              display: "flex",
+              gap: "4px",
+            }}
+          >
+            {colorSchemeLabels.map(({ key, label }) => (
+              <button
+                key={key}
+                aria-label={key}
+                data-active={String(activeColorScheme === key)}
+                onClick={() => setActiveColorScheme(key)}
+                style={{
+                  border: "1px solid #e2e8f0",
+                  background: activeColorScheme === key ? "#f1f5f9" : "transparent",
+                  fontWeight: activeColorScheme === key ? 600 : 400,
+                  cursor: "pointer",
+                  padding: "2px 8px",
+                  borderRadius: 9999,
+                  fontSize: 10,
+                  lineHeight: 1.4,
+                  color: "#334155",
+                }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
       <div
@@ -92,7 +132,7 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
         style={{
           width: `${thumbnailWidth}px`,
           height: `${thumbnailHeight}px`,
-          background: "#f8fafc",
+          background: isDark ? "#0f172a" : "#f8fafc",
           borderRadius: "4px",
           overflow: "hidden",
           position: "relative",
@@ -101,15 +141,21 @@ export function ScreenNode({ data }: NodeProps<ScreenNodeType>) {
         {ScreenComponent ? (
           <>
             <div
-              style={{
-                width: `${fullWidth}px`,
-                height: `${fullHeight}px`,
-                transform: `scale(${scale})`,
-                transformOrigin: "top left",
-                pointerEvents: "none",
-              }}
+              style={{ colorScheme: activeColorScheme }}
+              className={isDark ? "dark" : ""}
+              data-df-color-scheme={activeColorScheme}
             >
-              <ScreenComponent />
+              <div
+                style={{
+                  width: `${fullWidth}px`,
+                  height: `${fullHeight}px`,
+                  transform: `scale(${scale})`,
+                  transformOrigin: "top left",
+                  pointerEvents: "none",
+                }}
+              >
+                <ScreenComponent />
+              </div>
             </div>
             <div
               style={{

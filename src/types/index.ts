@@ -1,4 +1,5 @@
 export type Viewport = "desktop" | "tablet" | "mobile"
+export type ColorScheme = "light" | "dark"
 
 export const VIEWPORT_RESOLUTIONS: Record<Viewport, { width: number; height: number }> = {
   desktop: { width: 1440, height: 900 },

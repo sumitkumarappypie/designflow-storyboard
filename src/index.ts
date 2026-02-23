@@ -4,6 +4,7 @@ export type {
   ScreenConfig,
   EdgeConfig,
   Viewport,
+  ColorScheme,
 } from "./types"
 
 // Runtime
