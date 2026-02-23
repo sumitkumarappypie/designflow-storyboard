@@ -6,7 +6,6 @@ vi.mock("@xyflow/react", () => ({
   BaseEdge: ({ id, path, style }: any) => (
     <path data-testid={`base-edge-${id}`} d={path} style={style} />
   ),
-  EdgeLabelRenderer: ({ children }: any) => <div data-testid="edge-label-renderer">{children}</div>,
   getSmoothStepPath: () => ["M0,0 L50,0 L50,100 L100,100", 50, 50],
 }))
 
@@ -38,24 +37,6 @@ describe("FlowEdge", () => {
       </svg>
     )
     expect(screen.getByTestId(`base-edge-${defaultProps.id}`)).toBeInTheDocument()
-  })
-
-  it("should render label when provided", () => {
-    render(
-      <svg>
-        <FlowEdge {...defaultProps} />
-      </svg>
-    )
-    expect(screen.getByText("Sign in")).toBeInTheDocument()
-  })
-
-  it("should not render label when not provided", () => {
-    render(
-      <svg>
-        <FlowEdge {...defaultProps} data={{}} />
-      </svg>
-    )
-    expect(screen.queryByText("Sign in")).not.toBeInTheDocument()
   })
 
   it("should have solid stroke style without dashes", () => {

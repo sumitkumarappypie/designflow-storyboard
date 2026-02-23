@@ -1,4 +1,4 @@
-import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath } from "@xyflow/react"
+import { BaseEdge, getSmoothStepPath } from "@xyflow/react"
 import type { EdgeProps, Edge } from "@xyflow/react"
 import type { LineStyle } from "../types"
 
@@ -27,7 +27,7 @@ export function FlowEdge({
   targetPosition,
   data,
 }: EdgeProps<FlowEdgeType>) {
-  const [edgePath, labelX, labelY] = getSmoothStepPath({
+  const [edgePath] = getSmoothStepPath({
     sourceX,
     sourceY,
     targetX,
@@ -45,32 +45,10 @@ export function FlowEdge({
     : { stroke: accentColor, strokeWidth: 1.5, strokeDasharray: dashMap[lineStyle] }
 
   return (
-    <>
-      <BaseEdge
-        id={id}
-        path={edgePath}
-        style={edgeStyle}
-      />
-      {data?.label && (
-        <EdgeLabelRenderer>
-          <div
-            style={{
-              position: "absolute",
-              transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
-              fontSize: "11px",
-              fontWeight: 500,
-              background: "white",
-              padding: "2px 6px",
-              borderRadius: "4px",
-              border: "1px solid #e2e8f0",
-              color: "#64748b",
-              pointerEvents: "all",
-            }}
-          >
-            {data.label}
-          </div>
-        </EdgeLabelRenderer>
-      )}
-    </>
+    <BaseEdge
+      id={id}
+      path={edgePath}
+      style={edgeStyle}
+    />
   )
 }
