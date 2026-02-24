@@ -297,7 +297,7 @@ export function Viewer({ screenId, screenTitle, component: ScreenComponent, onCl
             color: pillTextColor,
           }}
         >
-          ⤓
+          📷
         </button>
 
         <div style={{ width: 1, height: 16, background: dividerColor }} />

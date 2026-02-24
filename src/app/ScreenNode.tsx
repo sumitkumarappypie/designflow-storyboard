@@ -325,7 +325,7 @@ export function ScreenNode({ data, id, selected }: NodeProps<ScreenNodeType>) {
             color: pillTextColor,
           }}
         >
-          ⤓
+          📷
         </button>
       </div>
 

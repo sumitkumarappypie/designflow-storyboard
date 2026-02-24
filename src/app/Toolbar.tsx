@@ -74,7 +74,7 @@ export function Toolbar({ settings, onSettingsChange, projectName }: ToolbarProp
         onClick={() => exportCanvasPng(getNodes, { backgroundColor: isDark ? "#000000" : "#ffffff", projectName })}
         style={{ ...btnStyle, color: isDark ? "#e2e8f0" : "#334155" }}
       >
-        ⤓
+        📷
       </button>
       {onSettingsChange && settings && (
         <>
