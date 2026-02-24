@@ -27,12 +27,15 @@ interface AppProps {
   config: DesignFlowConfig
   screens: Record<string, React.ComponentType>
   inferredEdges?: EdgeConfig[]
+  exportMode?: boolean
 }
 
-export function App({ config, screens, inferredEdges }: AppProps) {
+export function App({ config, screens, inferredEdges, exportMode }: AppProps) {
   const [viewingScreen, setViewingScreen] = useState<string | null>(null)
   const [focusNodeId, setFocusNodeId] = useState<string | null>(null)
-  const [settings, setSettings] = useState<CanvasSettings>(getInitialSettings)
+  const [settings, setSettings] = useState<CanvasSettings>(() =>
+    exportMode ? { ...DEFAULT_CANVAS_SETTINGS } : getInitialSettings()
+  )
 
   useEffect(() => {
     document.title = config.name ? `${config.name} — DesignFlow` : "DesignFlow"
@@ -45,7 +48,7 @@ export function App({ config, screens, inferredEdges }: AppProps) {
     setViewingScreen(null)
   }
 
-  const handleSettingsChange = (newSettings: CanvasSettings) => {
+  const handleSettingsChange = exportMode ? undefined : (newSettings: CanvasSettings) => {
     setSettings(newSettings)
     try {
       localStorage.setItem(DF_SETTINGS_KEY, JSON.stringify(newSettings))
@@ -66,6 +69,7 @@ export function App({ config, screens, inferredEdges }: AppProps) {
           settings={settings}
           onSettingsChange={handleSettingsChange}
           projectName={config.name}
+          exportMode={exportMode}
         />
         {viewingScreen && viewingConfig && screens[viewingScreen] && (
           <Viewer
@@ -79,6 +83,7 @@ export function App({ config, screens, inferredEdges }: AppProps) {
             color={viewingConfig.color}
             viewport={viewingConfig.viewport}
             projectName={config.name}
+            exportMode={exportMode}
           />
         )}
       </div>

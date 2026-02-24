@@ -13,7 +13,7 @@ export interface DevOptions {
   port: number
 }
 
-export function buildDevHtml(opts: { hasStylesCSS: boolean; projectName?: string }): string {
+export function buildDevHtml(opts: { hasStylesCSS: boolean; projectName?: string; exportMode?: boolean }): string {
   const stylesLink = opts.hasStylesCSS
     ? `\n  <link rel="stylesheet" href="/styles.css" />`
     : ""
@@ -47,7 +47,7 @@ export function buildDevHtml(opts: { hasStylesCSS: boolean; projectName?: string
     const screens = screensModule.default || screensModule
     const inferredEdges = inferredEdgesModule.default || inferredEdgesModule
     const root = createRoot(document.getElementById("root"))
-    root.render(createElement(App, { config: config.default || config, screens, inferredEdges }))
+    root.render(createElement(App, { config: config.default || config, screens, inferredEdges${opts.exportMode ? ", exportMode: true" : ""} }))
   </script>
 </body>
 </html>`

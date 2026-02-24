@@ -7,14 +7,16 @@ import type { DesignFlowConfig, CanvasSettings } from "../../src/types"
 // Track onNodeDragStop callback passed to ReactFlow
 let capturedOnNodeDragStop: ((...args: any[]) => void) | undefined
 let capturedDefaultEdgeOptions: any
+let capturedNodesDraggable: boolean | undefined
 
 // Mock React Flow since jsdom doesn't support full rendering
 vi.mock("@xyflow/react", () => {
-  const ReactFlow = ({ nodes, edges, children, onNodeDragStop, defaultEdgeOptions, ...props }: any) => {
+  const ReactFlow = ({ nodes, edges, children, onNodeDragStop, defaultEdgeOptions, nodesDraggable, ...props }: any) => {
     capturedOnNodeDragStop = onNodeDragStop
     capturedDefaultEdgeOptions = defaultEdgeOptions
+    capturedNodesDraggable = nodesDraggable
     return (
-      <div data-testid="react-flow" data-nodes={JSON.stringify(nodes)} data-edges={JSON.stringify(edges)} data-has-drag-handler={String(!!onNodeDragStop)} data-default-edge-options={JSON.stringify(defaultEdgeOptions)}>
+      <div data-testid="react-flow" data-nodes={JSON.stringify(nodes)} data-edges={JSON.stringify(edges)} data-has-drag-handler={String(!!onNodeDragStop)} data-default-edge-options={JSON.stringify(defaultEdgeOptions)} data-nodes-draggable={String(nodesDraggable)}>
         {nodes?.map((n: any) => (
           <div key={n.id} data-testid={`node-${n.id}`}>
             {n.data?.title}
@@ -346,5 +348,47 @@ describe("Canvas — position persistence", () => {
         }),
       }),
     )
+  })
+})
+
+describe("Canvas — export mode", () => {
+  beforeEach(() => {
+    capturedNodesDraggable = undefined
+  })
+
+  it("should set nodesDraggable=false when exportMode is true", () => {
+    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} exportMode />)
+    const rfEl = screen.getByTestId("react-flow")
+    expect(rfEl.getAttribute("data-nodes-draggable")).toBe("false")
+  })
+
+  it("should not disable dragging in normal mode", () => {
+    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} />)
+    const rfEl = screen.getByTestId("react-flow")
+    expect(rfEl.getAttribute("data-nodes-draggable")).not.toBe("false")
+  })
+
+  it("should render ExportBanner when exportMode is true", () => {
+    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} exportMode />)
+    expect(screen.getByTestId("export-banner")).toBeInTheDocument()
+    expect(screen.getByText(/static export/i)).toBeInTheDocument()
+  })
+
+  it("should not render ExportBanner in normal mode", () => {
+    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} />)
+    expect(screen.queryByTestId("export-banner")).not.toBeInTheDocument()
+  })
+
+  it("should not pass onSettingsChange to Toolbar when exportMode", () => {
+    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} settings={defaultSettings} onSettingsChange={vi.fn()} exportMode />)
+    // Settings gear should not be visible — Toolbar conditionally renders it based on onSettingsChange
+    expect(screen.queryByTestId("settings-popover")).not.toBeInTheDocument()
+  })
+
+  it("should include exportMode in node data", () => {
+    render(<Canvas config={sampleConfig} onScreenSelect={vi.fn()} exportMode />)
+    const rfEl = screen.getByTestId("react-flow")
+    const nodes = JSON.parse(rfEl.getAttribute("data-nodes") || "[]")
+    expect(nodes[0].data.exportMode).toBe(true)
   })
 })

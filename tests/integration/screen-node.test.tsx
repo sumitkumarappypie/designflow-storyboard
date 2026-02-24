@@ -400,6 +400,33 @@ describe("ScreenNode", () => {
     })
   })
 
+  describe("export mode", () => {
+    const exportProps = {
+      ...defaultProps,
+      data: { ...defaultProps.data, exportMode: true },
+    }
+
+    it("should hide color picker in export mode", () => {
+      render(<ScreenNode {...exportProps} />)
+      expect(screen.queryByTestId("color-picker-button")).not.toBeInTheDocument()
+    })
+
+    it("should hide viewport selector in export mode", () => {
+      render(<ScreenNode {...exportProps} />)
+      expect(screen.queryByTestId("viewport-select")).not.toBeInTheDocument()
+    })
+
+    it("should still show light/dark toggle in export mode", () => {
+      render(<ScreenNode {...exportProps} />)
+      expect(screen.getByTestId("color-scheme-toggle")).toBeInTheDocument()
+    })
+
+    it("should still show PNG export button in export mode", () => {
+      render(<ScreenNode {...exportProps} />)
+      expect(screen.getByTestId("export-screen-png")).toBeInTheDocument()
+    })
+  })
+
   describe("export screen PNG", () => {
     it("should render export button in pill bar", () => {
       render(<ScreenNode {...defaultProps} />)

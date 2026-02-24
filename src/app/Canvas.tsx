@@ -18,6 +18,7 @@ interface CanvasProps {
   settings?: CanvasSettings
   onSettingsChange?: (settings: CanvasSettings) => void
   projectName?: string
+  exportMode?: boolean
 }
 
 function configToNodes(
@@ -27,6 +28,7 @@ function configToNodes(
   accentColor?: string,
   colorScheme?: "light" | "dark",
   projectName?: string,
+  exportMode?: boolean,
 ): Node[] {
   return Object.entries(config.screens).map(([id, screen]) => ({
     id,
@@ -42,6 +44,7 @@ function configToNodes(
       accentColor,
       colorScheme,
       projectName,
+      exportMode,
     },
   }))
 }
@@ -147,8 +150,8 @@ const bgVariantMap = {
   dots: BackgroundVariant.Dots,
 }
 
-export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredEdges, settings, onSettingsChange, projectName }: CanvasProps) {
-  const initialNodes = configToNodes(config, onScreenSelect, screens, settings?.accentColor, settings?.appearance, projectName)
+export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredEdges, settings, onSettingsChange, projectName, exportMode }: CanvasProps) {
+  const initialNodes = configToNodes(config, onScreenSelect, screens, settings?.accentColor, settings?.appearance, projectName, exportMode)
   const initialEdges = configToEdges(config, inferredEdges, settings)
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
@@ -163,6 +166,7 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredE
         accentColor: settings?.accentColor,
         colorScheme: settings?.appearance,
         projectName,
+        exportMode,
       },
     })))
   }, [settings?.accentColor, settings?.lineStyle, settings?.appearance])
@@ -195,7 +199,8 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredE
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
-        onNodeDragStop={onNodeDragStop}
+        onNodeDragStop={exportMode ? undefined : onNodeDragStop}
+        nodesDraggable={exportMode ? false : undefined}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         defaultEdgeOptions={{}}
@@ -213,15 +218,44 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredE
             style={{ opacity: settings.backgroundStyle === "dots" ? 0.7 : 0.4 }}
           />
         )}
-        <Toolbar settings={settings} onSettingsChange={onSettingsChange} projectName={projectName} />
-        <LogoBadge dark={isDarkCanvas} />
+        <Toolbar settings={settings} onSettingsChange={exportMode ? undefined : onSettingsChange} projectName={projectName} />
+        <LogoBadge dark={isDarkCanvas} exportMode={exportMode} projectName={projectName} />
+        {exportMode && <ExportBanner dark={isDarkCanvas} />}
       </ReactFlow>
     </div>
   )
 }
 
-function LogoBadge({ dark }: { dark?: boolean }) {
+function ExportBanner({ dark }: { dark?: boolean }) {
+  return (
+    <div
+      data-testid="export-banner"
+      style={{
+        position: "absolute",
+        bottom: 12,
+        left: "50%",
+        transform: "translateX(-50%)",
+        zIndex: 10,
+        padding: "6px 14px",
+        background: dark ? "#1e1e1e" : "#fff",
+        border: `1px solid ${dark ? "#333" : "#e2e8f0"}`,
+        borderRadius: 9999,
+        fontSize: 12,
+        fontWeight: 500,
+        color: dark ? "#e2e8f0" : "#334155",
+        pointerEvents: "none",
+        userSelect: "none",
+      }}
+    >
+      Static export &middot; Read-only
+    </div>
+  )
+}
+
+function LogoBadge({ dark, exportMode, projectName }: { dark?: boolean; exportMode?: boolean; projectName?: string }) {
   const [aboutOpen, setAboutOpen] = useState(false)
+  const [exporting, setExporting] = useState(false)
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
 
   useEffect(() => {
     if (!aboutOpen) return
@@ -274,13 +308,15 @@ function LogoBadge({ dark }: { dark?: boolean }) {
           style={{
             background: "transparent",
             border: "none",
+            display: "flex",
+            alignItems: "center",
             padding: "2px 8px",
             borderRadius: 9999,
             fontSize: 12,
             fontWeight: 500,
             color: pillColor,
             cursor: "pointer",
-            opacity: 1,
+            lineHeight: 1,
           }}
         >
           About
@@ -308,6 +344,52 @@ function LogoBadge({ dark }: { dark?: boolean }) {
           </svg>
           Contribute
         </a>
+        {!exportMode && (
+          <>
+            <div style={{ width: 1, height: 16, background: dark ? "#444" : "#e2e8f0" }} />
+            <button
+              data-testid="export-html"
+              disabled={exporting}
+              onClick={async () => {
+                setExporting(true)
+                setToast(null)
+                try {
+                  const res = await fetch("/__designflow/export", { method: "POST" })
+                  const data = await res.json()
+                  if (!res.ok) throw new Error(data.error || "Export failed")
+                  setToast({ message: `Exported to ${data.path}`, type: "success" })
+                  setTimeout(() => setToast(null), 5000)
+                } catch (err: any) {
+                  setToast({ message: err.message || "Export failed", type: "error" })
+                  setTimeout(() => setToast(null), 5000)
+                } finally {
+                  setExporting(false)
+                }
+              }}
+              style={{
+                background: "transparent",
+                border: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: 5,
+                padding: "2px 8px",
+                borderRadius: 9999,
+                fontSize: 12,
+                fontWeight: 500,
+                color: pillColor,
+                cursor: exporting ? "wait" : "pointer",
+                opacity: exporting ? 0.5 : 1,
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              {exporting ? "Exporting..." : "Export"}
+            </button>
+          </>
+        )}
       </div>
 
       {aboutOpen && (
@@ -383,6 +465,33 @@ function LogoBadge({ dark }: { dark?: boolean }) {
               <span>designflow.cc</span>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Export toast */}
+      {toast && (
+        <div
+          data-testid="export-toast"
+          style={{
+            position: "absolute",
+            top: 52,
+            left: 12,
+            zIndex: 10,
+            padding: "8px 14px",
+            background: dark ? "#1e1e1e" : "#fff",
+            border: `1px solid ${toast.type === "error" ? "#ef4444" : dark ? "#333" : "#e2e8f0"}`,
+            borderRadius: 9999,
+            fontSize: 12,
+            fontWeight: 500,
+            color: toast.type === "error" ? "#ef4444" : dark ? "#e2e8f0" : "#334155",
+            boxShadow: dark ? "0 4px 12px rgba(0,0,0,0.4)" : "0 4px 12px rgba(0,0,0,0.1)",
+            maxWidth: 400,
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {toast.type === "success" ? "✓ " : "✗ "}{toast.message}
         </div>
       )}
     </>

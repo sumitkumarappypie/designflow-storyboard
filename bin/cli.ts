@@ -1,6 +1,7 @@
 import cac from "cac"
 import { runInit } from "../src/cli/init"
 import { runDev } from "../src/cli/dev"
+import { runExport } from "../src/cli/export"
 
 const cli = cac("designflow")
 
@@ -49,6 +50,19 @@ cli
   .action(async (options) => {
     try {
       await runDev({ dir: options.dir, port: Number(options.port) })
+    } catch (err: any) {
+      console.error(`Error: ${err.message}`)
+      process.exit(1)
+    }
+  })
+
+cli
+  .command("export", "Export static HTML file")
+  .option("--dir <dir>", "Wireframes directory", { default: "./wireframes" })
+  .option("--output <output>", "Output file path", { default: "./designflow.html" })
+  .action(async (options) => {
+    try {
+      await runExport({ dir: options.dir, output: options.output })
     } catch (err: any) {
       console.error(`Error: ${err.message}`)
       process.exit(1)

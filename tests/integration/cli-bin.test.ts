@@ -8,6 +8,9 @@ vi.mock("../../src/cli/init", () => ({
 vi.mock("../../src/cli/dev", () => ({
   runDev: vi.fn(),
 }))
+vi.mock("../../src/cli/export", () => ({
+  runExport: vi.fn(),
+}))
 
 describe("CLI bin entry", () => {
   let cli: ReturnType<typeof cac>
@@ -26,6 +29,12 @@ describe("CLI bin entry", () => {
       .command("dev", "Start the canvas dev server")
       .option("--dir <dir>", "Wireframes directory", { default: "./wireframes" })
       .option("--port <port>", "Dev server port", { default: 4800 })
+      .action(() => {})
+
+    cli
+      .command("export", "Export static HTML")
+      .option("--dir <dir>", "Wireframes directory", { default: "./wireframes" })
+      .option("--output <output>", "Output file path", { default: "./designflow.html" })
       .action(() => {})
 
     cli.help()
@@ -54,5 +63,16 @@ describe("CLI bin entry", () => {
 
   it("should set version to 0.1.0", () => {
     expect(cli.version).toBeDefined()
+  })
+
+  it("should register export command with default output", () => {
+    const parsed = cli.parse(["", "", "export"], { run: false })
+    expect(parsed.options.output).toBe("./designflow.html")
+  })
+
+  it("should accept custom --dir and --output for export", () => {
+    const parsed = cli.parse(["", "", "export", "--dir", "./frames", "--output", "./build/preview.html"], { run: false })
+    expect(parsed.options.dir).toBe("./frames")
+    expect(parsed.options.output).toBe("./build/preview.html")
   })
 })

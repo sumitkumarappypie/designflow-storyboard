@@ -8,6 +8,7 @@ function createMockServer() {
   return {
     watcher: {
       add: vi.fn(),
+      unwatch: vi.fn(),
       on: vi.fn((event: string, handler: (...args: any[]) => void) => {
         if (!eventHandlers[event]) eventHandlers[event] = []
         eventHandlers[event].push(handler)

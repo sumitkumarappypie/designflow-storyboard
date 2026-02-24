@@ -1,11 +1,14 @@
 import type { Plugin } from "vite"
 import type { IncomingMessage, ServerResponse } from "http"
+import os from "os"
 import path from "path"
 import { fileURLToPath } from "url"
 import { existsSync } from "fs"
 import fs from "fs/promises"
 import { scanScreens, extractNavigationTargets } from "./screen-scanner"
 import { updateScreenPosition, updateScreenViewport, updateScreenColor, writeFlowConfig } from "./flow-writer"
+// Lazy import to avoid loading vite build API in test environments
+let _runExport: typeof import("../cli/export").runExport | undefined
 import type { DesignFlowConfig } from "../types"
 
 const __filename = fileURLToPath(import.meta.url)
@@ -105,6 +108,8 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
       const flowsPath = path.resolve(dir, "flows.ts")
 
       server.watcher.add([screensDir, themePath])
+      // Prevent page reload when export writes a temp index.html
+      server.watcher.unwatch(path.resolve(dir, "index.html"))
 
       function invalidateAndReload(changedPath: string) {
         if (changedPath.startsWith(screensDir) || changedPath === themePath) {
@@ -234,6 +239,31 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
             res.writeHead(500, { "Content-Type": "application/json" })
             res.end(JSON.stringify({ error: String(err) }))
           }
+        })
+      })
+
+      // API middleware for static HTML export
+      server.middlewares.use((req: IncomingMessage, res: ServerResponse, next: () => void) => {
+        if (req.url !== "/__designflow/export" || req.method !== "POST") {
+          return next()
+        }
+
+        ;(async () => {
+          // Export to project root (parent of wireframes dir)
+          const projectRoot = path.dirname(path.resolve(dir))
+          const outputPath = path.join(projectRoot, "designflow.html")
+
+          if (!_runExport) {
+            const mod = await import("../cli/export")
+            _runExport = mod.runExport
+          }
+          await _runExport({ dir, output: outputPath, silent: true })
+
+          res.writeHead(200, { "Content-Type": "application/json" })
+          res.end(JSON.stringify({ ok: true, path: outputPath }))
+        })().catch((err: any) => {
+          res.writeHead(500, { "Content-Type": "application/json" })
+          res.end(JSON.stringify({ error: String(err) }))
         })
       })
     },

@@ -163,6 +163,67 @@ describe("Viewer", () => {
     expect(onNavigate).not.toHaveBeenCalled()
   })
 
+  describe("export mode", () => {
+    it("should hide color picker in export mode", () => {
+      render(
+        <Viewer
+          screenId="test"
+          screenTitle="Test Screen"
+          component={TestScreen}
+          onClose={vi.fn()}
+          exportMode
+        />
+      )
+      expect(screen.queryByTestId("viewer-color-picker-button")).not.toBeInTheDocument()
+    })
+
+    it("should hide viewport selector in export mode", () => {
+      render(
+        <Viewer
+          screenId="test"
+          screenTitle="Test Screen"
+          component={TestScreen}
+          onClose={vi.fn()}
+          exportMode
+        />
+      )
+      expect(screen.queryByTestId("viewer-viewport-select")).not.toBeInTheDocument()
+    })
+
+    it("should still show dark mode toggle in export mode", () => {
+      render(
+        <Viewer
+          screenId="test"
+          screenTitle="Test Screen"
+          component={TestScreen}
+          onClose={vi.fn()}
+          exportMode
+        />
+      )
+      const toggles = screen.getAllByRole("checkbox")
+      expect(toggles.length).toBeGreaterThan(0)
+    })
+
+    it("should still support navigation in export mode", () => {
+      function NavScreen() {
+        return <button data-df-navigate="dashboard">Go</button>
+      }
+      const onNavigate = vi.fn()
+      render(
+        <Viewer
+          screenId="home"
+          screenTitle="Home"
+          component={NavScreen}
+          onClose={vi.fn()}
+          onNavigate={onNavigate}
+          exportMode
+        />
+      )
+      fireEvent.click(screen.getByText("Go"))
+      expect(onNavigate).toHaveBeenCalledWith("dashboard")
+    })
+  })
+
   it("should use white pill background when no accent color", () => {
     render(
       <Viewer

@@ -13,6 +13,7 @@ interface ViewerProps {
   color?: string
   viewport?: Viewport
   projectName?: string
+  exportMode?: boolean
 }
 
 function DesktopIcon() {
@@ -49,7 +50,7 @@ const viewportIcons: Record<Viewport, () => React.ReactElement> = {
   mobile: MobileIcon,
 }
 
-export function Viewer({ screenId, screenTitle, component: ScreenComponent, onClose, onNavigate, accentColor, color, viewport, projectName }: ViewerProps) {
+export function Viewer({ screenId, screenTitle, component: ScreenComponent, onClose, onNavigate, accentColor, color, viewport, projectName, exportMode }: ViewerProps) {
   const [activeViewport, setActiveViewport] = useState<Viewport>(viewport ?? "desktop")
   const [activeColorScheme, setActiveColorScheme] = useState<ColorScheme>("light")
   const [activeColor, setActiveColor] = useState<string | undefined>(color)
@@ -151,86 +152,90 @@ export function Viewer({ screenId, screenTitle, component: ScreenComponent, onCl
           {screenTitle}
         </h2>
 
-        {/* Color picker */}
-        <div ref={colorPickerRef} style={{ position: "relative", display: "flex", alignItems: "center" }}>
-          <button
-            data-testid="viewer-color-picker-button"
-            aria-label="Pick screen color"
-            onClick={() => setColorPickerOpen(!colorPickerOpen)}
-            style={{
-              width: 16,
-              height: 16,
-              borderRadius: "50%",
-              border: "2px solid rgba(255,255,255,0.6)",
-              background: pillBg ?? "#e2e8f0",
-              cursor: "pointer",
-              padding: 0,
-            }}
-          />
-          {colorPickerOpen && (
-            <div
-              data-testid="viewer-color-picker-popover"
-              style={{
-                position: "absolute",
-                top: "100%",
-                left: "50%",
-                transform: "translateX(-50%)",
-                marginTop: 6,
-                background: "#fff",
-                border: "1px solid #e2e8f0",
-                borderRadius: 8,
-                padding: 6,
-                display: "flex",
-                gap: 4,
-                zIndex: 10,
-              }}
-            >
-              {ACCENT_COLORS.map((c) => (
-                <button
-                  key={c}
-                  onClick={() => handleColorChange(c)}
+        {/* Color picker + Viewport — hidden in export mode */}
+        {!exportMode && (
+          <>
+            <div ref={colorPickerRef} style={{ position: "relative", display: "flex", alignItems: "center" }}>
+              <button
+                data-testid="viewer-color-picker-button"
+                aria-label="Pick screen color"
+                onClick={() => setColorPickerOpen(!colorPickerOpen)}
+                style={{
+                  width: 16,
+                  height: 16,
+                  borderRadius: "50%",
+                  border: "2px solid rgba(255,255,255,0.6)",
+                  background: pillBg ?? "#e2e8f0",
+                  cursor: "pointer",
+                  padding: 0,
+                }}
+              />
+              {colorPickerOpen && (
+                <div
+                  data-testid="viewer-color-picker-popover"
                   style={{
-                    width: 20,
-                    height: 20,
-                    borderRadius: "50%",
-                    background: c,
-                    border: c === activeColor ? "2px solid #0f172a" : "2px solid transparent",
-                    cursor: "pointer",
-                    padding: 0,
+                    position: "absolute",
+                    top: "100%",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    marginTop: 6,
+                    background: "#fff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: 8,
+                    padding: 6,
+                    display: "flex",
+                    gap: 4,
+                    zIndex: 10,
                   }}
-                />
-              ))}
+                >
+                  {ACCENT_COLORS.map((c) => (
+                    <button
+                      key={c}
+                      onClick={() => handleColorChange(c)}
+                      style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: "50%",
+                        background: c,
+                        border: c === activeColor ? "2px solid #0f172a" : "2px solid transparent",
+                        cursor: "pointer",
+                        padding: 0,
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
-        <div style={{ width: 1, height: 16, background: dividerColor }} />
+            <div style={{ width: 1, height: 16, background: dividerColor }} />
 
-        {/* Viewport selector */}
-        <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
-          <span style={{ color: pillTextColor, display: "flex", pointerEvents: "none" }}>
-            {viewportIcons[activeViewport]()}
-          </span>
-          <select
-            data-testid="viewer-viewport-select"
-            value={activeViewport}
-            onChange={(e) => handleViewportChange(e.target.value as Viewport)}
-            style={{
-              position: "absolute",
-              inset: 0,
-              opacity: 0,
-              cursor: "pointer",
-              border: "none",
-              fontSize: 10,
-            }}
-          >
-            <option value="desktop">Desktop</option>
-            <option value="tablet">Tablet</option>
-            <option value="mobile">Mobile</option>
-          </select>
-        </div>
+            {/* Viewport selector */}
+            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+              <span style={{ color: pillTextColor, display: "flex", pointerEvents: "none" }}>
+                {viewportIcons[activeViewport]()}
+              </span>
+              <select
+                data-testid="viewer-viewport-select"
+                value={activeViewport}
+                onChange={(e) => handleViewportChange(e.target.value as Viewport)}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  opacity: 0,
+                  cursor: "pointer",
+                  border: "none",
+                  fontSize: 10,
+                }}
+              >
+                <option value="desktop">Desktop</option>
+                <option value="tablet">Tablet</option>
+                <option value="mobile">Mobile</option>
+              </select>
+            </div>
 
-        <div style={{ width: 1, height: 16, background: dividerColor }} />
+            <div style={{ width: 1, height: 16, background: dividerColor }} />
+          </>
+        )}
 
         {/* Dark mode toggle */}
         <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
