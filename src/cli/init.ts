@@ -52,6 +52,15 @@ export async function runInit(options: InitOptions): Promise<void> {
     await fs.copyFile(srcPath, destPath)
   }
 
+  // Create package.json so users can npm-install their own packages
+  await fs.writeFile(
+    path.join(dir, "package.json"),
+    JSON.stringify({ private: true, type: "module" }, null, 2) + "\n",
+  )
+
+  // Create .gitignore to exclude user-installed node_modules
+  await fs.writeFile(path.join(dir, ".gitignore"), "node_modules/\n")
+
   // Replace project name in flows.ts if --name was provided
   if (options.name) {
     const flowsPath = path.join(dir, "flows.ts")

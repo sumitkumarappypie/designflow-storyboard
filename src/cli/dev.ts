@@ -4,6 +4,7 @@ import { fileURLToPath } from "url"
 import { createServer } from "vite"
 import tailwindcss from "@tailwindcss/vite"
 import { designflowPlugin } from "../runtime/vite-plugin"
+import { buildCoreAliases } from "./resolve"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -85,40 +86,17 @@ export async function runDev(options: DevOptions): Promise<void> {
 
   const html = buildDevHtml({ hasStylesCSS, projectName })
 
-  // Symlink wireframes/node_modules → the node_modules that contains designflow's
-  // dependencies so all resolution works (Vite imports, @tailwindcss/vite
-  // enhanced-resolve, etc.) even when running via npx without local node_modules.
-  // npm hoists deps: if pkgRoot is .../node_modules/designflow/, the deps live
-  // in .../node_modules/ (the parent), not .../node_modules/designflow/node_modules/
-  let pkgNodeModules = path.resolve(pkgRoot, "node_modules")
-  if (!fs.existsSync(path.join(pkgNodeModules, "react"))) {
-    const parentDir = path.dirname(pkgRoot)
-    if (path.basename(parentDir) === "node_modules") {
-      pkgNodeModules = parentDir
-    }
-  }
-  const wireframesNodeModules = path.join(resolvedDir, "node_modules")
-  let createdSymlink = false
-
-  if (!fs.existsSync(wireframesNodeModules) && fs.existsSync(pkgNodeModules)) {
-    fs.symlinkSync(pkgNodeModules, wireframesNodeModules, "junction")
-    createdSymlink = true
-  }
-
-  // Clean up symlink on exit
-  function cleanupSymlink() {
-    if (createdSymlink && fs.existsSync(wireframesNodeModules)) {
-      try { fs.unlinkSync(wireframesNodeModules) } catch {}
-    }
-  }
-  process.on("exit", cleanupSymlink)
-  process.on("SIGINT", () => { cleanupSymlink(); process.exit() })
-  process.on("SIGTERM", () => { cleanupSymlink(); process.exit() })
+  // Map core packages to designflow's bundled copies so user-installed
+  // packages in wireframes/node_modules don't cause duplicate React, etc.
+  const coreAliases = buildCoreAliases()
 
   const server = await createServer({
     root: resolvedDir,
     esbuild: {
       jsx: "automatic",
+    },
+    resolve: {
+      alias: coreAliases,
     },
     plugins: [
       tailwindcss(),
@@ -167,7 +145,7 @@ export async function runDev(options: DevOptions): Promise<void> {
     server: {
       port,
       fs: {
-        allow: [resolvedDir, pkgRoot, pkgNodeModules],
+        allow: [resolvedDir, pkgRoot, ...Object.values(coreAliases)],
       },
     },
   })

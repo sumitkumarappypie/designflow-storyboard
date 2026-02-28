@@ -6,6 +6,7 @@ import { build } from "vite"
 import tailwindcss from "@tailwindcss/vite"
 import { designflowPlugin } from "../runtime/vite-plugin"
 import { buildDevHtml } from "./dev"
+import { buildCoreAliases } from "./resolve"
 import type { Plugin } from "vite"
 
 const __filename = fileURLToPath(import.meta.url)
@@ -148,27 +149,8 @@ export async function runExport(options: ExportOptions): Promise<void> {
 
   const html = buildDevHtml({ hasStylesCSS, projectName, exportMode: true })
 
-  // Set up node_modules symlink
-  let pkgNodeModules = path.resolve(pkgRoot, "node_modules")
-  if (!fs.existsSync(path.join(pkgNodeModules, "react"))) {
-    const parentDir = path.dirname(pkgRoot)
-    if (path.basename(parentDir) === "node_modules") {
-      pkgNodeModules = parentDir
-    }
-  }
-  const wireframesNodeModules = path.join(resolvedDir, "node_modules")
-  let createdSymlink = false
-
-  if (!fs.existsSync(wireframesNodeModules) && fs.existsSync(pkgNodeModules)) {
-    fs.symlinkSync(pkgNodeModules, wireframesNodeModules, "junction")
-    createdSymlink = true
-  }
-
-  function cleanupSymlink() {
-    if (createdSymlink && fs.existsSync(wireframesNodeModules)) {
-      try { fs.unlinkSync(wireframesNodeModules) } catch {}
-    }
-  }
+  // Map core packages to designflow's bundled copies
+  const coreAliases = buildCoreAliases()
 
   // Use a temp dir for both the input HTML and build output
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "designflow-export-"))
@@ -183,6 +165,9 @@ export async function runExport(options: ExportOptions): Promise<void> {
       root: resolvedDir,
       esbuild: {
         jsx: "automatic",
+      },
+      resolve: {
+        alias: coreAliases,
       },
       plugins: [
         tailwindcss(),
@@ -236,7 +221,6 @@ export async function runExport(options: ExportOptions): Promise<void> {
     if (!hadExistingHtml && fs.existsSync(wireframesHtml)) {
       try { fs.unlinkSync(wireframesHtml) } catch {}
     }
-    cleanupSymlink()
     try { fs.rmSync(tmpDir, { recursive: true, force: true }) } catch {}
   }
 }

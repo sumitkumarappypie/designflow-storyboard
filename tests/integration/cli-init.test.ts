@@ -158,6 +158,24 @@ describe("designflow init", () => {
     expect(content).not.toContain("className=")
   })
 
+  it("should scaffold package.json with private and type module", async () => {
+    const wireframesDir = path.join(tmpDir, "wireframes")
+    await runInit({ dir: wireframesDir })
+
+    const content = await fs.readFile(path.join(wireframesDir, "package.json"), "utf-8")
+    const pkg = JSON.parse(content)
+    expect(pkg.private).toBe(true)
+    expect(pkg.type).toBe("module")
+  })
+
+  it("should scaffold .gitignore with node_modules", async () => {
+    const wireframesDir = path.join(tmpDir, "wireframes")
+    await runInit({ dir: wireframesDir })
+
+    const content = await fs.readFile(path.join(wireframesDir, ".gitignore"), "utf-8")
+    expect(content).toContain("node_modules/")
+  })
+
   it("should include default project name in scaffolded flows.ts", async () => {
     const wireframesDir = path.join(tmpDir, "wireframes")
     await runInit({ dir: wireframesDir })
