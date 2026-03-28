@@ -28,9 +28,10 @@ interface AppProps {
   screens: Record<string, React.ComponentType>
   inferredEdges?: EdgeConfig[]
   exportMode?: boolean
+  divkitMeta?: Record<string, { title: string; isDivkit: true }>
 }
 
-export function App({ config, screens, inferredEdges, exportMode }: AppProps) {
+export function App({ config, screens, inferredEdges, exportMode, divkitMeta }: AppProps) {
   const [viewingScreen, setViewingScreen] = useState<string | null>(null)
   const [focusNodeId, setFocusNodeId] = useState<string | null>(null)
   const [settings, setSettings] = useState<CanvasSettings>(() =>
@@ -41,7 +42,21 @@ export function App({ config, screens, inferredEdges, exportMode }: AppProps) {
     document.title = config.name ? `${config.name} — DesignFlow` : "DesignFlow"
   }, [config.name])
 
-  const viewingConfig = viewingScreen ? config.screens[viewingScreen] : null
+  const viewingConfig = viewingScreen
+    ? config.screens[viewingScreen] ?? (
+        divkitMeta?.[viewingScreen]
+          ? {
+              title: divkitMeta[viewingScreen].title,
+              file: "",
+              position: config.divkitScreens?.[viewingScreen]?.position ?? { x: 0, y: 0 },
+              viewport: config.divkitScreens?.[viewingScreen]?.viewport,
+              color: config.divkitScreens?.[viewingScreen]?.color,
+            }
+          : null
+      )
+    : null
+
+  const isViewingDivkit = viewingScreen ? !!divkitMeta?.[viewingScreen] : false
 
   const handleCloseViewer = () => {
     setFocusNodeId(viewingScreen)
@@ -70,6 +85,7 @@ export function App({ config, screens, inferredEdges, exportMode }: AppProps) {
           onSettingsChange={handleSettingsChange}
           projectName={config.name}
           exportMode={exportMode}
+          divkitMeta={divkitMeta}
         />
         {viewingScreen && viewingConfig && screens[viewingScreen] && (
           <Viewer
@@ -78,12 +94,13 @@ export function App({ config, screens, inferredEdges, exportMode }: AppProps) {
             screenTitle={viewingConfig.title}
             component={screens[viewingScreen]}
             onClose={handleCloseViewer}
-            onNavigate={setViewingScreen}
+            onNavigate={isViewingDivkit ? undefined : setViewingScreen}
             accentColor={settings.accentColor}
             color={viewingConfig.color}
             viewport={viewingConfig.viewport}
             projectName={config.name}
             exportMode={exportMode}
+            isDivkit={isViewingDivkit}
           />
         )}
       </div>
