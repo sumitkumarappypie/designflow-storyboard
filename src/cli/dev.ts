@@ -47,11 +47,13 @@ export function buildDevHtml(opts: { hasStylesCSS: boolean; projectName?: string
     import config from "/flows.ts"
     import screensModule from "virtual:designflow/screens"
     import inferredEdgesModule from "virtual:designflow/inferred-edges"
+    import divkitMetaModule from "virtual:designflow/divkit-meta"
 
     const screens = screensModule.default || screensModule
     const inferredEdges = inferredEdgesModule.default || inferredEdgesModule
+    const divkitMeta = divkitMetaModule.default || divkitMetaModule
     const root = createRoot(document.getElementById("root"))
-    root.render(createElement(App, { config: config.default || config, screens, inferredEdges${opts.exportMode ? ", exportMode: true" : ""} }))
+    root.render(createElement(App, { config: config.default || config, screens, inferredEdges, divkitMeta${opts.exportMode ? ", exportMode: true" : ""} }))
   </script>
 </body>
 </html>`
