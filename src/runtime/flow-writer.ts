@@ -137,13 +137,25 @@ export function serializeFlowConfig(config: DesignFlowConfig): string {
     })
     .join(",\n")
 
-  const nameField = config.name ? `  name: "${config.name}",\n` : ""
-  const divkitDirField = config.divkitDir ? `  divkitDir: "${config.divkitDir}",\n` : ""
-  const divkitClientPathField = config.divkitClientPath ? `  divkitClientPath: "${config.divkitClientPath}",\n` : ""
+  const hasScreens = Object.keys(config.screens).length > 0
+  const hasEdges = (config.edges || []).length > 0
+  const screensInner = hasScreens ? `\n${screenEntries},\n  ` : ""
+  const edgesInner = hasEdges ? `\n${edgeEntries},\n  ` : ""
 
-  let divkitScreensBlock = ""
+  const lines: string[] = [
+    `import type { DesignFlowConfig } from "designflow"`,
+    ``,
+    `const config: DesignFlowConfig = {`,
+  ]
+
+  if (config.name) lines.push(`  name: "${config.name}",`)
+  if (config.divkitDir) lines.push(`  divkitDir: "${config.divkitDir}",`)
+  if (config.divkitClientPath) lines.push(`  divkitClientPath: "${config.divkitClientPath}",`)
+
+  lines.push(`  screens: {${screensInner}},`)
+
   if (config.divkitScreens && Object.keys(config.divkitScreens).length > 0) {
-    const dkEntries = Object.entries(config.divkitScreens)
+    const dkLines = Object.entries(config.divkitScreens)
       .map(([id, meta]) => {
         const fields = [
           `      position: { x: ${Math.round(meta.position.x)}, y: ${Math.round(meta.position.y)} }`,
@@ -153,22 +165,20 @@ export function serializeFlowConfig(config: DesignFlowConfig): string {
         return `    "${id}": {\n${fields.join(",\n")},\n    }`
       })
       .join(",\n")
-    divkitScreensBlock = `\n  divkitScreens: {\n${dkEntries},\n  },\n`
+    lines.push(``)
+    lines.push(`  divkitScreens: {`)
+    lines.push(`${dkLines},`)
+    lines.push(`  },`)
   }
 
-  const screensBlock = screenEntries ? `\n${screenEntries},\n  ` : ""
-  const edgesBlock = edgeEntries ? `\n${edgeEntries},\n  ` : ""
+  lines.push(``)
+  lines.push(`  edges: [${edgesInner}],`)
+  lines.push(`}`)
+  lines.push(``)
+  lines.push(`export default config`)
+  lines.push(``)
 
-  return `import type { DesignFlowConfig } from "designflow"
-
-const config: DesignFlowConfig = {
-${nameField}${divkitDirField}${divkitClientPathField}  screens: {${screensBlock}},
-${divkitScreensBlock}
-  edges: [${edgesBlock}],
-}
-
-export default config
-`
+  return lines.join("\n")
 }
 
 export async function writeFlowConfig(filePath: string, config: DesignFlowConfig): Promise<void> {

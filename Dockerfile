@@ -7,7 +7,7 @@ RUN npm install -g pnpm
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
-ARG CACHEBUST=1
+ARG CACHEBUST=2
 COPY src/ src/
 COPY bin/ bin/
 COPY templates/ templates/
