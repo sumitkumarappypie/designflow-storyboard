@@ -6,7 +6,7 @@ import { fileURLToPath } from "url"
 import { existsSync } from "fs"
 import fs from "fs/promises"
 import { scanScreens, extractNavigationTargets } from "./screen-scanner"
-import { updateScreenPosition, updateScreenViewport, updateScreenColor, writeFlowConfig } from "./flow-writer"
+import { updateScreenPosition, updateScreenViewport, updateScreenColor, updateDivKitScreenPosition, updateDivKitScreenViewport, updateDivKitScreenColor, writeFlowConfig } from "./flow-writer"
 // Lazy import to avoid loading vite build API in test environments
 let _runExport: typeof import("../cli/export").runExport | undefined
 import type { DesignFlowConfig } from "../types"
@@ -252,9 +252,13 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
 
             let config = await loadFlowsConfig()
 
-            // Update each position
+            // Update each position — check if it's a DivKit screen or regular screen
             for (const [screenId, position] of Object.entries(positions)) {
-              config = updateScreenPosition(config, screenId, position)
+              if (config.screens[screenId]) {
+                config = updateScreenPosition(config, screenId, position)
+              } else {
+                config = updateDivKitScreenPosition(config, screenId, position)
+              }
             }
 
             // Write back to flows.ts (suppress HMR reload for this save)
@@ -286,7 +290,11 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
             }
 
             let config = await loadFlowsConfig()
-            config = updateScreenViewport(config, screenId, viewport)
+            if (config.screens[screenId]) {
+              config = updateScreenViewport(config, screenId, viewport)
+            } else {
+              config = updateDivKitScreenViewport(config, screenId, viewport)
+            }
 
             suppressNextFlowsReload = true
             await writeFlowConfig(flowsPath, config)
@@ -316,7 +324,11 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
             }
 
             let config = await loadFlowsConfig()
-            config = updateScreenColor(config, screenId, color)
+            if (config.screens[screenId]) {
+              config = updateScreenColor(config, screenId, color)
+            } else {
+              config = updateDivKitScreenColor(config, screenId, color)
+            }
 
             suppressNextFlowsReload = true
             await writeFlowConfig(flowsPath, config)
