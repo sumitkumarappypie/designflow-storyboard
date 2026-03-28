@@ -21,5 +21,4 @@ COPY wireframes/flows.docker.ts wireframes/flows.ts
 ENV HOST=0.0.0.0
 ENV PORT=4800
 
-ENTRYPOINT ["sh", "-c"]
-CMD ["exec node_modules/.bin/tsx bin/cli.ts dev --port $PORT"]
+CMD ["sh", "-c", "echo '=== Starting ===' && echo \"PORT=$PORT HOST=$HOST\" && echo '=== Node version ===' && node -v && echo '=== Testing tsx ===' && node_modules/.bin/tsx --version && echo '=== Launching server ===' && exec node_modules/.bin/tsx bin/cli.ts dev --port $PORT 2>&1"]
