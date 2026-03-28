@@ -18,6 +18,7 @@ COPY divkit_client/ /app/divkit_client/
 COPY wireframes/ wireframes/
 COPY wireframes/flows.docker.ts wireframes/flows.ts
 
-EXPOSE 4800
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
-CMD ["node_modules/.bin/tsx", "bin/cli.ts", "dev", "--port", "4800"]
+ENTRYPOINT ["/app/entrypoint.sh"]
