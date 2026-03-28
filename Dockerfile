@@ -18,6 +18,4 @@ COPY divkit_client/ /app/divkit_client/
 COPY wireframes/ wireframes/
 COPY wireframes/flows.docker.ts wireframes/flows.ts
 
-ENV PORT=4800
-
-CMD ["sh", "-c", "exec node_modules/.bin/tsx bin/cli.ts dev --port $PORT"]
+CMD ["sh", "-c", "echo PORT=$PORT && exec node_modules/.bin/tsx bin/cli.ts dev --port ${PORT:-4800}"]
