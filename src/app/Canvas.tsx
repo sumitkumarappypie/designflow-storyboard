@@ -19,6 +19,7 @@ interface CanvasProps {
   onSettingsChange?: (settings: CanvasSettings) => void
   projectName?: string
   exportMode?: boolean
+  divkitMeta?: Record<string, { title: string; isDivkit: true }>
 }
 
 function configToNodes(
@@ -29,8 +30,9 @@ function configToNodes(
   colorScheme?: "light" | "dark",
   projectName?: string,
   exportMode?: boolean,
+  divkitMeta?: Record<string, { title: string; isDivkit: true }>,
 ): Node[] {
-  return Object.entries(config.screens).map(([id, screen]) => ({
+  const reactNodes = Object.entries(config.screens).map(([id, screen]) => ({
     id,
     type: "screen",
     position: screen.position,
@@ -47,6 +49,32 @@ function configToNodes(
       exportMode,
     },
   }))
+
+  if (!divkitMeta) return reactNodes
+
+  const divkitNodes = Object.entries(divkitMeta).map(([id, meta]) => {
+    const saved = config.divkitScreens?.[id]
+    return {
+      id,
+      type: "screen",
+      position: saved?.position ?? { x: 0, y: 0 },
+      data: {
+        title: meta.title,
+        screenId: id,
+        onSelect: onScreenSelect,
+        component: screens?.[id],
+        viewport: saved?.viewport ?? ("mobile" as const),
+        color: saved?.color,
+        accentColor,
+        colorScheme,
+        projectName,
+        exportMode,
+        isDivkit: true,
+      },
+    }
+  })
+
+  return [...reactNodes, ...divkitNodes]
 }
 
 function pairKey(a: string, b: string): string {
@@ -76,16 +104,21 @@ function pickHandles(
   }
 }
 
-function getPositions(config: DesignFlowConfig, nodeOverrides?: Record<string, { x: number; y: number }>): Record<string, { x: number; y: number }> {
+function getPositions(config: DesignFlowConfig, nodeOverrides?: Record<string, { x: number; y: number }>, divkitMeta?: Record<string, unknown>): Record<string, { x: number; y: number }> {
   const positions: Record<string, { x: number; y: number }> = {}
   for (const [id, screen] of Object.entries(config.screens)) {
     positions[id] = nodeOverrides?.[id] ?? screen.position
   }
+  if (divkitMeta) {
+    for (const id of Object.keys(divkitMeta)) {
+      positions[id] = nodeOverrides?.[id] ?? config.divkitScreens?.[id]?.position ?? { x: 0, y: 0 }
+    }
+  }
   return positions
 }
 
-function configToEdges(config: DesignFlowConfig, inferredEdges?: EdgeConfig[], settings?: CanvasSettings, nodePositions?: Record<string, { x: number; y: number }>): Edge[] {
-  const positions = nodePositions ?? getPositions(config)
+function configToEdges(config: DesignFlowConfig, inferredEdges?: EdgeConfig[], settings?: CanvasSettings, nodePositions?: Record<string, { x: number; y: number }>, divkitMeta?: Record<string, unknown>): Edge[] {
+  const positions = nodePositions ?? getPositions(config, undefined, divkitMeta)
   const seenPairs = new Set<string>()
 
   const explicitEdges: Edge[] = (config.edges ?? [])
@@ -150,15 +183,15 @@ const bgVariantMap = {
   dots: BackgroundVariant.Dots,
 }
 
-export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredEdges, settings, onSettingsChange, projectName, exportMode }: CanvasProps) {
-  const initialNodes = configToNodes(config, onScreenSelect, screens, settings?.accentColor, settings?.appearance, projectName, exportMode)
-  const initialEdges = configToEdges(config, inferredEdges, settings)
+export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredEdges, settings, onSettingsChange, projectName, exportMode, divkitMeta }: CanvasProps) {
+  const initialNodes = configToNodes(config, onScreenSelect, screens, settings?.accentColor, settings?.appearance, projectName, exportMode, divkitMeta)
+  const initialEdges = configToEdges(config, inferredEdges, settings, undefined, divkitMeta)
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
   useEffect(() => {
-    setEdges(configToEdges(config, inferredEdges, settings))
+    setEdges(configToEdges(config, inferredEdges, settings, undefined, divkitMeta))
     setNodes((prev) => prev.map((node) => ({
       ...node,
       data: {
@@ -185,7 +218,7 @@ export function Canvas({ config, screens, onScreenSelect, focusNodeId, inferredE
       for (const n of currentNodes) {
         livePositions[n.id] = n.position
       }
-      setEdges(configToEdges(config, inferredEdges, settings, livePositions))
+      setEdges(configToEdges(config, inferredEdges, settings, livePositions, divkitMeta))
       return currentNodes
     })
   }, [config, inferredEdges, settings, setEdges, setNodes])
