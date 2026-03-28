@@ -56,8 +56,17 @@ export interface EdgeConfig {
 
 export const DEFAULT_PROJECT_NAME = "My Designflow Project"
 
+export interface DivKitScreenMeta {
+  position: { x: number; y: number }
+  viewport?: Viewport
+  color?: string
+}
+
 export interface DesignFlowConfig {
   name?: string
+  divkitDir?: string
+  divkitClientPath?: string
+  divkitScreens?: Record<string, DivKitScreenMeta>
   screens: Record<string, ScreenConfig>
   edges?: EdgeConfig[]
 }
