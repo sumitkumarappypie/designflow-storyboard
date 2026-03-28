@@ -7,72 +7,76 @@ const config: DesignFlowConfig = {
   screens: {},
 
   divkitScreens: {
+    // Row 0 — Entry & Discovery
     "divkit_food_court_location_search": {
-      position: { x: -646, y: -30 },
+      position: { x: -550, y: 0 },
     },
     "divkit_food_court_landing_screen": {
-      position: { x: -50, y: -78 },
+      position: { x: 0, y: 0 },
       viewport: "mobile",
       color: "#ff80ff",
     },
     "divkit_food_court_search": {
-      position: { x: -54, y: -482 },
-      viewport: "desktop",
+      position: { x: 550, y: 0 },
     },
     "divkit_food_court_filter_screen": {
       position: { x: 1100, y: 0 },
     },
+    // Row 1 — Vendor Browsing
     "divkit_food_court_vendor_detail": {
-      position: { x: -550, y: 700 },
+      position: { x: -275, y: 650 },
       viewport: "desktop",
     },
     "divkit_food_court_vendor_products": {
-      position: { x: 256, y: 994 },
+      position: { x: 275, y: 650 },
     },
     "divkit_food_court_product_detail": {
-      position: { x: 550, y: 700 },
+      position: { x: 825, y: 650 },
     },
+    // Row 2 — Purchase Flow
     "divkit_food_court_instructions_sheet": {
-      position: { x: -1100, y: 1400 },
+      position: { x: -550, y: 1300 },
     },
     "divkit_food_court_cart_screen": {
-      position: { x: -550, y: 1400 },
+      position: { x: 0, y: 1300 },
     },
     "divkit_food_court_checkout": {
-      position: { x: 0, y: 1400 },
+      position: { x: 550, y: 1300 },
     },
     "divkit_food_court_order_preview": {
-      position: { x: 525, y: 1357 },
+      position: { x: 1100, y: 1300 },
     },
     "divkit_food_court_thanks": {
-      position: { x: 1107, y: 1223 },
+      position: { x: 1650, y: 1300 },
     },
+    // Row 3 — Categories
     "divkit_food_court_category_listing": {
-      position: { x: -550, y: 2100 },
+      position: { x: -275, y: 1950 },
     },
     "divkit_food_court_sub_category_listing": {
-      position: { x: 0, y: 2100 },
+      position: { x: 275, y: 1950 },
     },
     "divkit_food_court_category_product_listing": {
-      position: { x: 1465, y: 1212 },
+      position: { x: 825, y: 1950 },
     },
     "divkit_food_court_offered": {
-      position: { x: 653, y: 2070 },
+      position: { x: 1375, y: 1950 },
     },
+    // Row 4 — Account & Orders
     "divkit_food_court_store_timings": {
-      position: { x: -1100, y: 2800 },
+      position: { x: -550, y: 2600 },
     },
     "divkit_food_court_order_listing": {
-      position: { x: -550, y: 2800 },
+      position: { x: 0, y: 2600 },
     },
     "divkit_food_court_order_detail": {
-      position: { x: 0, y: 2800 },
+      position: { x: 550, y: 2600 },
     },
     "divkit_food_court_my_account": {
-      position: { x: 550, y: 2800 },
+      position: { x: 1100, y: 2600 },
     },
     "divkit_food_court_favourite_vendors": {
-      position: { x: 1100, y: 2800 },
+      position: { x: 1650, y: 2600 },
     },
   },
 
