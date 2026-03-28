@@ -188,7 +188,7 @@ export async function runDev(options: DevOptions): Promise<void> {
     server: {
       port,
       host: "0.0.0.0",
-      allowedHosts: "all",
+      allowedHosts: true,
       fs: {
         allow: [resolvedDir, pkgRoot, ...Object.values(coreAliases), ...(divkitClientPath ? [divkitClientPath] : []), ...(divkitDir ? [divkitDir] : [])],
       },
