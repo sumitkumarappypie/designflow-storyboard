@@ -14,9 +14,12 @@ export interface DevOptions {
   port: number
 }
 
-export function buildDevHtml(opts: { hasStylesCSS: boolean; projectName?: string; exportMode?: boolean }): string {
+export function buildDevHtml(opts: { hasStylesCSS: boolean; projectName?: string; exportMode?: boolean; divkitClientPath?: string }): string {
   const stylesLink = opts.hasStylesCSS
     ? `\n  <link rel="stylesheet" href="/styles.css" />`
+    : ""
+  const divkitCssLink = opts.divkitClientPath
+    ? `\n  <link rel="stylesheet" href="/@divkit-client-css" />`
     : ""
   const title = opts.projectName ? `${opts.projectName} — DesignFlow` : "DesignFlow"
 
@@ -32,7 +35,7 @@ export function buildDevHtml(opts: { hasStylesCSS: boolean; projectName?: string
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font-family: Inter, system-ui, sans-serif; }
     }
-  </style>${stylesLink}
+  </style>${stylesLink}${divkitCssLink}
 </head>
 <body>
   <div id="root"></div>
@@ -84,7 +87,18 @@ export async function runDev(options: DevOptions): Promise<void> {
     if (nameMatch) projectName = nameMatch[1]
   }
 
-  const html = buildDevHtml({ hasStylesCSS, projectName })
+  // Extract DivKit paths from flows.ts for alias resolution and fs.allow
+  let divkitClientPath: string | undefined
+  let divkitDir: string | undefined
+  if (fs.existsSync(flowsPath)) {
+    const flowsContent = fs.readFileSync(flowsPath, "utf-8")
+    const clientPathMatch = flowsContent.match(/divkitClientPath:\s*["']([^"']+)["']/)
+    if (clientPathMatch) divkitClientPath = clientPathMatch[1]
+    const divkitDirMatch = flowsContent.match(/divkitDir:\s*["']([^"']+)["']/)
+    if (divkitDirMatch) divkitDir = divkitDirMatch[1]
+  }
+
+  const html = buildDevHtml({ hasStylesCSS, projectName, divkitClientPath })
 
   // Map core packages to designflow's bundled copies so user-installed
   // packages in wireframes/node_modules don't cause duplicate React, etc.
@@ -103,7 +117,10 @@ export async function runDev(options: DevOptions): Promise<void> {
       jsx: "automatic",
     },
     resolve: {
-      alias: coreAliases,
+      alias: {
+        ...coreAliases,
+        ...(divkitClientPath ? { "@divkitframework/divkit": divkitClientPath } : {}),
+      },
     },
     plugins: [
       tailwindcss(),
@@ -135,6 +152,23 @@ export async function runDev(options: DevOptions): Promise<void> {
           }
         },
       },
+      // Serve DivKit client CSS from local build
+      ...(divkitClientPath ? [{
+        name: "designflow-divkit-css",
+        configureServer(srv: any) {
+          srv.middlewares.use((req: any, res: any, next: any) => {
+            if (req.url === "/@divkit-client-css") {
+              const cssPath = path.join(divkitClientPath!, "dist", "client.css")
+              if (fs.existsSync(cssPath)) {
+                res.setHeader("Content-Type", "text/css")
+                res.end(fs.readFileSync(cssPath, "utf-8"))
+                return
+              }
+            }
+            next()
+          })
+        },
+      }] : []),
     ],
     // Pre-bundle CJS deps that @xyflow/react and react need
     optimizeDeps: {
@@ -152,7 +186,7 @@ export async function runDev(options: DevOptions): Promise<void> {
     server: {
       port,
       fs: {
-        allow: [resolvedDir, pkgRoot, ...Object.values(coreAliases)],
+        allow: [resolvedDir, pkgRoot, ...Object.values(coreAliases), ...(divkitClientPath ? [divkitClientPath] : []), ...(divkitDir ? [divkitDir] : [])],
       },
     },
   })
