@@ -121,7 +121,10 @@ export async function runDev(options: DevOptions): Promise<void> {
     resolve: {
       alias: {
         ...coreAliases,
-        ...(divkitClientPath ? { "@divkitframework/divkit": divkitClientPath } : {}),
+        ...(divkitClientPath ? {
+          "@divkitframework/divkit/client": path.join(divkitClientPath, "dist/esm/client.mjs"),
+          "@divkitframework/divkit": divkitClientPath,
+        } : {}),
       },
     },
     plugins: [
