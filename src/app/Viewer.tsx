@@ -14,6 +14,7 @@ interface ViewerProps {
   viewport?: Viewport
   projectName?: string
   exportMode?: boolean
+  isDivkit?: boolean
 }
 
 function DesktopIcon() {
@@ -50,7 +51,7 @@ const viewportIcons: Record<Viewport, () => React.ReactElement> = {
   mobile: MobileIcon,
 }
 
-export function Viewer({ screenId, screenTitle, component: ScreenComponent, onClose, onNavigate, accentColor, color, viewport, projectName, exportMode }: ViewerProps) {
+export function Viewer({ screenId, screenTitle, component: ScreenComponent, onClose, onNavigate, accentColor, color, viewport, projectName, exportMode, isDivkit }: ViewerProps) {
   const [activeViewport, setActiveViewport] = useState<Viewport>(viewport ?? "desktop")
   const [activeColorScheme, setActiveColorScheme] = useState<ColorScheme>("light")
   const [activeColor, setActiveColor] = useState<string | undefined>(color)
@@ -111,7 +112,8 @@ export function Viewer({ screenId, screenTitle, component: ScreenComponent, onCl
     }).catch(() => {})
   }
 
-  const pillBg = activeColor ?? accentColor
+  const DIVKIT_COLOR = "#f59e0b"
+  const pillBg = isDivkit ? DIVKIT_COLOR : (activeColor ?? accentColor)
   const hasPillColor = !!pillBg
   const pillTextColor = hasPillColor ? "#fff" : "#334155"
   const dividerColor = hasPillColor ? "rgba(255,255,255,0.3)" : "#e2e8f0"
@@ -151,6 +153,23 @@ export function Viewer({ screenId, screenTitle, component: ScreenComponent, onCl
         <h2 style={{ margin: 0, fontSize: "12px", fontWeight: 600, color: hasPillColor ? "#fff" : "#0f172a", whiteSpace: "nowrap" }}>
           {screenTitle}
         </h2>
+
+        {isDivkit && (
+          <span
+            style={{
+              fontSize: "9px",
+              fontWeight: 700,
+              color: "#fff",
+              background: "rgba(0,0,0,0.2)",
+              padding: "1px 5px",
+              borderRadius: "3px",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}
+          >
+            DivKit
+          </span>
+        )}
 
         {/* Color picker + Viewport — hidden in export mode */}
         {!exportMode && (
