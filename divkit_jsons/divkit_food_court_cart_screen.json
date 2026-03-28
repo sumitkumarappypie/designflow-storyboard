@@ -1,0 +1,1740 @@
+{
+  "card": {
+    "log_id": "divkit_mobile_card",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "match_parent"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#F8F9FA"
+            }
+          ],
+          "items": [
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "match_parent"
+              },
+              "visibility": "@{isCartEmpty ? 'visible' : 'gone'}",
+              "content_alignment_horizontal": "center",
+              "paddings": {
+                "top": 80,
+                "bottom": 40,
+                "left": 32,
+                "right": 32
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "🛒",
+                  "font_size": 64,
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "margins": {
+                    "bottom": 16
+                  },
+                  "accessibility": {
+                    "mode": "exclude"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "@{emptyCartTitle}",
+                  "font_size": 20,
+                  "font_weight": "bold",
+                  "text_color": "#1A1A2E",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "margins": {
+                    "bottom": 8
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "@{emptyCartSubtitle}",
+                  "font_size": 14,
+                  "text_color": "#757575",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "margins": {
+                    "bottom": 24
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "content_alignment_horizontal": "center",
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#43A047"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 24
+                  },
+                  "paddings": {
+                    "left": 32,
+                    "right": 32,
+                    "top": 12,
+                    "bottom": 12
+                  },
+                  "alignment_horizontal": "center",
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{browseMenuText}",
+                      "font_size": 15,
+                      "font_weight": "medium",
+                      "text_color": "#FFFFFF",
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "browse_menu",
+                      "url": "divaction://add_more_items"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Browse menu"
+                  }
+                }
+              ],
+              "accessibility": {
+                "mode": "merge",
+                "description": "Your cart is empty. Browse menu to add items."
+              },
+              "content_alignment_vertical": "center"
+            },
+            {
+              "type": "gallery",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "orientation": "vertical",
+              "item_spacing": 12,
+              "visibility": "@{isCartEmpty ? 'gone' : 'visible'}",
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 16
+              },
+              "item_builder": {
+                "data": "@{cartItems}",
+                "data_element_name": "item",
+                "prototypes": [
+                  {
+                    "id": "cart_item_@{item.getString('id')}_@{item.getInteger('quantity')}",
+                    "div": {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FFFFFF"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 16,
+                        "shadow": {
+                          "color": "#1A000000",
+                          "blur": 12,
+                          "offset": {
+                            "x": {
+                              "value": 0
+                            },
+                            "y": {
+                              "value": 4
+                            }
+                          }
+                        }
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 12,
+                        "bottom": 12
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "item_spacing": 12,
+                          "items": [
+                            {
+                              "type": "container",
+                              "width": {
+                                "type": "fixed",
+                                "value": 90
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 90
+                              },
+                              "border": {
+                                "corner_radius": 12
+                              },
+                              "items": [
+                                {
+                                  "type": "image",
+                                  "image_url": "@{item.getString('image')}",
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "match_parent"
+                                  },
+                                  "scale": "fill",
+                                  "placeholder_color": "#E8E8E8",
+                                  "border": {
+                                    "corner_radius": 12
+                                  },
+                                  "accessibility": {
+                                    "type": "image",
+                                    "description": "Photo of @{item.getString('name')}"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "vertical",
+                              "width": {
+                                "type": "match_parent",
+                                "weight": 1
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "items": [
+                                {
+                                  "type": "container",
+                                  "orientation": "horizontal",
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "wrap_content"
+                                  },
+                                  "content_alignment_vertical": "top",
+                                  "items": [
+                                    {
+                                      "type": "text",
+                                      "text": "@{item.getString('name')}",
+                                      "font_size": 16,
+                                      "font_weight": "bold",
+                                      "text_color": "#1A1A2E",
+                                      "max_lines": 2,
+                                      "width": {
+                                        "type": "match_parent",
+                                        "weight": 1
+                                      },
+                                      "font_family": "Roboto"
+                                    },
+                                    {
+                                      "type": "container",
+                                      "width": {
+                                        "type": "fixed",
+                                        "value": 28
+                                      },
+                                      "height": {
+                                        "type": "fixed",
+                                        "value": 28
+                                      },
+                                      "background": [
+                                        {
+                                          "type": "solid",
+                                          "color": "#FFF0F0"
+                                        }
+                                      ],
+                                      "border": {
+                                        "corner_radius": 14
+                                      },
+                                      "content_alignment_horizontal": "center",
+                                      "content_alignment_vertical": "center",
+                                      "items": [
+                                        {
+                                          "type": "text",
+                                          "text": "×",
+                                          "font_size": 16,
+                                          "font_weight": "medium",
+                                          "text_color": "#FF5252",
+                                          "width": {
+                                            "type": "wrap_content"
+                                          },
+                                          "font_family": "Roboto"
+                                        }
+                                      ],
+                                      "actions": [
+                                        {
+                                          "log_id": "remove_cart_item",
+                                          "url": "divaction://remove_cart_item?item_id=@{item.getString('id')}"
+                                        }
+                                      ],
+                                      "accessibility": {
+                                        "type": "button",
+                                        "description": "Remove @{item.getString('name')} from cart"
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{item.getString('price')}",
+                                  "font_size": 18,
+                                  "font_weight": "bold",
+                                  "text_color": "#2E7D32",
+                                  "margins": {
+                                    "top": 4
+                                  },
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "gallery",
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "wrap_content"
+                                  },
+                                  "orientation": "vertical",
+                                  "item_spacing": 2,
+                                  "margins": {
+                                    "top": 8
+                                  },
+                                  "visibility": "@{len(item.getArray('addOns')) > 0 ? 'visible' : 'gone'}",
+                                  "item_builder": {
+                                    "data": "@{item.getArray('addOns')}",
+                                    "data_element_name": "addon",
+                                    "prototypes": [
+                                      {
+                                        "div": {
+                                          "type": "container",
+                                          "orientation": "vertical",
+                                          "width": {
+                                            "type": "match_parent"
+                                          },
+                                          "height": {
+                                            "type": "wrap_content"
+                                          },
+                                          "items": [
+                                            {
+                                              "type": "container",
+                                              "orientation": "horizontal",
+                                              "width": {
+                                                "type": "match_parent"
+                                              },
+                                              "height": {
+                                                "type": "wrap_content"
+                                              },
+                                              "content_alignment_vertical": "center",
+                                              "item_spacing": 6,
+                                              "items": [
+                                                {
+                                                  "type": "container",
+                                                  "width": {
+                                                    "type": "fixed",
+                                                    "value": 8
+                                                  },
+                                                  "height": {
+                                                    "type": "fixed",
+                                                    "value": 8
+                                                  },
+                                                  "background": [
+                                                    {
+                                                      "type": "solid",
+                                                      "color": "#9E9E9E"
+                                                    }
+                                                  ],
+                                                  "border": {
+                                                    "corner_radius": 4
+                                                  },
+                                                  "accessibility": {
+                                                    "mode": "exclude"
+                                                  }
+                                                },
+                                                {
+                                                  "type": "text",
+                                                  "text": "@{addon.getString('name')}",
+                                                  "font_size": 10,
+                                                  "text_color": "#757575",
+                                                  "text_alignment_horizontal": "left",
+                                                  "width": {
+                                                    "type": "match_parent",
+                                                    "weight": 1
+                                                  },
+                                                  "font_family": "Roboto"
+                                                },
+                                                {
+                                                  "type": "text",
+                                                  "text": "@{addon.getString('price')}",
+                                                  "font_size": 10,
+                                                  "text_color": "#757575",
+                                                  "width": {
+                                                    "type": "wrap_content"
+                                                  },
+                                                  "font_family": "Roboto"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "container",
+                                              "orientation": "horizontal",
+                                              "width": {
+                                                "type": "wrap_content"
+                                              },
+                                              "height": {
+                                                "type": "wrap_content"
+                                              },
+                                              "margins": {
+                                                "left": 12,
+                                                "top": 4
+                                              },
+                                              "item_spacing": 6,
+                                              "visibility": "@{addon.getBoolean('hasFilling') ? 'visible' : 'gone'}",
+                                              "items": [
+                                                {
+                                                  "type": "container",
+                                                  "width": {
+                                                    "type": "fixed",
+                                                    "value": 10
+                                                  },
+                                                  "height": {
+                                                    "type": "fixed",
+                                                    "value": 10
+                                                  },
+                                                  "border": {
+                                                    "corner_radius": 5,
+                                                    "stroke": {
+                                                      "width": 1.5,
+                                                      "color": "@{(getOptStringFromDict('',addon, 'fillingType') == 'left') ? '#4CAF50' : '#E0E0E0'}"
+                                                    }
+                                                  },
+                                                  "items": [
+                                                    {
+                                                      "type": "container",
+                                                      "width": {
+                                                        "type": "match_parent"
+                                                      },
+                                                      "height": {
+                                                        "type": "match_parent"
+                                                      },
+                                                      "orientation": "horizontal",
+                                                      "items": [
+                                                        {
+                                                          "type": "container",
+                                                          "width": {
+                                                            "type": "match_parent",
+                                                            "weight": 1
+                                                          },
+                                                          "height": {
+                                                            "type": "match_parent"
+                                                          },
+                                                          "background": [
+                                                            {
+                                                              "type": "solid",
+                                                              "color": "@{(getOptStringFromDict('',addon, 'fillingType') == 'left') ? '#4CAF50' : '#E0E0E0'}"
+                                                            }
+                                                          ],
+                                                          "border": {
+                                                            "corner_radius": 5
+                                                          }
+                                                        },
+                                                        {
+                                                          "type": "container",
+                                                          "width": {
+                                                            "type": "match_parent",
+                                                            "weight": 1
+                                                          },
+                                                          "height": {
+                                                            "type": "match_parent"
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "container",
+                                                  "width": {
+                                                    "type": "fixed",
+                                                    "value": 10
+                                                  },
+                                                  "height": {
+                                                    "type": "fixed",
+                                                    "value": 10
+                                                  },
+                                                  "border": {
+                                                    "corner_radius": 5,
+                                                    "stroke": {
+                                                      "width": 1.5,
+                                                      "color": "@{getOptStringFromDict('',addon, 'fillingType') == 'whole' ? '#4CAF50' : '#E0E0E0'}"
+                                                    }
+                                                  },
+                                                  "background": [
+                                                    {
+                                                      "type": "solid",
+                                                      "color": "@{getOptStringFromDict('',addon, 'fillingType') == 'whole' ? '#4CAF50' : '#E0E0E0'}"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "container",
+                                                  "width": {
+                                                    "type": "fixed",
+                                                    "value": 10
+                                                  },
+                                                  "height": {
+                                                    "type": "fixed",
+                                                    "value": 10
+                                                  },
+                                                  "border": {
+                                                    "corner_radius": 5,
+                                                    "stroke": {
+                                                      "width": 1.5,
+                                                      "color": "@{getOptStringFromDict('',addon, 'fillingType') == 'right' ? '#4CAF50' : '#E0E0E0'}"
+                                                    }
+                                                  },
+                                                  "items": [
+                                                    {
+                                                      "type": "container",
+                                                      "width": {
+                                                        "type": "match_parent"
+                                                      },
+                                                      "height": {
+                                                        "type": "match_parent"
+                                                      },
+                                                      "orientation": "horizontal",
+                                                      "items": [
+                                                        {
+                                                          "type": "container",
+                                                          "width": {
+                                                            "type": "match_parent",
+                                                            "weight": 1
+                                                          },
+                                                          "height": {
+                                                            "type": "match_parent"
+                                                          }
+                                                        },
+                                                        {
+                                                          "type": "container",
+                                                          "width": {
+                                                            "type": "match_parent",
+                                                            "weight": 1
+                                                          },
+                                                          "height": {
+                                                            "type": "match_parent"
+                                                          },
+                                                          "background": [
+                                                            {
+                                                              "type": "solid",
+                                                              "color": "@{getOptStringFromDict('',addon, 'fillingType') == 'right' ? '#4CAF50' : '#E0E0E0'}"
+                                                            }
+                                                          ],
+                                                          "border": {
+                                                            "corner_radius": 5
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "text",
+                                                  "text": "@{getOptStringFromDict('',addon, 'fillingIntensity')}",
+                                                  "font_size": 8,
+                                                  "text_color": "#757575",
+                                                  "paddings": {
+                                                    "left": 6,
+                                                    "right": 6,
+                                                    "top": 0,
+                                                    "bottom": 2
+                                                  },
+                                                  "background": [
+                                                    {
+                                                      "type": "solid",
+                                                      "color": "#F5F5F5"
+                                                    }
+                                                  ],
+                                                  "border": {
+                                                    "corner_radius": 4
+                                                  },
+                                                  "font_family": "Roboto"
+                                                }
+                                              ],
+                                              "accessibility": {
+                                                "mode": "exclude"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "accessibility": {
+                                    "type": "list",
+                                    "description": "Add-ons"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "content_alignment_vertical": "center",
+                          "margins": {
+                            "top": 12
+                          },
+                          "paddings": {
+                            "top": 5,
+                            "bottom": 5
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#FAFAFA"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 12
+                          },
+                          "items": [
+                            {
+                              "type": "container",
+                              "orientation": "horizontal",
+                              "width": {
+                                "type": "wrap_content"
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 40
+                              },
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "#FFFFFF"
+                                }
+                              ],
+                              "border": {
+                                "corner_radius": 20,
+                                "stroke": {
+                                  "color": "#E8E8E8",
+                                  "width": 1
+                                }
+                              },
+                              "content_alignment_vertical": "center",
+                              "content_alignment_horizontal": "center",
+                              "margins": {
+                                "left": 12
+                              },
+                              "items": [
+                                {
+                                  "type": "container",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 36
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 36
+                                  },
+                                  "content_alignment_horizontal": "center",
+                                  "content_alignment_vertical": "center",
+                                  "background": [
+                                    {
+                                      "type": "solid",
+                                      "color": "#43A047"
+                                    }
+                                  ],
+                                  "border": {
+                                    "corner_radius": 18
+                                  },
+                                  "margins": {
+                                    "left": 2
+                                  },
+                                  "items": [
+                                    {
+                                      "type": "text",
+                                      "text": "-",
+                                      "font_size": 22,
+                                      "font_weight": "bold",
+                                      "text_color": "#FFFFFF",
+                                      "text_alignment_horizontal": "center",
+                                      "text_alignment_vertical": "center",
+                                      "font_family": "Roboto"
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "log_id": "decrease_cart_quantity",
+                                      "url": "divaction://update_cart_quantity?item_id=@{item.getString('id')}&action=decrease"
+                                    }
+                                  ],
+                                  "accessibility": {
+                                    "type": "button",
+                                    "description": "Decrease quantity"
+                                  }
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{item.getInteger('quantity')}",
+                                  "font_size": 18,
+                                  "font_weight": "bold",
+                                  "text_color": "#1A1A2E",
+                                  "text_alignment_horizontal": "center",
+                                  "text_alignment_vertical": "center",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 44
+                                  },
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "container",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 36
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 36
+                                  },
+                                  "content_alignment_horizontal": "center",
+                                  "content_alignment_vertical": "center",
+                                  "background": [
+                                    {
+                                      "type": "solid",
+                                      "color": "#43A047"
+                                    }
+                                  ],
+                                  "border": {
+                                    "corner_radius": 18
+                                  },
+                                  "margins": {
+                                    "right": 2
+                                  },
+                                  "items": [
+                                    {
+                                      "type": "text",
+                                      "text": "+",
+                                      "font_size": 20,
+                                      "font_weight": "bold",
+                                      "text_color": "#FFFFFF",
+                                      "text_alignment_horizontal": "center",
+                                      "text_alignment_vertical": "center",
+                                      "font_family": "Roboto"
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "log_id": "increase_cart_quantity",
+                                      "url": "divaction://update_cart_quantity?item_id=@{item.getString('id')}&action=increase"
+                                    }
+                                  ],
+                                  "accessibility": {
+                                    "type": "button",
+                                    "description": "Increase quantity"
+                                  }
+                                }
+                              ],
+                              "accessibility": {
+                                "mode": "merge",
+                                "state_description": "Quantity: @{item.getInteger('quantity')}"
+                              }
+                            },
+                            {
+                              "type": "text",
+                              "text": "",
+                              "width": {
+                                "type": "match_parent",
+                                "weight": 0.5
+                              }
+                            },
+                            {
+                              "type": "text",
+                              "text": "Item Total",
+                              "font_size": 12,
+                              "text_color": "#9E9E9E",
+                              "margins": {
+                                "right": 8
+                              },
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{item.getString('itemTotalPrice')}",
+                              "font_size": 14,
+                              "font_weight": "bold",
+                              "text_color": "#1A1A2E",
+                              "margins": {
+                                "right": 12
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      ],
+                      "accessibility": {
+                        "mode": "merge",
+                        "description": "@{item.getString('name')}, @{item.getString('price')}"
+                      }
+                    }
+                  }
+                ]
+              },
+              "accessibility": {
+                "type": "list",
+                "description": "Cart items"
+              }
+            },
+            {
+              "type": "container",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{isCartEmpty ? 'gone' : 'visible'}",
+              "content_alignment_horizontal": "center",
+              "margins": {
+                "top": 16,
+                "bottom": 16
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "orientation": "horizontal",
+                  "content_alignment_vertical": "center",
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#E8F5E9"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 20
+                  },
+                  "paddings": {
+                    "left": 20,
+                    "right": 20,
+                    "top": 10,
+                    "bottom": 10
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "+",
+                      "font_size": 16,
+                      "font_weight": "bold",
+                      "text_color": "#43A047",
+                      "margins": {
+                        "right": 6
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "text",
+                      "text": "@{addMoreItemsText}",
+                      "font_size": 14,
+                      "font_weight": "medium",
+                      "text_color": "#43A047",
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "add_more_items",
+                      "url": "divaction://add_more_items"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Add more items"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{isCartEmpty ? 'gone' : 'visible'}",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#FFFFFF"
+                }
+              ],
+              "border": {
+                "corner_radius": 16,
+                "shadow": {
+                  "color": "#1A000000",
+                  "blur": 12,
+                  "offset": {
+                    "x": {
+                      "value": 0
+                    },
+                    "y": {
+                      "value": 4
+                    }
+                  }
+                }
+              },
+              "margins": {
+                "left": 16,
+                "right": 16,
+                "bottom": 16
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 16,
+                "bottom": 16
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "image",
+                      "image_url": "https://www.svgrepo.com/show/493958/coupon-1.svg",
+                      "width": {
+                        "type": "fixed",
+                        "value": 24
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 24
+                      },
+                      "margins": {
+                        "right": 12
+                      },
+                      "tint_color": "#43A047",
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    },
+                    {
+                      "type": "input",
+                      "text_variable": "couponCode",
+                      "hint_text": "@{couponHintText}",
+                      "hint_color": "#BDBDBD",
+                      "text_color": "#1A1A2E",
+                      "font_size": 15,
+                      "max_lines": 1,
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "accessibility": {
+                        "type": "edit_text",
+                        "hint": "Enter coupon code"
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "container",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#43A047"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 8
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 8,
+                        "bottom": 8
+                      },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{applyButtonText}",
+                          "font_size": 14,
+                          "font_weight": "bold",
+                          "text_color": "#FFFFFF",
+                          "font_family": "Roboto"
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "log_id": "apply_coupon",
+                          "url": "divaction://apply_coupon?code=@{couponCode}"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "Apply coupon"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{isCartEmpty ? 'gone' : 'visible'}",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#FFFFFF"
+                }
+              ],
+              "border": {
+                "corner_radius": 16,
+                "shadow": {
+                  "color": "#1A000000",
+                  "blur": 12,
+                  "offset": {
+                    "x": {
+                      "value": 0
+                    },
+                    "y": {
+                      "value": 4
+                    }
+                  }
+                }
+              },
+              "margins": {
+                "left": 16,
+                "right": 16,
+                "bottom": 16
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 16,
+                "bottom": 16
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "content_alignment_vertical": "center",
+                  "visibility": "@{showTipOption ? 'visible' : 'gone'}",
+                  "items": [
+                    {
+                      "type": "image",
+                      "image_url": "https://www.svgrepo.com/show/279194/delivery-man.svg",
+                      "width": {
+                        "type": "fixed",
+                        "value": 24
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 24
+                      },
+                      "margins": {
+                        "right": 12
+                      },
+                      "tint_color": "#43A047",
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "@{tipText}",
+                      "font_size": 15,
+                      "text_color": "#1A1A2E",
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "container",
+                      "width": {
+                        "type": "fixed",
+                        "value": 50
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 28
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "@{isTipEnabled ? '#43A047' : '#E0E0E0'}"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 14
+                      },
+                      "content_alignment_vertical": "center",
+                      "items": [
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 24
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 24
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#FFFFFF"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 12
+                          },
+                          "margins": {
+                            "left": "@{isTipEnabled ? 24 : 2}"
+                          }
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "log_id": "toggle_tip",
+                          "url": "div-action://set_variable?name=isTipEnabled&value=@{!isTipEnabled}"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "state_description": "@{isTipEnabled ? 'Enabled' : 'Disabled'}"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "top": 12
+                  },
+                  "visibility": "@{(showTipOption && isTipEnabled) ? 'visible' : 'gone'}",
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#F5F5F5"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 10
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 12,
+                    "bottom": 12
+                  },
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "₹",
+                      "font_size": 18,
+                      "font_weight": "medium",
+                      "text_color": "#757575",
+                      "margins": {
+                        "right": 8
+                      },
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "input",
+                      "text_variable": "tipAmount",
+                      "hint_text": "@{tipAmountLabel}",
+                      "hint_color": "#BDBDBD",
+                      "text_color": "#1A1A2E",
+                      "font_size": 16,
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "keyboard_type": "number",
+                      "accessibility": {
+                        "type": "edit_text",
+                        "hint": "Enter tip amount"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "separator",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 1
+                  },
+                  "delimiter_style": {
+                    "color": "#F0F0F0"
+                  },
+                  "margins": {
+                    "top": 16,
+                    "bottom": 16
+                  },
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "image",
+                      "image_url": "https://www.svgrepo.com/show/501687/quiz-instructions.svg",
+                      "width": {
+                        "type": "fixed",
+                        "value": 24
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 24
+                      },
+                      "margins": {
+                        "right": 12
+                      },
+                      "tint_color": "#43A047",
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{instructionText}",
+                          "font_size": 15,
+                          "text_color": "#1A1A2E",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{savedInstruction}",
+                          "font_size": 12,
+                          "text_color": "#757575",
+                          "max_lines": 1,
+                          "ellipsis": {
+                            "text": "..."
+                          },
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "top": 4
+                          },
+                          "visibility": "@{len(savedInstruction) > 0 ? 'visible' : 'gone'}",
+                          "font_family": "Roboto"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "›",
+                      "font_size": 24,
+                      "text_color": "#BDBDBD",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "accessibility": {
+                        "mode": "exclude"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "add_instruction",
+                      "url": "divaction://add_restaurant_instruction"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Add restaurant instructions"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{isCartEmpty ? 'gone' : 'visible'}",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#FFFFFF"
+                }
+              ],
+              "border": {
+                "corner_radius": 16,
+                "shadow": {
+                  "color": "#1A000000",
+                  "blur": 12,
+                  "offset": {
+                    "x": {
+                      "value": 0
+                    },
+                    "y": {
+                      "value": 4
+                    }
+                  }
+                }
+              },
+              "margins": {
+                "left": 16,
+                "right": 16,
+                "bottom": 16
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 16,
+                "bottom": 16
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{paymentDetailsText}",
+                  "font_size": 18,
+                  "font_weight": "bold",
+                  "text_color": "#1A1A2E",
+                  "margins": {
+                    "bottom": 16
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "gallery",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "orientation": "vertical",
+                  "item_spacing": 12,
+                  "item_builder": {
+                    "data": "@{priceBreakup}",
+                    "data_element_name": "breakdown",
+                    "prototypes": [
+                      {
+                        "div": {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "paddings": {
+                            "top": "@{breakdown.getString('type') == 'total' ? 12 : 0}"
+                          },
+                          "border": {
+                            "corner_radius": 0
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "@{breakdown.getString('label')}",
+                              "font_size": "@{breakdown.getString('type') == 'total' ? 17 : 15}",
+                              "font_weight": "@{breakdown.getString('type') == 'total' ? 'bold' : 'regular'}",
+                              "text_color": "@{breakdown.getString('type') == 'total' ? '#1A1A2E' : '#757575'}",
+                              "width": {
+                                "type": "match_parent",
+                                "weight": 1
+                              },
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "text",
+                              "width": {
+                                "type": "wrap_content"
+                              },
+                              "text": "@{breakdown.getString('value')}",
+                              "font_size": "@{breakdown.getString('type') == 'total' ? 17 : 15}",
+                              "font_weight": "@{breakdown.getString('type') == 'total' ? 'bold' : 'regular'}",
+                              "text_color": "@{breakdown.getString('type') == 'total' ? '#1A1A2E' : (breakdown.getString('type') == 'discount' ? '#43A047' : '#757575')}",
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "accessibility": {
+                    "type": "list",
+                    "description": "Payment breakdown"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 56
+              },
+              "visibility": "@{isCartEmpty ? 'gone' : 'visible'}",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#43A047"
+                }
+              ],
+              "border": {
+                "corner_radius": 16,
+                "shadow": {
+                  "color": "#4043A047",
+                  "blur": 16,
+                  "offset": {
+                    "x": {
+                      "value": 0
+                    },
+                    "y": {
+                      "value": 6
+                    }
+                  }
+                }
+              },
+              "margins": {
+                "left": 16,
+                "right": 16,
+                "bottom": 24
+              },
+              "content_alignment_horizontal": "center",
+              "content_alignment_vertical": "center",
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{checkoutButtonText}",
+                  "font_size": 17,
+                  "font_weight": "bold",
+                  "text_color": "#FFFFFF",
+                  "text_alignment_horizontal": "center",
+                  "font_family": "Roboto"
+                }
+              ],
+              "actions": [
+                {
+                  "log_id": "checkout",
+                  "url": "divaction://proceed_to_checkout"
+                }
+              ],
+              "accessibility": {
+                "type": "button",
+                "mode": "merge",
+                "description": "Proceed to checkout"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "variables": [
+      {
+        "type": "array",
+        "name": "cartItems",
+        "value": [
+          {
+            "id": "1",
+            "name": "Fruit Cakes",
+            "image": "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=200&h=200&fit=crop",
+            "price": "$200",
+            "itemTotalPrice": "$200",
+            "quantity": 1,
+            "addOns": [
+              {
+                "name": "Egg",
+                "price": "$15",
+                "hasFilling": true,
+                "fillingType": "whole",
+                "fillingIntensity": "normal"
+              },
+              {
+                "name": "Bread",
+                "price": "$10",
+                "hasFilling": false,
+                "fillingType": "",
+                "fillingIntensity": ""
+              },
+              {
+                "name": "Chocolate",
+                "price": "$20",
+                "hasFilling": false,
+                "fillingType": "",
+                "fillingIntensity": ""
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "name": "Ice Cream Cakes",
+            "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=200&h=200&fit=crop",
+            "price": "$300",
+            "itemTotalPrice": "$300",
+            "quantity": 1,
+            "addOns": []
+          }
+        ]
+      },
+      {
+        "type": "array",
+        "name": "priceBreakup",
+        "value": [
+          {
+            "label": "Subtotal",
+            "value": "$500.00",
+            "type": "normal"
+          },
+          {
+            "label": "Restaurant Discounts",
+            "value": "-$50.00",
+            "type": "discount"
+          },
+          {
+            "label": "Total",
+            "value": "$450.00",
+            "type": "total"
+          }
+        ]
+      },
+      {
+        "type": "string",
+        "name": "couponCode",
+        "value": ""
+      },
+      {
+        "type": "boolean",
+        "name": "isTipEnabled",
+        "value": false
+      },
+      {
+        "type": "string",
+        "name": "tipAmount",
+        "value": "₹20"
+      },
+      {
+        "type": "string",
+        "name": "restaurantInstruction",
+        "value": "Extra spicy, no onion please"
+      },
+      {
+        "type": "boolean",
+        "name": "isCartEmpty",
+        "value": false
+      },
+      {
+        "type": "boolean",
+        "name": "showTipOption",
+        "value": false
+      },
+      {
+        "type": "string",
+        "name": "checkoutButtonText",
+        "value": "Proceed to Checkout"
+      },
+      {
+        "type": "string",
+        "name": "paymentDetailsText",
+        "value": "Payment Details"
+      },
+      {
+        "type": "string",
+        "name": "instructionText",
+        "value": "Special Instructions"
+      },
+      {
+        "type": "string",
+        "name": "tipAmountLabel",
+        "value": "Tip Amount"
+      },
+      {
+        "type": "string",
+        "name": "tipText",
+        "value": "Add a tip for the delivery partner"
+      },
+      {
+        "type": "string",
+        "name": "applyButtonText",
+        "value": "Apply"
+      },
+      {
+        "type": "string",
+        "name": "couponHintText",
+        "value": "Enter coupon code"
+      },
+      {
+        "type": "string",
+        "name": "addMoreItemsText",
+        "value": "Add More Items"
+      },
+      {
+        "type": "string",
+        "name": "savedInstruction",
+        "value": "Extra spicy, no onion please"
+      },
+      {
+        "type": "string",
+        "name": "emptyCartTitle",
+        "value": "Your Cart is Empty"
+      },
+      {
+        "type": "string",
+        "name": "emptyCartSubtitle",
+        "value": "Looks like you haven't added anything yet"
+      },
+      {
+        "type": "string",
+        "name": "browseMenuText",
+        "value": "Browse Menu"
+      }
+    ]
+  },
+  "templates": {}
+}

@@ -1,0 +1,1385 @@
+{
+  "card": {
+    "log_id": "div2_sample_card",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "orientation": "vertical",
+          "background": [
+            {
+              "type": "solid",
+              "color": "#FFFFFF"
+            }
+          ],
+          "items": [
+            {
+              "type": "gallery",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 430
+              },
+              "orientation": "vertical",
+              "scroll_mode": "default",
+              "column_count": 1,
+              "items": [
+            {
+              "type": "container",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "orientation": "horizontal",
+              "content_alignment_vertical": "center",
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 16,
+                "bottom": 12
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "fixed",
+                    "value": 20
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 20
+                  },
+                  "border": {
+                    "corner_radius": 4,
+                    "stroke": {
+                      "width": 2,
+                      "color": "@{isVeg ? '#4CAF50' : '#F44336'}"
+                    }
+                  },
+                  "items": [
+                    {
+                      "type": "container",
+                      "width": {
+                        "type": "fixed",
+                        "value": 8
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 8
+                      },
+                      "alignment_horizontal": "center",
+                      "alignment_vertical": "center",
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "@{isVeg ? '#4CAF50' : '#F44336'}"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 4
+                      }
+                    }
+                  ],
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "@{itemName}",
+                  "font_size": 20,
+                  "font_weight": "bold",
+                  "text_color": "#000000",
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "max_lines": 2,
+                  "margins": {
+                    "left": 12
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "✕",
+                      "font_size": 24,
+                      "text_color": "#333333",
+                      "text_alignment_horizontal": "center",
+                      "text_alignment_vertical": "center",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "match_parent"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "close_sheet",
+                      "url": "divaction://close_sheet"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "description": "Close product detail"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "separator",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 1
+              },
+              "delimiter_style": {
+                "color": "#E0E0E0"
+              },
+              "accessibility": {
+                "mode": "exclude"
+              }
+            },
+            {
+              "type": "container",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "orientation": "overlap",
+              "aspect": {
+                "ratio": 2
+              },
+              "margins": {
+                "left": 16,
+                "right": 16,
+                "top": 8,
+                "bottom": 8
+              },
+              "border": {
+                "corner_radius": 12
+              },
+              "items": [
+                {
+                  "type": "pager",
+                  "id": "product_image_pager",
+                  "orientation": "horizontal",
+                  "layout_mode": {
+                    "type": "percentage",
+                    "page_width": {
+                      "type": "percentage",
+                      "value": 100
+                    }
+                  },
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "match_parent"
+                  },
+                  "item_spacing": {
+                    "type": "fixed",
+                    "value": 0
+                  },
+                  "default_item": 0,
+                  "item_builder": {
+                    "data": "@{productBannerItems}",
+                    "data_element_name": "bannerItem",
+                    "prototypes": [
+                      {
+                        "div": {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "match_parent"
+                          },
+                          "items": [
+                            {
+                              "type": "image",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "match_parent"
+                              },
+                              "image_url": "@{bannerItem.getString('url')}",
+                              "scale": "fill",
+                              "placeholder_color": "#F5F5F5",
+                              "preload_required": 1,
+                              "accessibility": {
+                                "type": "image",
+                                "description": "Photo of @{itemName}"
+                              }
+                            },
+                            {
+                              "type": "container",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "visibility": "@{bannerItem.getBoolean('isVideo') ? 'visible' : 'gone'}",
+                              "items": [
+                                {
+                                  "type": "container",
+                                  "orientation": "overlap",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 64
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 64
+                                  },
+                                  "alignment_horizontal": "center",
+                                  "alignment_vertical": "center",
+                                  "items": [
+                                    {
+                                      "type": "container",
+                                      "width": {
+                                        "type": "fixed",
+                                        "value": 64
+                                      },
+                                      "height": {
+                                        "type": "fixed",
+                                        "value": 64
+                                      },
+                                      "border": {
+                                        "corner_radius": 32
+                                      },
+                                      "background": [
+                                        {
+                                          "type": "solid",
+                                          "color": "#CC000000"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "image",
+                                      "image_url": "https://raw.githubusercontent.com/feathericons/feather/master/icons/play.svg",
+                                      "width": {
+                                        "type": "fixed",
+                                        "value": 32
+                                      },
+                                      "height": {
+                                        "type": "fixed",
+                                        "value": 32
+                                      },
+                                      "tint_color": "#FFFFFF",
+                                      "alignment_horizontal": "center",
+                                      "alignment_vertical": "center"
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "log_id": "play_product_video",
+                                      "url": "divaction://play_product_video?video_url=@{bannerItem.getString('videoUrl')}"
+                                    }
+                                  ],
+                                  "accessibility": {
+                                    "type": "button",
+                                    "description": "Play product video"
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "log_id": "view_product_media",
+                              "url": "divaction://view_product_media?image_url=@{bannerItem.getString('url')}&is_video=@{bannerItem.getBoolean('isVideo')}&video_url=@{bannerItem.getString('videoUrl')}"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "accessibility": {
+                    "description": "Product photos, swipe to browse"
+                  }
+                },
+                {
+                  "type": "indicator",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "alignment_horizontal": "center",
+                  "alignment_vertical": "bottom",
+                  "margins": {
+                    "bottom": 16
+                  },
+                  "active_item_color": "#FFFFFF",
+                  "inactive_item_color": "#80FFFFFF",
+                  "inactive_item_size": 8,
+                  "minimum_item_count": 2,
+                  "space_between_centers": {
+                    "type": "fixed",
+                    "value": 16
+                  },
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "corner_radius": {
+                      "type": "fixed",
+                      "value": 4
+                    },
+                    "item_width": {
+                      "type": "fixed",
+                      "value": 8
+                    },
+                    "item_height": {
+                      "type": "fixed",
+                      "value": 8
+                    }
+                  },
+                  "pager_id": "product_image_pager",
+                  "active_item_size": 1,
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "orientation": "vertical",
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 12,
+                "bottom": 12
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{itemDescription}",
+                  "font_size": 14,
+                  "text_color": "#666666",
+                  "line_height": 20,
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "orientation": "vertical",
+                  "items": [
+                    {
+                      "type": "gallery",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "orientation": "vertical",
+                      "item_spacing": 24,
+                      "item_builder": {
+                        "data": "@{variantsStatic}",
+                        "data_element_name": "variant",
+                        "prototypes": [
+                          {
+                            "div": {
+                              "type": "container",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "orientation": "vertical",
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "@{variant.getString('title')}",
+                                  "font_size": 18,
+                                  "font_weight": "bold",
+                                  "text_color": "#000000",
+                                  "margins": {
+                                    "bottom": 4
+                                  },
+                                  "accessibility": {
+                                    "type": "header"
+                                  },
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_size": 13,
+                                  "text": "@{(variant.getBoolean('required') ? 'Required ● ' : 'Optional ● ') + (variant.getString('type') == 'multi' ? 'You can select up to ' + toString(variant.getString('max_selections')) + ' options' : 'You can select only 1 option')}",
+                                  "text_color": "#999999",
+                                  "margins": {
+                                    "bottom": 12
+                                  },
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "gallery",
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "wrap_content"
+                                  },
+                                  "orientation": "vertical",
+                                  "item_spacing": 12,
+                                  "item_builder": {
+                                    "data": "@{variant.getArray('options')}",
+                                    "data_element_name": "option",
+                                    "prototypes": [
+                                      {
+                                        "div": {
+                                          "type": "container",
+                                          "width": {
+                                            "type": "match_parent"
+                                          },
+                                          "height": {
+                                            "type": "wrap_content"
+                                          },
+                                          "orientation": "vertical",
+                                          "items": [
+                                            {
+                                              "type": "container",
+                                              "width": {
+                                                "type": "match_parent"
+                                              },
+                                              "height": {
+                                                "type": "wrap_content"
+                                              },
+                                              "orientation": "horizontal",
+                                              "content_alignment_vertical": "center",
+                                              "actions": [
+                                                {
+                                                  "log_id": "toggle_option",
+                                                  "url": "divaction://toggle_option?variant_id=@{variant.getString('id')}&option_id=@{option.getString('id')}&variant_type=@{variant.getString('type')}&quantity=@{quantity}"
+                                                }
+                                              ],
+                                              "items": [
+                                                {
+                                                  "type": "container",
+                                                  "width": {
+                                                    "type": "fixed",
+                                                    "value": 24
+                                                  },
+                                                  "height": {
+                                                    "type": "fixed",
+                                                    "value": 24
+                                                  },
+                                                  "border": {
+                                                    "corner_radius": "@{variant.getString('type') == 'multi' ? 4 : 12}",
+                                                    "stroke": {
+                                                      "width": 2,
+                                                      "color": "#4CAF50"
+                                                    }
+                                                  },
+                                                  "background": [
+                                                    {
+                                                      "type": "solid",
+                                                      "color": "#FFFFFF"
+                                                    }
+                                                  ],
+                                                  "items": [
+                                                    {
+                                                      "type": "text",
+                                                      "text": "✓",
+                                                      "font_size": 16,
+                                                      "font_weight": "bold",
+                                                      "text_color": "#4CAF50",
+                                                      "text_alignment_horizontal": "center",
+                                                      "text_alignment_vertical": "center",
+                                                      "width": {
+                                                        "type": "match_parent"
+                                                      },
+                                                      "height": {
+                                                        "type": "match_parent"
+                                                      },
+                                                      "visibility": "@{contains(selectedOptions, ',' + option.getString('id') + ',') ? 'visible' : 'gone'}",
+                                                      "font_family": "Roboto"
+                                                    }
+                                                  ],
+                                                  "accessibility": {
+                                                    "mode": "exclude"
+                                                  }
+                                                },
+                                                {
+                                                  "type": "text",
+                                                  "text": "@{option.getString('name')}",
+                                                  "font_size": 16,
+                                                  "text_color": "#000000",
+                                                  "width": {
+                                                    "type": "match_parent",
+                                                    "weight": 1
+                                                  },
+                                                  "margins": {
+                                                    "left": 12
+                                                  },
+                                                  "font_family": "Roboto"
+                                                },
+                                                {
+                                                  "type": "text",
+                                                  "width": {
+                                                    "type": "wrap_content"
+                                                  },
+                                                  "text": "@{toString(option.getString('displayPrice'))}",
+                                                  "font_size": 16,
+                                                  "text_color": "#000000",
+                                                  "font_family": "Roboto"
+                                                }
+                                              ],
+                                              "accessibility": {
+                                                "type": "button",
+                                                "mode": "merge",
+                                                "state_description": "@{contains(selectedOptions, ',' + option.getString('id') + ',') ? 'Selected' : 'Not selected'}"
+                                              }
+                                            },
+                                            {
+                                              "type": "container",
+                                              "width": {
+                                                "type": "wrap_content"
+                                              },
+                                              "height": {
+                                                "type": "wrap_content"
+                                              },
+                                              "orientation": "horizontal",
+                                              "margins": {
+                                                "top": 8,
+                                                "left": 36
+                                              },
+                                              "visibility": "@{(option.getBoolean('has_filling') && contains(selectedOptions, ',' + option.getString('id') + ',')) ? 'visible' : 'gone'}",
+                                              "item_spacing": 12,
+                                              "items": [
+                                                {
+                                                  "type": "container",
+                                                  "width": {
+                                                    "type": "fixed",
+                                                    "value": 24
+                                                  },
+                                                  "height": {
+                                                    "type": "fixed",
+                                                    "value": 24
+                                                  },
+                                                  "border": {
+                                                    "corner_radius": 12,
+                                                    "stroke": {
+                                                      "width": 2,
+                                                      "color": "@{contains(fillingSelections, ',' + option.getString('id') + ':left:') ? '#4CAF50' : '#D5D5D5'}"
+                                                    }
+                                                  },
+                                                  "background": [
+                                                    {
+                                                      "type": "solid",
+                                                      "color": "#FFFFFF"
+                                                    }
+                                                  ],
+                                                  "actions": [
+                                                    {
+                                                      "log_id": "select_filling_left",
+                                                      "url": "divaction://select_filling?option_id=@{option.getString('id')}&filling=left&quantity=@{quantity}"
+                                                    }
+                                                  ],
+                                                  "items": [
+                                                    {
+                                                      "type": "container",
+                                                      "width": {
+                                                        "type": "match_parent"
+                                                      },
+                                                      "height": {
+                                                        "type": "match_parent"
+                                                      },
+                                                      "orientation": "horizontal",
+                                                      "items": [
+                                                        {
+                                                          "type": "container",
+                                                          "width": {
+                                                            "type": "match_parent",
+                                                            "weight": 1
+                                                          },
+                                                          "height": {
+                                                            "type": "match_parent"
+                                                          },
+                                                          "background": [
+                                                            {
+                                                              "type": "solid",
+                                                              "color": "@{contains(fillingSelections, ',' + option.getString('id') + ':left:') ? '#4CAF50' : '#D5D5D5'}"
+                                                            }
+                                                          ],
+                                                          "border": {
+                                                            "corner_radius": {
+                                                              "top_left": 14,
+                                                              "bottom_left": 14
+                                                            }
+                                                          }
+                                                        },
+                                                        {
+                                                          "type": "container",
+                                                          "width": {
+                                                            "type": "match_parent",
+                                                            "weight": 1
+                                                          },
+                                                          "height": {
+                                                            "type": "match_parent"
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ],
+                                                  "accessibility": {
+                                                    "type": "button",
+                                                    "description": "Left half filling",
+                                                    "state_description": "@{contains(fillingSelections, ',' + option.getString('id') + ':left:') ? 'Selected' : 'Not selected'}"
+                                                  }
+                                                },
+                                                {
+                                                  "type": "container",
+                                                  "width": {
+                                                    "type": "fixed",
+                                                    "value": 24
+                                                  },
+                                                  "height": {
+                                                    "type": "fixed",
+                                                    "value": 24
+                                                  },
+                                                  "border": {
+                                                    "corner_radius": 12,
+                                                    "stroke": {
+                                                      "width": 2,
+                                                      "color": "#E0E0E0"
+                                                    }
+                                                  },
+                                                  "background": [
+                                                    {
+                                                      "type": "solid",
+                                                      "color": "@{contains(fillingSelections, ',' + option.getString('id') + ':whole:') ? '#4CAF50' : '#D5D5D5'}"
+                                                    }
+                                                  ],
+                                                  "actions": [
+                                                    {
+                                                      "log_id": "select_filling_whole",
+                                                      "url": "divaction://select_filling?option_id=@{option.getString('id')}&filling=whole&quantity=@{quantity}"
+                                                    }
+                                                  ],
+                                                  "accessibility": {
+                                                    "type": "button",
+                                                    "description": "Whole filling",
+                                                    "state_description": "@{contains(fillingSelections, ',' + option.getString('id') + ':whole:') ? 'Selected' : 'Not selected'}"
+                                                  }
+                                                },
+                                                {
+                                                  "type": "container",
+                                                  "width": {
+                                                    "type": "fixed",
+                                                    "value": 24
+                                                  },
+                                                  "height": {
+                                                    "type": "fixed",
+                                                    "value": 24
+                                                  },
+                                                  "border": {
+                                                    "corner_radius": 12,
+                                                    "stroke": {
+                                                      "width": 2,
+                                                      "color": "#E0E0E0"
+                                                    }
+                                                  },
+                                                  "background": [
+                                                    {
+                                                      "type": "solid",
+                                                      "color": "#FFFFFF"
+                                                    }
+                                                  ],
+                                                  "actions": [
+                                                    {
+                                                      "log_id": "select_filling_right",
+                                                      "url": "divaction://select_filling?option_id=@{option.getString('id')}&filling=right&quantity=@{quantity}"
+                                                    }
+                                                  ],
+                                                  "items": [
+                                                    {
+                                                      "type": "container",
+                                                      "width": {
+                                                        "type": "match_parent"
+                                                      },
+                                                      "height": {
+                                                        "type": "match_parent"
+                                                      },
+                                                      "orientation": "horizontal",
+                                                      "items": [
+                                                        {
+                                                          "type": "container",
+                                                          "width": {
+                                                            "type": "match_parent",
+                                                            "weight": 1
+                                                          },
+                                                          "height": {
+                                                            "type": "match_parent"
+                                                          }
+                                                        },
+                                                        {
+                                                          "type": "container",
+                                                          "width": {
+                                                            "type": "match_parent",
+                                                            "weight": 1
+                                                          },
+                                                          "height": {
+                                                            "type": "match_parent"
+                                                          },
+                                                          "background": [
+                                                            {
+                                                              "type": "solid",
+                                                              "color": "@{contains(fillingSelections, ',' + option.getString('id') + ':right:') ? '#4CAF50' : '#D5D5D5'}"
+                                                            }
+                                                          ],
+                                                          "border": {
+                                                            "corner_radius": {
+                                                              "top_right": 14,
+                                                              "bottom_right": 14
+                                                            }
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ],
+                                                  "accessibility": {
+                                                    "type": "button",
+                                                    "description": "Right half filling",
+                                                    "state_description": "@{contains(fillingSelections, ',' + option.getString('id') + ':right:') ? 'Selected' : 'Not selected'}"
+                                                  }
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "container",
+                                              "width": {
+                                                "type": "wrap_content"
+                                              },
+                                              "height": {
+                                                "type": "wrap_content"
+                                              },
+                                              "margins": {
+                                                "top": 12,
+                                                "left": 36
+                                              },
+                                              "visibility": "@{(option.getBoolean('has_filling') && contains(selectedOptions, ',' + option.getString('id') + ',')) ? 'visible' : 'gone'}",
+                                              "orientation": "horizontal",
+                                              "item_spacing": 8,
+                                              "items": [
+                                                {
+                                                  "type": "container",
+                                                  "width": {
+                                                    "type": "wrap_content"
+                                                  },
+                                                  "height": {
+                                                    "type": "wrap_content"
+                                                  },
+                                                  "orientation": "horizontal",
+                                                  "paddings": {
+                                                    "left": 12,
+                                                    "right": 12,
+                                                    "top": 8,
+                                                    "bottom": 8
+                                                  },
+                                                  "background": [
+                                                    {
+                                                      "type": "solid",
+                                                      "color": "@{(contains(fillingSelections, ',' + option.getString('id') + ':left:normal,') || contains(fillingSelections, ',' + option.getString('id') + ':whole:normal,') || contains(fillingSelections, ',' + option.getString('id') + ':right:normal,')) ? '#E8F5E9' : '#F5F5F5'}"
+                                                    }
+                                                  ],
+                                                  "border": {
+                                                    "corner_radius": 8,
+                                                    "stroke": {
+                                                      "width": 1,
+                                                      "color": "@{(contains(fillingSelections, ',' + option.getString('id') + ':left:normal,') || contains(fillingSelections, ',' + option.getString('id') + ':whole:normal,') || contains(fillingSelections, ',' + option.getString('id') + ':right:normal,')) ? '#4CAF50' : '#E0E0E0'}"
+                                                    }
+                                                  },
+                                                  "items": [
+                                                    {
+                                                      "type": "text",
+                                                      "text": "@{normalText}",
+                                                      "font_size": 10,
+                                                      "text_color": "@{(contains(fillingSelections, ',' + option.getString('id') + ':left:normal,') || contains(fillingSelections, ',' + option.getString('id') + ':whole:normal,') || contains(fillingSelections, ',' + option.getString('id') + ':right:normal,')) ? '#4CAF50' : '#666666'}",
+                                                      "font_family": "Roboto"
+                                                    }
+                                                  ],
+                                                  "actions": [
+                                                    {
+                                                      "log_id": "select_intensity",
+                                                      "url": "divaction://select_intensity?option_id=@{option.getString('id')}&intensity=normal&quantity=@{quantity}"
+                                                    }
+                                                  ],
+                                                  "accessibility": {
+                                                    "type": "button",
+                                                    "description": "Normal intensity"
+                                                  }
+                                                },
+                                                {
+                                                  "type": "container",
+                                                  "width": {
+                                                    "type": "wrap_content"
+                                                  },
+                                                  "height": {
+                                                    "type": "wrap_content"
+                                                  },
+                                                  "orientation": "horizontal",
+                                                  "paddings": {
+                                                    "left": 12,
+                                                    "right": 12,
+                                                    "top": 8,
+                                                    "bottom": 8
+                                                  },
+                                                  "background": [
+                                                    {
+                                                      "type": "solid",
+                                                      "color": "@{(contains(fillingSelections, ',' + option.getString('id') + ':left:light,') || contains(fillingSelections, ',' + option.getString('id') + ':whole:light,') || contains(fillingSelections, ',' + option.getString('id') + ':right:light,')) ? '#E8F5E9' : '#F5F5F5'}"
+                                                    }
+                                                  ],
+                                                  "border": {
+                                                    "corner_radius": 8,
+                                                    "stroke": {
+                                                      "width": 1,
+                                                      "color": "@{(contains(fillingSelections, ',' + option.getString('id') + ':left:light,') || contains(fillingSelections, ',' + option.getString('id') + ':whole:light,') || contains(fillingSelections, ',' + option.getString('id') + ':right:light,')) ? '#4CAF50' : '#E0E0E0'}"
+                                                    }
+                                                  },
+                                                  "items": [
+                                                    {
+                                                      "type": "text",
+                                                      "text": "@{lightText}",
+                                                      "font_size": 10,
+                                                      "text_color": "@{(contains(fillingSelections, ',' + option.getString('id') + ':left:light,') || contains(fillingSelections, ',' + option.getString('id') + ':whole:light,') || contains(fillingSelections, ',' + option.getString('id') + ':right:light,')) ? '#4CAF50' : '#666666'}",
+                                                      "font_family": "Roboto"
+                                                    }
+                                                  ],
+                                                  "actions": [
+                                                    {
+                                                      "log_id": "select_intensity",
+                                                      "url": "divaction://select_intensity?option_id=@{option.getString('id')}&intensity=light&quantity=@{quantity}"
+                                                    }
+                                                  ],
+                                                  "accessibility": {
+                                                    "type": "button",
+                                                    "description": "Light intensity"
+                                                  }
+                                                },
+                                                {
+                                                  "type": "container",
+                                                  "width": {
+                                                    "type": "wrap_content"
+                                                  },
+                                                  "height": {
+                                                    "type": "wrap_content"
+                                                  },
+                                                  "orientation": "horizontal",
+                                                  "paddings": {
+                                                    "left": 12,
+                                                    "right": 12,
+                                                    "top": 8,
+                                                    "bottom": 8
+                                                  },
+                                                  "background": [
+                                                    {
+                                                      "type": "solid",
+                                                      "color": "@{(contains(fillingSelections, ',' + option.getString('id') + ':left:extra,') || contains(fillingSelections, ',' + option.getString('id') + ':whole:extra,') || contains(fillingSelections, ',' + option.getString('id') + ':right:extra,')) ? '#E8F5E9' : '#F5F5F5'}"
+                                                    }
+                                                  ],
+                                                  "border": {
+                                                    "corner_radius": 8,
+                                                    "stroke": {
+                                                      "width": 1,
+                                                      "color": "@{(contains(fillingSelections, ',' + option.getString('id') + ':left:extra,') || contains(fillingSelections, ',' + option.getString('id') + ':whole:extra,') || contains(fillingSelections, ',' + option.getString('id') + ':right:extra,')) ? '#4CAF50' : '#E0E0E0'}"
+                                                    }
+                                                  },
+                                                  "items": [
+                                                    {
+                                                      "type": "text",
+                                                      "text": "@{extraText}",
+                                                      "font_size": 10,
+                                                      "text_color": "@{(contains(fillingSelections, ',' + option.getString('id') + ':left:extra,') || contains(fillingSelections, ',' + option.getString('id') + ':whole:extra,') || contains(fillingSelections, ',' + option.getString('id') + ':right:extra,')) ? '#4CAF50' : '#666666'}",
+                                                      "font_family": "Roboto"
+                                                    }
+                                                  ],
+                                                  "actions": [
+                                                    {
+                                                      "log_id": "select_intensity",
+                                                      "url": "divaction://select_intensity?option_id=@{option.getString('id')}&intensity=extra&quantity=@{quantity}"
+                                                    }
+                                                  ],
+                                                  "accessibility": {
+                                                    "type": "button",
+                                                    "description": "Extra intensity"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "accessibility": {
+                                    "type": "list",
+                                    "description": "Available options"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "accessibility": {
+                        "type": "list",
+                        "description": "Product customization options"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "@{validationError}",
+                  "font_size": 14,
+                  "text_color": "#F44336",
+                  "text_alignment_horizontal": "center",
+                  "margins": {
+                    "top": 16
+                  },
+                  "visibility": "@{len(validationError) > 0 ? 'visible' : 'gone'}",
+                  "font_family": "Roboto"
+                }
+              ]
+            }
+              ]
+            },
+            {
+              "type": "container",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "orientation": "vertical",
+              "margins": {
+                "top": 20
+              },
+              "paddings": {
+                "bottom": 16
+              },
+              "items": [
+                {
+                  "type": "separator",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 1
+                  },
+                  "delimiter_style": {
+                    "color": "#E0E0E0"
+                  },
+                  "margins": {
+                    "bottom": 16
+                  },
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "orientation": "horizontal",
+                  "content_alignment_vertical": "center",
+                  "item_spacing": 12,
+                  "paddings": {
+                    "left": 16,
+                    "right": 16
+                  },
+                  "items": [
+                    {
+                      "type": "container",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 48
+                      },
+                      "orientation": "horizontal",
+                      "content_alignment_vertical": "center",
+                      "content_alignment_horizontal": "center",
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#E8F5E9"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 24,
+                        "stroke": {
+                          "color": "#4CAF50",
+                          "width": 1
+                        }
+                      },
+                      "paddings": {
+                        "left": 6,
+                        "right": 6,
+                        "top": 6,
+                        "bottom": 6
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "content_alignment_horizontal": "center",
+                          "content_alignment_vertical": "center",
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#4CAF50"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 18
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "-",
+                              "font_size": 22,
+                              "font_weight": "bold",
+                              "text_color": "#FFFFFF",
+                              "text_alignment_horizontal": "center",
+                              "text_alignment_vertical": "center",
+                              "font_family": "Roboto"
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "log_id": "decrease_quantity",
+                              "url": "divaction://decrease_quantity?current_qty=@{quantity}"
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "description": "Decrease quantity"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{quantity}",
+                          "font_size": 18,
+                          "font_weight": "bold",
+                          "text_color": "#1B5E20",
+                          "text_alignment_horizontal": "center",
+                          "text_alignment_vertical": "center",
+                          "width": {
+                            "type": "fixed",
+                            "value": 40
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "content_alignment_horizontal": "center",
+                          "content_alignment_vertical": "center",
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#4CAF50"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 18
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "+",
+                              "font_size": 22,
+                              "font_weight": "bold",
+                              "text_color": "#FFFFFF",
+                              "text_alignment_horizontal": "center",
+                              "text_alignment_vertical": "center",
+                              "font_family": "Roboto"
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "log_id": "increase_quantity",
+                              "url": "divaction://increase_quantity?current_qty=@{quantity}"
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "description": "Increase quantity"
+                          }
+                        }
+                      ],
+                      "accessibility": {
+                        "mode": "merge",
+                        "state_description": "Quantity: @{quantity}"
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 48
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#4CAF50"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 12
+                      },
+                      "actions": [
+                        {
+                          "log_id": "add_to_cart",
+                          "url": "divaction://add_to_cart?quantity=@{quantity}"
+                        }
+                      ],
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{'Add item - ' + toString(totalPrice)}",
+                          "font_size": 16,
+                          "font_weight": "bold",
+                          "text_color": "#FFFFFF",
+                          "text_alignment_horizontal": "center",
+                          "text_alignment_vertical": "center",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "match_parent"
+                          },
+                          "font_family": "Roboto"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "Add item to cart"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "variables": [
+      {
+        "type": "string",
+        "name": "lightText",
+        "value": "Light"
+      },
+      {
+        "type": "string",
+        "name": "normalText",
+        "value": "Normal"
+      },
+      {
+        "type": "string",
+        "name": "extraText",
+        "value": "Extra"
+      },
+      {
+        "type": "string",
+        "name": "itemName",
+        "value": "Maggi"
+      },
+      {
+        "type": "array",
+        "name": "productBannerItems",
+        "value": [
+          {
+            "url": "https://example.com/maggi.jpg",
+            "isVideo": false,
+            "videoUrl": ""
+          }
+        ]
+      },
+      {
+        "type": "string",
+        "name": "itemDescription",
+        "value": "Delicious food item with various customization options"
+      },
+      {
+        "type": "integer",
+        "name": "quantity",
+        "value": 1
+      },
+      {
+        "type": "array",
+        "name": "variantsStatic",
+        "value": [
+          {
+            "id": "toppings",
+            "title": "Toppings",
+            "subtitle": "You can choose up to 3 options",
+            "type": "multi",
+            "required": false,
+            "max_selections": "3",
+            "options": [
+              {
+                "id": "cheese",
+                "name": "Cheese",
+                "displayPrice": "20.0",
+                "has_filling": true
+              },
+              {
+                "id": "corn",
+                "name": "Corn",
+                "displayPrice": "30.0",
+                "has_filling": false
+              },
+              {
+                "id": "paneer",
+                "name": "Paneer",
+                "displayPrice": "50.0",
+                "has_filling": false
+              }
+            ]
+          },
+          {
+            "id": "type",
+            "title": "Type",
+            "subtitle": "You can choose any one option",
+            "type": "single",
+            "max_selections": "1",
+            "required": true,
+            "options": [
+              {
+                "id": "egg",
+                "name": "Egg",
+                "displayPrice": "15.0",
+                "has_filling": false
+              },
+              {
+                "id": "non_veg",
+                "name": "Non-Veg",
+                "displayPrice": "40.0",
+                "has_filling": false
+              },
+              {
+                "id": "veg",
+                "name": "Veg",
+                "displayPrice": "0.0",
+                "has_filling": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "string",
+        "name": "selectedOptions",
+        "value": ""
+      },
+      {
+        "type": "string",
+        "name": "fillingSelections",
+        "value": ""
+      },
+      {
+        "type": "string",
+        "name": "totalPrice",
+        "value": "100.0"
+      },
+      {
+        "type": "string",
+        "name": "validationError",
+        "value": ""
+      },
+      {
+        "type": "boolean",
+        "name": "isVeg",
+        "value": false
+      }
+    ]
+  },
+  "templates": {}
+}

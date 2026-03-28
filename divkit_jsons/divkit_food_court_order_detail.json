@@ -1,0 +1,929 @@
+{
+  "templates": {},
+  "card": {
+    "log_id": "food_court_order_detail",
+    "variables": [
+      {
+        "name": "vendorName",
+        "type": "string",
+        "value": "Fruit Cakes & More"
+      },
+      {
+        "name": "orderStatus",
+        "type": "string",
+        "value": "Pending"
+      },
+      {
+        "name": "orderDate",
+        "type": "string",
+        "value": "16-Jun-2025 | 16:48"
+      },
+      {
+        "name": "orderLastUpdateDate",
+        "type": "string",
+        "value": "28 Mar 2026, 12:15 PM"
+      },
+      {
+        "name": "deliveryPickupTime",
+        "type": "string",
+        "value": "12:45 PM"
+      },
+      {
+        "name": "isReviewAvailable",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "isContactButtonAvailable",
+        "type": "string",
+        "value": "true"
+      },
+      {
+        "name": "isMultipleContactOptions",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "isDeliveryInfoAvailable",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "deliveryBoyName",
+        "type": "string",
+        "value": "Rahul Sharma"
+      },
+      {
+        "name": "deliveryBoyPhone",
+        "type": "string",
+        "value": "+91 99887 76655"
+      },
+      {
+        "name": "products",
+        "type": "array",
+        "value": [
+          {
+            "name": "Fruit Cakes & More x 1",
+            "price": "₹500"
+          },
+          {
+            "name": "Mango Shake x 2",
+            "price": "₹120"
+          }
+        ]
+      },
+      {
+        "name": "timelineItems",
+        "type": "array",
+        "value": [
+          {
+            "message": "Order Pending",
+            "date": "16-Jun-2025 | 16:48",
+            "isActive": "true",
+            "isTopLineActive": "false",
+            "isBottomLineActive": "true"
+          },
+          {
+            "message": "In the Kitchen",
+            "date": "16-Jun-2025 | 17:03",
+            "isActive": "false",
+            "isTopLineActive": "true",
+            "isBottomLineActive": "false"
+          },
+          {
+            "message": "On the Way",
+            "date": "",
+            "isActive": "false",
+            "isTopLineActive": "false",
+            "isBottomLineActive": "false"
+          },
+          {
+            "message": "Enjoy the meal",
+            "date": "",
+            "isActive": "false",
+            "isTopLineActive": "false",
+            "isBottomLineActive": "false"
+          }
+        ]
+      },
+      {
+        "name": "taxRows",
+        "type": "array",
+        "value": [
+          {
+            "label": "Order ID",
+            "value": "AP67458232714",
+            "isBold": "false"
+          },
+          {
+            "label": "Payment Type",
+            "value": "Pickup",
+            "isBold": "false"
+          },
+          {
+            "label": "Payment Status",
+            "value": "Processing",
+            "isBold": "false"
+          },
+          {
+            "label": "Subtotal",
+            "value": "₹500.00",
+            "isBold": "false"
+          },
+          {
+            "label": "Restaurant Discount",
+            "value": "₹-50.00",
+            "isBold": "false"
+          },
+          {
+            "label": "Total",
+            "value": "₹450.00",
+            "isBold": "true"
+          }
+        ]
+      },
+      {
+        "name": "contactItems",
+        "type": "array",
+        "value": [
+          {
+            "type": "call",
+            "icon": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/svgs/solid/phone.svg",
+            "value": "",
+            "label": "Call"
+          },
+          {
+            "type": "sms",
+            "icon": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/svgs/solid/message.svg",
+            "value": "",
+            "label": "SMS"
+          },
+          {
+            "type": "email",
+            "icon": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/svgs/solid/envelope.svg",
+            "value": "",
+            "label": "Email"
+          },
+          {
+            "type": "web",
+            "icon": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/svgs/solid/globe.svg",
+            "value": "",
+            "label": "Web"
+          }
+        ]
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#FFFFFF"
+            }
+          ],
+          "items": [
+            {
+              "type": "gallery",
+              "id": "product_list",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "margins": {
+                "top": 12,
+                "left": 20,
+                "right": 20
+              },
+              "item_builder": {
+                "data": "@{products}",
+                "data_element_name": "item",
+                "prototypes": [
+                  {
+                    "div": {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 50
+                      },
+                      "paddings": {
+                        "left": 20,
+                        "right": 20
+                      },
+                      "content_alignment_vertical": "center",
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#F6F8FA"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 10
+                      },
+                      "margins": {
+                        "bottom": 8
+                      },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{item.getString('name')}",
+                          "font_size": 14,
+                          "font_weight": "medium",
+                          "text_color": "#101010",
+                          "width": {
+                            "type": "match_parent",
+                            "weight": 1
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "max_lines": 2,
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{item.getString('price')}",
+                          "font_size": 14,
+                          "font_weight": "bold",
+                          "text_color": "#101010",
+                          "width": {
+                            "type": "wrap_content"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "margins": {
+                            "left": 8
+                          },
+                          "font_family": "Roboto"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "accessibility": {
+                "type": "list",
+                "description": "Ordered items"
+              }
+            },
+            {
+              "type": "gallery",
+              "id": "timeline_list",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "margins": {
+                "top": 16,
+                "left": 20,
+                "right": 20
+              },
+              "scroll_mode": "default",
+              "item_spacing": 0,
+              "item_builder": {
+                "data": "@{timelineItems}",
+                "data_element_name": "item",
+                "prototypes": [
+                  {
+                    "div": {
+                      "type": "container",
+                      "orientation": "overlap",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 2
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 24
+                          },
+                          "margins": {
+                            "left": 17
+                          },
+                          "alignment_vertical": "top",
+                          "visibility": "@{index == 0 ? 'gone' : 'visible'}",
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "@{item.getString('isTopLineActive') == 'true' ? '#4FAF5A' : '#DCDCEC'}"
+                            }
+                          ],
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        },
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 2
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 24
+                          },
+                          "margins": {
+                            "left": 17
+                          },
+                          "alignment_vertical": "bottom",
+                          "visibility": "@{index == len(timelineItems) - 1 ? 'gone' : 'visible'}",
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "@{item.getString('isBottomLineActive') == 'true' ? '#4FAF5A' : '#DCDCEC'}"
+                            }
+                          ],
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "paddings": {
+                            "top": 12,
+                            "bottom": 12
+                          },
+                          "content_alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "container",
+                              "width": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "border": {
+                                "corner_radius": 12,
+                                "stroke": {
+                                  "color": "@{item.getString('isActive') == 'true' ? '#00FFFFFF' : '#DCDCEC'}",
+                                  "width": 2
+                                }
+                              },
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "@{item.getString('isActive') == 'true' ? '#F45D5D' : '#FFFFFF'}"
+                                }
+                              ],
+                              "margins": {
+                                "left": 6
+                              },
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "vertical",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "paddings": {
+                                "left": 12
+                              },
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "@{item.getString('message')}",
+                                  "font_size": 14,
+                                  "font_weight": "medium",
+                                  "text_color": "#101010",
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{item.getString('date')}",
+                                  "font_size": 12,
+                                  "text_color": "#878787",
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "wrap_content"
+                                  },
+                                  "margins": {
+                                    "top": 2
+                                  },
+                                  "visibility": "@{len(item.getString('date')) > 0 ? 'visible' : 'gone'}",
+                                  "font_family": "Roboto"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "accessibility": {
+                "type": "list",
+                "description": "Order status timeline"
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "margins": {
+                "top": 12
+              },
+              "visibility": "@{isDeliveryInfoAvailable == 'true' ? 'visible' : 'gone'}",
+              "paddings": {
+                "left": 20,
+                "right": 20
+              },
+              "items": [
+                {
+                  "type": "separator",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "delimiter_style": {
+                    "color": "#DCDCEC"
+                  },
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "Delivery Agent",
+                  "font_size": 14,
+                  "font_weight": "bold",
+                  "text_color": "#101010",
+                  "margins": {
+                    "top": 12
+                  },
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "top": 8
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{deliveryBoyName}",
+                      "font_size": 14,
+                      "text_color": "#101010",
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "text",
+                      "text": "@{deliveryBoyPhone}",
+                      "font_size": 13,
+                      "font_weight": "medium",
+                      "text_color": "#4FAF5A",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "actions": [
+                        {
+                          "log_id": "call_delivery_boy",
+                          "url": "divaction://call_delivery_boy"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "description": "Call delivery agent"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "separator",
+              "width": {
+                "type": "match_parent"
+              },
+              "margins": {
+                "top": 16,
+                "left": 20,
+                "right": 20
+              },
+              "delimiter_style": {
+                "color": "#DCDCEC"
+              },
+              "accessibility": {
+                "mode": "exclude"
+              }
+            },
+            {
+              "type": "text",
+              "text": "ORDER DETAILS",
+              "font_size": 16,
+              "font_weight": "bold",
+              "text_color": "#101010",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "margins": {
+                "top": 16,
+                "left": 20,
+                "right": 20
+              },
+              "accessibility": {
+                "type": "header"
+              },
+              "font_family": "Roboto"
+            },
+            {
+              "type": "gallery",
+              "id": "tax_rows_list",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "margins": {
+                "top": 12,
+                "left": 20,
+                "right": 20
+              },
+              "item_builder": {
+                "data": "@{taxRows}",
+                "data_element_name": "item",
+                "prototypes": [
+                  {
+                    "div": {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "margins": {
+                        "bottom": 11
+                      },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{item.getString('label')}",
+                          "font_size": 14,
+                          "font_weight": "@{item.getString('isBold') == 'true' ? 'bold' : 'medium'}",
+                          "text_color": "@{item.getString('isBold') == 'true' ? '#4FAF5A' : '#101010'}",
+                          "width": {
+                            "type": "match_parent",
+                            "weight": 1
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "line_height": 19,
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{item.getString('value')}",
+                          "font_size": 14,
+                          "font_weight": "@{item.getString('isBold') == 'true' ? 'bold' : 'medium'}",
+                          "text_color": "@{item.getString('isBold') == 'true' ? '#4FAF5A' : '#101010'}",
+                          "text_alignment_horizontal": "right",
+                          "width": {
+                            "type": "wrap_content"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "line_height": 19,
+                          "font_family": "Roboto"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "accessibility": {
+                "type": "list",
+                "description": "Order cost breakdown"
+              }
+            },
+            {
+              "type": "text",
+              "text": "Write a Review",
+              "font_size": 14,
+              "font_weight": "medium",
+              "text_color": "#4FAF5A",
+              "text_alignment_horizontal": "center",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "margins": {
+                "top": 20,
+                "left": 20,
+                "right": 20
+              },
+              "paddings": {
+                "top": 12,
+                "bottom": 12
+              },
+              "visibility": "@{isReviewAvailable == 'true' ? 'visible' : 'gone'}",
+              "actions": [
+                {
+                  "log_id": "write_review",
+                  "url": "divaction://write_review"
+                }
+              ],
+              "accessibility": {
+                "type": "button",
+                "description": "Write a review"
+              },
+              "font_family": "Roboto"
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "margins": {
+                "top": 8,
+                "left": 20,
+                "right": 20
+              },
+              "visibility": "@{isMultipleContactOptions == 'true' ? 'visible' : 'gone'}",
+              "items": [
+                {
+                  "type": "text",
+                  "text": "Need help?",
+                  "font_size": 14,
+                  "font_weight": "medium",
+                  "text_color": "#101010",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "bottom": 12
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "gallery",
+                  "id": "contact_options_list",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "item_spacing": 16,
+                  "item_builder": {
+                    "data": "@{contactItems}",
+                    "data_element_name": "item",
+                    "prototypes": [
+                      {
+                        "div": {
+                          "type": "container",
+                          "orientation": "vertical",
+                          "width": {
+                            "type": "fixed",
+                            "value": 56
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "content_alignment_horizontal": "center",
+                          "actions": [
+                            {
+                              "log_id": "contact_option",
+                              "url": "divaction://contact?type=@{item.getString('type')}&value=@{item.getString('value')}"
+                            }
+                          ],
+                          "items": [
+                            {
+                              "type": "container",
+                              "width": {
+                                "type": "fixed",
+                                "value": 44
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 44
+                              },
+                              "content_alignment_horizontal": "center",
+                              "content_alignment_vertical": "center",
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "#4FAF5A"
+                                }
+                              ],
+                              "border": {
+                                "corner_radius": 22
+                              },
+                              "items": [
+                                {
+                                  "type": "image",
+                                  "image_url": "@{item.getString('icon')}",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 20
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 20
+                                  },
+                                  "tint_color": "#FFFFFF",
+                                  "accessibility": {
+                                    "mode": "exclude"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{item.getString('label')}",
+                              "font_size": 11,
+                              "text_color": "#101010",
+                              "text_alignment_horizontal": "center",
+                              "width": {
+                                "type": "wrap_content"
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "margins": {
+                                "top": 4
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "mode": "merge",
+                            "description": "@{item.getString(\"label\")}"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "accessibility": {
+                    "type": "list",
+                    "description": "Contact options"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 50
+              },
+              "margins": {
+                "top": 24,
+                "bottom": 24,
+                "left": 20,
+                "right": 20
+              },
+              "content_alignment_horizontal": "center",
+              "content_alignment_vertical": "center",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#4FAF5A"
+                }
+              ],
+              "border": {
+                "corner_radius": 10
+              },
+              "visibility": "@{isContactButtonAvailable == 'true' ? 'visible' : 'gone'}",
+              "actions": [
+                {
+                  "log_id": "contact_support",
+                  "url": "divaction://contact_support"
+                }
+              ],
+              "items": [
+                {
+                  "type": "text",
+                  "text": "Contact Support",
+                  "font_size": 14,
+                  "font_weight": "bold",
+                  "text_color": "#FFFFFF",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "font_family": "Roboto"
+                }
+              ],
+              "accessibility": {
+                "type": "button",
+                "mode": "merge",
+                "description": "Contact support"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

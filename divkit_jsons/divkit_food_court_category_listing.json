@@ -1,0 +1,389 @@
+{
+  "card": {
+    "log_id": "category_detail",
+    "variables": [
+      {
+        "name": "searchText",
+        "type": "string",
+        "value": ""
+      },
+      {
+        "name": "categories",
+        "type": "array",
+        "value": [
+          {
+            "id": "beverages",
+            "name": "Beverages",
+            "image": "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&q=80"
+          },
+          {
+            "id": "snacks",
+            "name": "Snacks",
+            "image": "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=400&q=80"
+          },
+          {
+            "id": "desserts",
+            "name": "Desserts",
+            "image": "https://images.unsplash.com/photo-1587314168485-3236d6710814?w=400&q=80"
+          },
+          {
+            "id": "main_course",
+            "name": "Main Course",
+            "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80"
+          },
+          {
+            "id": "biryani",
+            "name": "Biryani",
+            "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&q=80"
+          },
+          {
+            "id": "chinese",
+            "name": "Chinese",
+            "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80"
+          },
+          {
+            "id": "south_indian",
+            "name": "South Indian",
+            "image": "https://images.unsplash.com/photo-1630383249896-424e482df921?w=400&q=80"
+          },
+          {
+            "id": "pizza",
+            "name": "Pizza",
+            "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80"
+          }
+        ]
+      },
+      {
+        "name": "isLoading",
+        "type": "string",
+        "value": "true"
+      },
+      {
+        "name": "isEmpty",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "emptyTitle",
+        "type": "string",
+        "value": "No Categories Found"
+      },
+      {
+        "name": "emptySubtitle",
+        "type": "string",
+        "value": "This restaurant doesn't have any categories yet"
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "match_parent"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#F8F8F8"
+            }
+          ],
+          "items": [
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 56
+              },
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#FFFFFF"
+                }
+              ],
+              "border": {
+                "corner_radius": 28
+              },
+              "content_alignment_vertical": "center",
+              "paddings": {
+                "left": 20,
+                "right": 20,
+                "top": 8,
+                "bottom": 8
+              },
+              "margins": {
+                "left": 16,
+                "right": 16,
+                "top": 16,
+                "bottom": 16
+              },
+              "items": [
+                {
+                  "type": "image",
+                  "width": {
+                    "type": "fixed",
+                    "value": 20
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 20
+                  },
+                  "tint_color": "#BDBDBD",
+                  "image_url": "https://www.svgrepo.com/show/532555/search.svg",
+                  "margins": {
+                    "right": 12
+                  },
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "input",
+                  "text_variable": "searchText",
+                  "hint_text": "Search items",
+                  "hint_color": "#BDBDBD",
+                  "text_color": "#212121",
+                  "font_size": 16,
+                  "font_family": "Roboto",
+                  "accessibility": {
+                    "type": "edit_text",
+                    "hint": "Search categories"
+                  },
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "enter_key_type": "search",
+                  "enter_key_actions": [
+                    {
+                      "log_id": "close_keyboard",
+                      "url": "divaction://search_category?query=@{searchText}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "match_parent"
+              },
+              "visibility": "@{isEmpty == 'true' && isLoading == 'false' ? 'visible' : 'gone'}",
+              "content_alignment_horizontal": "center",
+              "content_alignment_vertical": "center",
+              "paddings": {
+                "left": 32,
+                "right": 32
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "overlap",
+                  "width": {
+                    "type": "fixed",
+                    "value": 90
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 90
+                  },
+                  "alignment_horizontal": "center",
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#F0F0F0"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 45
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "margins": {
+                    "bottom": 20
+                  },
+                  "items": [
+                    {
+                      "type": "image",
+                      "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/list.svg",
+                      "width": {
+                        "type": "fixed",
+                        "value": 40
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 40
+                      },
+                      "tint_color": "#BDBDBD"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "@{emptyTitle}",
+                  "font_size": 18,
+                  "font_weight": "bold",
+                  "text_color": "#101010",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "margins": {
+                    "bottom": 8
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "@{emptySubtitle}",
+                  "font_size": 14,
+                  "text_color": "#878787",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            },
+            {
+              "type": "gallery",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "match_parent"
+              },
+              "visibility": "@{isEmpty == 'false' && isLoading == 'false' ? 'visible' : 'gone'}",
+              "orientation": "vertical",
+              "column_count": 2,
+              "accessibility": {
+                "type": "list",
+                "description": "Category list"
+              },
+              "cross_spacing": 16,
+              "item_spacing": 16,
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 8,
+                "bottom": 16
+              },
+              "item_builder": {
+                "data": "@{categories}",
+                "data_element_name": "category",
+                "prototypes": [
+                  {
+                    "div": {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FFFFFF"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 16
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 12,
+                        "bottom": 16
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 140
+                          },
+                          "items": [
+                            {
+                              "type": "image",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "match_parent"
+                              },
+                              "image_url": "@{category.getString('image')}",
+                              "scale": "fill",
+                              "border": {
+                                "corner_radius": 12
+                              },
+                              "placeholder_color": "#E0E0E0",
+                              "preload_required": 1,
+                              "accessibility": {
+                                "type": "image",
+                                "description": "Photo of @{category.getString('name')}"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{category.getString('name')}",
+                          "font_size": 16,
+                          "font_weight": "bold",
+                          "font_family": "Roboto",
+                          "text_color": "#212121",
+                          "line_height": 22,
+                          "max_lines": 2,
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "top": 12,
+                            "bottom": 8
+                          }
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "log_id": "category_click",
+                          "url": "divaction://category_click?category_id=@{category.getString('id')}"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "Open @{category.getString('name')}"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

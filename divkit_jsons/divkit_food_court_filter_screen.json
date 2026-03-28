@@ -1,0 +1,1272 @@
+{
+  "card": {
+    "log_id": "filter_screen",
+    "variables": [
+      {
+        "name": "selectedTab",
+        "type": "string",
+        "value": "time"
+      },
+      {
+        "name": "timeOptions",
+        "type": "array",
+        "value": [
+          { "id": 1, "displayName": "Under 15 min" },
+          { "id": 2, "displayName": "15 – 30 min" },
+          { "id": 3, "displayName": "30 – 45 min" },
+          { "id": 4, "displayName": "45 – 60 min" },
+          { "id": 5, "displayName": "Over 60 min" }
+        ]
+      },
+      {
+        "name": "selectedTimeId",
+        "type": "integer",
+        "value": -1
+      },
+      {
+        "name": "cuisines",
+        "type": "array",
+        "value": [
+          { "id": "INDIAN",    "name": "Indian" },
+          { "id": "CHINESE",   "name": "Chinese" },
+          { "id": "ITALIAN",   "name": "Italian" },
+          { "id": "MEXICAN",   "name": "Mexican" },
+          { "id": "JAPANESE",  "name": "Japanese" },
+          { "id": "AMERICAN",  "name": "American" },
+          { "id": "THAI",      "name": "Thai" },
+          { "id": "LEBANESE",  "name": "Lebanese" },
+          { "id": "KOREAN",    "name": "Korean" },
+          { "id": "DESSERTS",  "name": "Desserts & Beverages" }
+        ]
+      },
+      {
+        "name": "selectedCuisineIds",
+        "type": "dict",
+        "value": {}
+      },
+      {
+        "name": "sortOptions",
+        "type": "array",
+        "value": [
+          { "id": "RELEVANCE",    "displayName": "Relevance" },
+          { "id": "RATING",       "displayName": "Rating: High to Low" },
+          { "id": "DELIVERY_TIME","displayName": "Fastest Delivery" },
+          { "id": "MIN_ORDER",    "displayName": "Minimum Order: Low to High" },
+          { "id": "PRICE_LOW",    "displayName": "Price: Low to High" },
+          { "id": "PRICE_HIGH",   "displayName": "Price: High to Low" }
+        ]
+      },
+      {
+        "name": "selectedSortId",
+        "type": "string",
+        "value": "NONE"
+      },
+      {
+        "name": "minAmount",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "name": "maxAmount",
+        "type": "integer",
+        "value": 1000
+      },
+      {
+        "name": "currentAmount",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "name": "headerTitle",
+        "type": "string",
+        "value": "Filters & Sorting"
+      },
+      {
+        "name": "clearAllText",
+        "type": "string",
+        "value": "Clear all"
+      },
+      {
+        "name": "closeText",
+        "type": "string",
+        "value": "Close"
+      },
+      {
+        "name": "showResultsText",
+        "type": "string",
+        "value": "Show results"
+      },
+      {
+        "name": "timeTabText",
+        "type": "string",
+        "value": "Time"
+      },
+      {
+        "name": "amountTabText",
+        "type": "string",
+        "value": "Amount"
+      },
+      {
+        "name": "cuisinesTabText",
+        "type": "string",
+        "value": "Cuisines"
+      },
+      {
+        "name": "sortByTabText",
+        "type": "string",
+        "value": "Sort By"
+      },
+      {
+        "name": "estimatedTimeHeader",
+        "type": "string",
+        "value": "Estimated Time (minutes)"
+      },
+      {
+        "name": "minimumAmountHeader",
+        "type": "string",
+        "value": "Minimum Order Amount"
+      },
+      {
+        "name": "selectCuisinesHeader",
+        "type": "string",
+        "value": "Select your favourite cuisines"
+      },
+      {
+        "name": "selectSortHeader",
+        "type": "string",
+        "value": "Select your favourite cuisines"
+      },
+      {
+        "name": "hasActiveFilters",
+        "type": "boolean",
+        "value": false
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#FFFFFF"
+            }
+          ],
+          "border": {
+            "corners_radius": {
+              "top-left": 16,
+              "top-right": 16,
+              "bottom-left": 0,
+              "bottom-right": 0
+            }
+          },
+          "items": [
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 20,
+                "bottom": 16
+              },
+              "content_alignment_vertical": "center",
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{headerTitle}",
+                  "font_size": 18,
+                  "font_weight": "bold",
+                  "text_color": "#212121",
+                  "width": {
+                    "type": "wrap_content",
+                    "constrained": true
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "@{clearAllText}",
+                  "font_size": 14,
+                  "font_weight": "medium",
+                  "text_color": "#4CAF50",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "actions": [
+                    {
+                      "log_id": "clear_all",
+                      "url": "divaction://clear_all"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "description": "Clear all filters"
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            },
+            {
+              "type": "separator",
+              "width": {
+                "type": "match_parent"
+              },
+              "delimiter_style": {
+                "color": "#E0E0E0"
+              },
+              "accessibility": {
+                "mode": "exclude"
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 320
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "fixed",
+                    "value": 110
+                  },
+                  "height": {
+                    "type": "match_parent"
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#F5F5F5"
+                    }
+                  ],
+                  "paddings": {
+                    "top": 8
+                  },
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 12,
+                        "top": 16,
+                        "bottom": 16
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 3
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 20
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "@{selectedTab == 'time' ? '#4CAF50' : '#00000000'}"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 2
+                          },
+                          "margins": {
+                            "right": 8
+                          },
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{timeTabText}",
+                          "font_size": 14,
+                          "font_weight": "@{selectedTab == 'time' ? 'medium' : 'regular'}",
+                          "text_color": "@{selectedTab == 'time' ? '#4CAF50' : '#757575'}",
+                          "width": {
+                            "type": "wrap_content"
+                          },
+                          "font_family": "Roboto"
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "log_id": "tab_time",
+                          "url": "divaction://tab_select?tab=time"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "Time filter tab"
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 12,
+                        "top": 16,
+                        "bottom": 16
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 3
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 20
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "@{selectedTab == 'amount' ? '#4CAF50' : '#00000000'}"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 2
+                          },
+                          "margins": {
+                            "right": 8
+                          },
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{amountTabText}",
+                          "font_size": 14,
+                          "font_weight": "@{selectedTab == 'amount' ? 'medium' : 'regular'}",
+                          "text_color": "@{selectedTab == 'amount' ? '#4CAF50' : '#757575'}",
+                          "width": {
+                            "type": "wrap_content"
+                          },
+                          "font_family": "Roboto"
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "log_id": "tab_amount",
+                          "url": "divaction://tab_select?tab=amount"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "Amount filter tab"
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 12,
+                        "top": 16,
+                        "bottom": 16
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 3
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 20
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "@{selectedTab == 'cuisines' ? '#4CAF50' : '#00000000'}"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 2
+                          },
+                          "margins": {
+                            "right": 8
+                          },
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{cuisinesTabText}",
+                          "font_size": 14,
+                          "font_weight": "@{selectedTab == 'cuisines' ? 'medium' : 'regular'}",
+                          "text_color": "@{selectedTab == 'cuisines' ? '#4CAF50' : '#757575'}",
+                          "width": {
+                            "type": "wrap_content"
+                          },
+                          "font_family": "Roboto"
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "log_id": "tab_cuisines",
+                          "url": "divaction://tab_select?tab=cuisines"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "Cuisines filter tab"
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 12,
+                        "top": 16,
+                        "bottom": 16
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 3
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 20
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "@{selectedTab == 'sortby' ? '#4CAF50' : '#00000000'}"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 2
+                          },
+                          "margins": {
+                            "right": 8
+                          },
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{sortByTabText}",
+                          "font_size": 14,
+                          "font_weight": "@{selectedTab == 'sortby' ? 'medium' : 'regular'}",
+                          "text_color": "@{selectedTab == 'sortby' ? '#4CAF50' : '#757575'}",
+                          "width": {
+                            "type": "wrap_content"
+                          },
+                          "font_family": "Roboto"
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "log_id": "tab_sortby",
+                          "url": "divaction://tab_select?tab=sortby"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "Sort by tab"
+                      }
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "tab_bar",
+                    "description": "Filter categories"
+                  }
+                },
+                {
+                  "type": "separator",
+                  "width": {
+                    "type": "fixed",
+                    "value": 1
+                  },
+                  "height": {
+                    "type": "match_parent"
+                  },
+                  "orientation": "vertical",
+                  "delimiter_style": {
+                    "color": "#E0E0E0"
+                  },
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "container",
+                  "orientation": "overlap",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "match_parent"
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#FFFFFF"
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "match_parent"
+                      },
+                      "visibility": "@{selectedTab == 'time' ? 'visible' : 'gone'}",
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 16
+                      },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{estimatedTimeHeader}",
+                          "font_size": 13,
+                          "font_weight": "regular",
+                          "text_color": "#9E9E9E",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "bottom": 16
+                          },
+                          "accessibility": {
+                            "type": "header"
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "gallery",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "match_parent"
+                          },
+                          "orientation": "vertical",
+                          "scroll_mode": "default",
+                          "item_spacing": 4,
+                          "item_builder": {
+                            "data": "@{timeOptions}",
+                            "data_element_name": "timeItem",
+                            "prototypes": [
+                              {
+                                "id": "time_@{timeItem.getInteger('id')}",
+                                "div": {
+                                  "type": "container",
+                                  "orientation": "horizontal",
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "wrap_content"
+                                  },
+                                  "paddings": {
+                                    "top": 12,
+                                    "bottom": 12
+                                  },
+                                  "content_alignment_vertical": "center",
+                                  "items": [
+                                    {
+                                      "type": "container",
+                                      "width": {
+                                        "type": "fixed",
+                                        "value": 22
+                                      },
+                                      "height": {
+                                        "type": "fixed",
+                                        "value": 22
+                                      },
+                                      "background": [
+                                        {
+                                          "type": "solid",
+                                          "color": "@{selectedTimeId == timeItem.getInteger('id') ? '#4CAF50' : '#FFFFFF'}"
+                                        }
+                                      ],
+                                      "border": {
+                                        "corner_radius": 11,
+                                        "stroke": {
+                                          "color": "@{selectedTimeId == timeItem.getInteger('id') ? '#4CAF50' : '#BDBDBD'}",
+                                          "width": 2
+                                        }
+                                      },
+                                      "content_alignment_horizontal": "center",
+                                      "content_alignment_vertical": "center",
+                                      "margins": {
+                                        "right": 12
+                                      },
+                                      "items": [
+                                        {
+                                          "type": "text",
+                                          "text": "@{selectedTimeId == timeItem.getInteger('id') ? '✓' : ''}",
+                                          "font_size": 14,
+                                          "font_weight": "bold",
+                                          "text_color": "#FFFFFF",
+                                          "width": {
+                                            "type": "match_parent"
+                                          },
+                                          "height": {
+                                            "type": "match_parent"
+                                          },
+                                          "text_alignment_horizontal": "center",
+                                          "text_alignment_vertical": "center",
+                                          "font_family": "Roboto"
+                                        }
+                                      ],
+                                      "accessibility": {
+                                        "mode": "exclude"
+                                      }
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "@{timeItem.getString('displayName')}",
+                                      "font_size": 15,
+                                      "font_weight": "regular",
+                                      "text_color": "#212121",
+                                      "width": {
+                                        "type": "wrap_content"
+                                      },
+                                      "font_family": "Roboto"
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "log_id": "time_select",
+                                      "url": "divaction://time_select?id=@{timeItem.getInteger('id')}"
+                                    }
+                                  ],
+                                  "accessibility": {
+                                    "type": "button",
+                                    "mode": "merge",
+                                    "description": "Select time option"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "accessibility": {
+                            "type": "list",
+                            "description": "Delivery time options"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "visibility": "@{selectedTab == 'amount' ? 'visible' : 'gone'}",
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 16
+                      },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{minimumAmountHeader}",
+                          "font_size": 13,
+                          "font_weight": "regular",
+                          "text_color": "#9E9E9E",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "bottom": 8
+                          },
+                          "accessibility": {
+                            "type": "header"
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{currentAmount}",
+                          "font_size": 16,
+                          "font_weight": "medium",
+                          "text_color": "#212121",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "bottom": 16
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "slider",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "min_value": "@{minAmount}",
+                          "max_value": "@{maxAmount}",
+                          "thumb_value_variable": "currentAmount",
+                          "thumb_style": {
+                            "type": "shape_drawable",
+                            "color": "#FFFFFF",
+                            "stroke": {
+                              "color": "#4CAF50",
+                              "width": 3
+                            },
+                            "shape": {
+                              "type": "rounded_rectangle",
+                              "item_width": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "item_height": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "corner_radius": {
+                                "type": "fixed",
+                                "value": 12
+                              }
+                            }
+                          },
+                          "track_active_style": {
+                            "type": "shape_drawable",
+                            "color": "#4CAF50",
+                            "shape": {
+                              "type": "rounded_rectangle",
+                              "item_height": {
+                                "type": "fixed",
+                                "value": 4
+                              },
+                              "corner_radius": {
+                                "type": "fixed",
+                                "value": 2
+                              }
+                            }
+                          },
+                          "track_inactive_style": {
+                            "type": "shape_drawable",
+                            "color": "#E0E0E0",
+                            "shape": {
+                              "type": "rounded_rectangle",
+                              "item_height": {
+                                "type": "fixed",
+                                "value": 4
+                              },
+                              "corner_radius": {
+                                "type": "fixed",
+                                "value": 2
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "match_parent"
+                      },
+                      "visibility": "@{selectedTab == 'cuisines' ? 'visible' : 'gone'}",
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 16
+                      },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{selectCuisinesHeader}",
+                          "font_size": 13,
+                          "font_weight": "regular",
+                          "text_color": "#9E9E9E",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "bottom": 16
+                          },
+                          "accessibility": {
+                            "type": "header"
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "gallery",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "match_parent"
+                          },
+                          "orientation": "vertical",
+                          "scroll_mode": "default",
+                          "item_spacing": 4,
+                          "item_builder": {
+                            "data": "@{cuisines}",
+                            "data_element_name": "cuisineItem",
+                            "prototypes": [
+                              {
+                                "id": "cuisine_@{cuisineItem.getString('id')}",
+                                "div": {
+                                  "type": "container",
+                                  "orientation": "horizontal",
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "wrap_content"
+                                  },
+                                  "paddings": {
+                                    "top": 12,
+                                    "bottom": 12
+                                  },
+                                  "content_alignment_vertical": "center",
+                                  "items": [
+                                    {
+                                      "type": "container",
+                                      "width": {
+                                        "type": "fixed",
+                                        "value": 22
+                                      },
+                                      "height": {
+                                        "type": "fixed",
+                                        "value": 22
+                                      },
+                                      "background": [
+                                        {
+                                          "type": "solid",
+                                          "color": "@{getOptIntegerFromDict(0, selectedCuisineIds, cuisineItem.getString('id')) == 1 ? '#4CAF50' : '#FFFFFF'}"
+                                        }
+                                      ],
+                                      "border": {
+                                        "corner_radius": 4,
+                                        "stroke": {
+                                          "color": "@{getOptIntegerFromDict(0, selectedCuisineIds, cuisineItem.getString('id')) == 1 ? '#4CAF50' : '#BDBDBD'}",
+                                          "width": 2
+                                        }
+                                      },
+                                      "content_alignment_horizontal": "center",
+                                      "content_alignment_vertical": "center",
+                                      "margins": {
+                                        "right": 12
+                                      },
+                                      "items": [
+                                        {
+                                          "type": "text",
+                                          "text": "@{getOptIntegerFromDict(0, selectedCuisineIds, cuisineItem.getString('id')) == 1 ? '✓' : ''}",
+                                          "font_size": 14,
+                                          "font_weight": "bold",
+                                          "text_color": "#FFFFFF",
+                                          "width": {
+                                            "type": "match_parent"
+                                          },
+                                          "height": {
+                                            "type": "match_parent"
+                                          },
+                                          "text_alignment_horizontal": "center",
+                                          "text_alignment_vertical": "center",
+                                          "font_family": "Roboto"
+                                        }
+                                      ],
+                                      "accessibility": {
+                                        "mode": "exclude"
+                                      }
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "@{cuisineItem.getString('name')}",
+                                      "font_size": 15,
+                                      "font_weight": "regular",
+                                      "text_color": "#212121",
+                                      "width": {
+                                        "type": "wrap_content"
+                                      },
+                                      "font_family": "Roboto"
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "log_id": "cuisine_toggle",
+                                      "url": "divaction://cuisine_toggle?id=@{cuisineItem.getString('id')}"
+                                    }
+                                  ],
+                                  "accessibility": {
+                                    "type": "button",
+                                    "mode": "merge",
+                                    "description": "Toggle cuisine filter"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "accessibility": {
+                            "type": "list",
+                            "description": "Cuisine options"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "match_parent"
+                      },
+                      "visibility": "@{selectedTab == 'sortby' ? 'visible' : 'gone'}",
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 16
+                      },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{selectSortHeader}",
+                          "font_size": 13,
+                          "font_weight": "regular",
+                          "text_color": "#9E9E9E",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "bottom": 16
+                          },
+                          "accessibility": {
+                            "type": "header"
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "gallery",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "match_parent"
+                          },
+                          "orientation": "vertical",
+                          "scroll_mode": "default",
+                          "item_spacing": 4,
+                          "item_builder": {
+                            "data": "@{sortOptions}",
+                            "data_element_name": "sortItem",
+                            "prototypes": [
+                              {
+                                "id": "sort_@{sortItem.getString('id')}",
+                                "div": {
+                                  "type": "container",
+                                  "orientation": "horizontal",
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "wrap_content"
+                                  },
+                                  "paddings": {
+                                    "top": 12,
+                                    "bottom": 12
+                                  },
+                                  "content_alignment_vertical": "center",
+                                  "items": [
+                                    {
+                                      "type": "container",
+                                      "width": {
+                                        "type": "fixed",
+                                        "value": 22
+                                      },
+                                      "height": {
+                                        "type": "fixed",
+                                        "value": 22
+                                      },
+                                      "background": [
+                                        {
+                                          "type": "solid",
+                                          "color": "@{selectedSortId == sortItem.getString('id') ? '#4CAF50' : '#FFFFFF'}"
+                                        }
+                                      ],
+                                      "border": {
+                                        "corner_radius": 11,
+                                        "stroke": {
+                                          "color": "@{selectedSortId == sortItem.getString('id') ? '#4CAF50' : '#BDBDBD'}",
+                                          "width": 2
+                                        }
+                                      },
+                                      "content_alignment_horizontal": "center",
+                                      "content_alignment_vertical": "center",
+                                      "margins": {
+                                        "right": 12
+                                      },
+                                      "items": [
+                                        {
+                                          "type": "text",
+                                          "text": "@{selectedSortId == sortItem.getString('id') ? '✓' : ''}",
+                                          "font_size": 14,
+                                          "font_weight": "bold",
+                                          "text_color": "#FFFFFF",
+                                          "width": {
+                                            "type": "match_parent"
+                                          },
+                                          "height": {
+                                            "type": "match_parent"
+                                          },
+                                          "text_alignment_horizontal": "center",
+                                          "text_alignment_vertical": "center",
+                                          "font_family": "Roboto"
+                                        }
+                                      ],
+                                      "accessibility": {
+                                        "mode": "exclude"
+                                      }
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "@{sortItem.getString('displayName')}",
+                                      "font_size": 15,
+                                      "font_weight": "regular",
+                                      "text_color": "#212121",
+                                      "width": {
+                                        "type": "wrap_content"
+                                      },
+                                      "font_family": "Roboto"
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "log_id": "sort_select",
+                                      "url": "divaction://sort_select?id=@{sortItem.getString('id')}"
+                                    }
+                                  ],
+                                  "accessibility": {
+                                    "type": "button",
+                                    "mode": "merge",
+                                    "description": "Select sort option"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "accessibility": {
+                            "type": "list",
+                            "description": "Sort options"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "separator",
+              "width": {
+                "type": "match_parent"
+              },
+              "delimiter_style": {
+                "color": "#E0E0E0"
+              },
+              "accessibility": {
+                "mode": "exclude"
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 16,
+                "bottom": 24
+              },
+              "content_alignment_vertical": "center",
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{closeText}",
+                  "font_size": 16,
+                  "font_weight": "medium",
+                  "text_color": "#757575",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 12,
+                    "bottom": 12
+                  },
+                  "actions": [
+                    {
+                      "log_id": "close",
+                      "url": "divaction://close"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "description": "Close filters"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "fixed",
+                    "value": 16
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  }
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "@{hasActiveFilters || currentAmount > minAmount ? '#4CAF50' : '#BDBDBD'}"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 24
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "paddings": {
+                    "top": 14,
+                    "bottom": 14
+                  },
+                  "actions": [
+                    {
+                      "log_id": "show_results",
+                      "url": "divaction://show_results"
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{showResultsText}",
+                      "font_size": 16,
+                      "font_weight": "medium",
+                      "text_color": "#FFFFFF",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "text_alignment_horizontal": "center",
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Apply filters and show results"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

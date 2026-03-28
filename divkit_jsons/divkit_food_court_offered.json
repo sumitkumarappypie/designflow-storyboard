@@ -1,0 +1,506 @@
+{
+  "templates": {},
+  "card": {
+    "log_id": "food_court_offered",
+    "variables": [
+      {
+        "name": "vendorList",
+        "type": "array",
+        "value": [
+          {
+            "vendorId": "vendor_001",
+            "vendorName": "Burger Barn",
+            "subtitle": "Juicy smash burgers & loaded fries",
+            "imageUrl": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80",
+            "isClosed": "false",
+            "rating": "4.6",
+            "shouldShowDetail": "true"
+          },
+          {
+            "vendorId": "vendor_002",
+            "vendorName": "Sakura Sushi",
+            "subtitle": "Fresh rolls, sashimi & bento boxes",
+            "imageUrl": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&q=80",
+            "isClosed": "false",
+            "rating": "4.8",
+            "shouldShowDetail": "true"
+          },
+          {
+            "vendorId": "vendor_003",
+            "vendorName": "Pizza Palace",
+            "subtitle": "Wood-fired Neapolitan pizzas",
+            "imageUrl": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80",
+            "isClosed": "true",
+            "rating": "4.3",
+            "shouldShowDetail": "true"
+          },
+          {
+            "vendorId": "vendor_004",
+            "vendorName": "Spice Garden",
+            "subtitle": "Authentic Indian curries & tandoor",
+            "imageUrl": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80",
+            "isClosed": "false",
+            "rating": "4.5",
+            "shouldShowDetail": "true"
+          },
+          {
+            "vendorId": "vendor_005",
+            "vendorName": "Wok & Roll",
+            "subtitle": "Chinese stir-fry, dim sum & noodles",
+            "imageUrl": "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80",
+            "isClosed": "false",
+            "rating": "4.2",
+            "shouldShowDetail": "true"
+          },
+          {
+            "vendorId": "vendor_006",
+            "vendorName": "The Taco Spot",
+            "subtitle": "Street-style tacos, burritos & nachos",
+            "imageUrl": "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=400&q=80",
+            "isClosed": "false",
+            "rating": "4.7",
+            "shouldShowDetail": "true"
+          },
+          {
+            "vendorId": "vendor_007",
+            "vendorName": "Green Bowl Co.",
+            "subtitle": "Healthy salads, grain bowls & wraps",
+            "imageUrl": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80",
+            "isClosed": "false",
+            "rating": "4.4",
+            "shouldShowDetail": "true"
+          },
+          {
+            "vendorId": "vendor_008",
+            "vendorName": "Crêpe Café",
+            "subtitle": "Sweet & savoury French crêpes",
+            "imageUrl": "https://images.unsplash.com/photo-1519676867240-f03562e64548?w=400&q=80",
+            "isClosed": "true",
+            "rating": "4.1",
+            "shouldShowDetail": "true"
+          }
+        ]
+      },
+      {
+        "name": "isEmpty",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "emptyTitle",
+        "type": "string",
+        "value": "No Offered Restaurants Yet"
+      },
+      {
+        "name": "emptySubtitle",
+        "type": "string",
+        "value": "Explore restaurants and discover offered deals near you."
+      },
+      {
+        "name": "exploreButtonText",
+        "type": "string",
+        "value": "Explore Restaurants"
+      },
+      {
+        "name": "closedText",
+        "type": "string",
+        "value": "Closed"
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "match_parent"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#F8F9FA"
+            }
+          ],
+          "items": [
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "match_parent"
+              },
+              "visibility": "@{isEmpty == 'true' ? 'visible' : 'gone'}",
+              "content_alignment_horizontal": "center",
+              "content_alignment_vertical": "center",
+              "paddings": {
+                "top": 0,
+                "bottom": 40,
+                "left": 32,
+                "right": 32
+              },
+              "accessibility": {
+                "mode": "merge",
+                "description": "@{emptyTitle}. @{emptySubtitle}"
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "overlap",
+                  "width": {
+                    "type": "fixed",
+                    "value": 90
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 90
+                  },
+                  "alignment_horizontal": "center",
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#F0F0F0"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 45
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "margins": {
+                    "bottom": 20
+                  },
+                  "items": [
+                    {
+                      "type": "image",
+                      "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/utensils.svg",
+                      "width": {
+                        "type": "fixed",
+                        "value": 40
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 40
+                      },
+                      "tint_color": "#BDBDBD",
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "@{emptyTitle}",
+                  "font_size": 18,
+                  "font_weight": "bold",
+                  "text_color": "#101010",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "margins": {
+                    "bottom": 8
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "@{emptySubtitle}",
+                  "font_size": 14,
+                  "text_color": "#878787",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "margins": {
+                    "bottom": 24
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "alignment_horizontal": "center",
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#4FAF5A"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 10
+                  },
+                  "paddings": {
+                    "top": 12,
+                    "bottom": 12,
+                    "left": 24,
+                    "right": 24
+                  },
+                  "actions": [
+                    {
+                      "log_id": "explore_restaurants",
+                      "url": "divaction://explore_restaurants"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Explore restaurants"
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{exploreButtonText}",
+                      "font_size": 14,
+                      "font_weight": "bold",
+                      "text_color": "#FFFFFF",
+                      "text_alignment_horizontal": "center",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "gallery",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{isEmpty == 'false' ? 'visible' : 'gone'}",
+              "accessibility": {
+                "type": "list",
+                "description": "Offered restaurants"
+              },
+              "column_count": 2,
+              "paddings": {
+                "top": 10,
+                "bottom": 10,
+                "left": 20,
+                "right": 20
+              },
+              "item_spacing": 15,
+              "cross_spacing": 15,
+              "orientation": "vertical",
+              "item_builder": {
+                "data": "@{vendorList}",
+                "data_element_name": "vendor",
+                "prototypes": [
+                  {
+                    "id": "vendor_@{vendor.getString('vendorId')}",
+                    "div": {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FFFFFF"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 10
+                      },
+                      "paddings": {
+                        "bottom": 8
+                      },
+                      "actions": [
+                        {
+                          "log_id": "select_vendor",
+                          "url": "divaction://select_vendor?vendorId=@{vendor.getString('vendorId')}&shouldShowDetail=@{vendor.getString('shouldShowDetail')}"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "Open @{vendor.getString('vendorName')}"
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "@{vendor.getString('imageUrl')}",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 140
+                              },
+                              "scale": "fill",
+                              "border": {
+                                "corner_radius": 16
+                              },
+                              "placeholder_color": "#E0E0E0",
+                              "accessibility": {
+                                "type": "image",
+                                "description": "Photo of @{vendor.getString('vendorName')}"
+                              }
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "vertical",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 140
+                              },
+                              "visibility": "@{vendor.getString('isClosed') == 'true' ? 'visible' : 'gone'}",
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "#80000000"
+                                }
+                              ],
+                              "border": {
+                                "corner_radius": 16
+                              },
+                              "content_alignment_horizontal": "center",
+                              "content_alignment_vertical": "center",
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "@{closedText}",
+                                  "font_size": 14,
+                                  "font_weight": "bold",
+                                  "text_color": "#FFFFFF",
+                                  "text_alignment_horizontal": "center",
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{vendor.getString('vendorName')}",
+                          "font_size": 13,
+                          "font_weight": "bold",
+                          "text_color": "#101010",
+                          "max_lines": 1,
+                          "paddings": {
+                            "left": 8,
+                            "right": 8,
+                            "top": 6
+                          },
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{vendor.getString('subtitle')}",
+                          "font_size": 11,
+                          "text_color": "#878787",
+                          "max_lines": 2,
+                          "min_hidden_lines": 0,
+                          "paddings": {
+                            "left": 8,
+                            "right": 8,
+                            "top": 2
+                          },
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "wrap_content"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "content_alignment_vertical": "center",
+                          "paddings": {
+                            "left": 8,
+                            "right": 8,
+                            "top": 4
+                          },
+                          "visibility": "@{vendor.getString('rating') != '0.0' ? 'visible' : 'gone'}",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/star.svg",
+                              "width": {
+                                "type": "fixed",
+                                "value": 12
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 12
+                              },
+                              "tint_color": "#FFC107",
+                              "margins": {
+                                "right": 4
+                              },
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{vendor.getString('rating')} reviews",
+                              "font_size": 11,
+                              "font_weight": "medium",
+                              "text_color": "#878787",
+                              "width": {
+                                "type": "wrap_content"
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

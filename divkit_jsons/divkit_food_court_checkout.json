@@ -1,0 +1,2161 @@
+{
+  "templates": {},
+  "card": {
+    "log_id": "food_court_checkout",
+    "variables": [
+      {
+        "name": "activeTab",
+        "type": "string",
+        "value": "delivery"
+      },
+      {
+        "name": "showDeliveryTab",
+        "type": "string",
+        "value": "true"
+      },
+      {
+        "name": "showPickupTab",
+        "type": "string",
+        "value": "true"
+      },
+      {
+        "name": "billingFirstName",
+        "type": "string",
+        "value": "Sumit Kumar"
+      },
+      {
+        "name": "billingEmail",
+        "type": "string",
+        "value": "sumit@example.com"
+      },
+      {
+        "name": "billingPhone",
+        "type": "string",
+        "value": "+91 98765 43210"
+      },
+      {
+        "name": "billingAddress",
+        "type": "string",
+        "value": "Tower B, Flat 1204, NSEZ, Noida"
+      },
+      {
+        "name": "billingPlusCode",
+        "type": "string",
+        "value": "849V+2G Noida"
+      },
+      {
+        "name": "isBillingPlusCodeMode",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "isPlusCodeEnabled",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "isDifferentDeliveryAddress",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "deliveryFirstName",
+        "type": "string",
+        "value": "Sumit Kumar"
+      },
+      {
+        "name": "deliveryPhone",
+        "type": "string",
+        "value": "+91 98765 43210"
+      },
+      {
+        "name": "deliveryAddress",
+        "type": "string",
+        "value": "Tower B, Flat 1204, NSEZ, Noida"
+      },
+      {
+        "name": "deliveryPlusCode",
+        "type": "string",
+        "value": "849V+2G Noida"
+      },
+      {
+        "name": "isDeliveryPlusCodeMode",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "deliveryTiming",
+        "type": "string",
+        "value": "asap"
+      },
+      {
+        "name": "deliveryDate",
+        "type": "string",
+        "value": "28 Mar 2026"
+      },
+      {
+        "name": "deliveryTime",
+        "type": "string",
+        "value": "12:30 PM - 1:00 PM"
+      },
+      {
+        "name": "estimatedDeliveryTime",
+        "type": "string",
+        "value": "30-40 min"
+      },
+      {
+        "name": "isAdvanceBookingEnabled",
+        "type": "string",
+        "value": "true"
+      },
+      {
+        "name": "restaurantAddress",
+        "type": "string",
+        "value": "Food Court, Ground Floor, DLF Mall"
+      },
+      {
+        "name": "isBillingAddressEnabled",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "pickupBillingFirstName",
+        "type": "string",
+        "value": "Sumit Kumar"
+      },
+      {
+        "name": "pickupBillingEmail",
+        "type": "string",
+        "value": "sumit@example.com"
+      },
+      {
+        "name": "pickupBillingPhone",
+        "type": "string",
+        "value": "+91 98765 43210"
+      },
+      {
+        "name": "pickupBillingAddress",
+        "type": "string",
+        "value": "Tower B, Flat 1204, NSEZ, Noida"
+      },
+      {
+        "name": "pickupDate",
+        "type": "string",
+        "value": "28 Mar 2026"
+      },
+      {
+        "name": "pickupTime",
+        "type": "string",
+        "value": "12:45 PM"
+      },
+      {
+        "name": "instruction",
+        "type": "string",
+        "value": "Please ring the doorbell"
+      },
+      {
+        "name": "isDescriptionRequired",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "billingFlatGuide",
+        "type": "string",
+        "value": "Enter flat/house no."
+      },
+      {
+        "name": "billingRoadGuide",
+        "type": "string",
+        "value": "Enter road/street"
+      },
+      {
+        "name": "billingLandmarkGuide",
+        "type": "string",
+        "value": "Enter nearby landmark"
+      },
+      {
+        "name": "deliveryFlatGuide",
+        "type": "string",
+        "value": "Enter flat/house no."
+      },
+      {
+        "name": "deliveryRoadGuide",
+        "type": "string",
+        "value": "Enter road/street"
+      },
+      {
+        "name": "deliveryLandmarkGuide",
+        "type": "string",
+        "value": "Enter nearby landmark"
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#FFFFFF"
+            }
+          ],
+          "items": [
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "paddings": {
+                "top": 8,
+                "bottom": 8
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "Delivery",
+                  "font_size": 14,
+                  "font_weight": "@{activeTab == 'delivery' ? 'bold' : 'medium'}",
+                  "text_color": "@{activeTab == 'delivery' ? '#4FAF5A' : '#878787'}",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "visibility": "@{showDeliveryTab == 'true' ? 'visible' : 'gone'}",
+                  "actions": [
+                    {
+                      "log_id": "set_delivery_state",
+                      "url": "div-action://set_state?state_id=0/checkout_tabs/delivery"
+                    },
+                    {
+                      "log_id": "tab_delivery",
+                      "url": "divaction://tab_changed?tab=delivery"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "description": "Delivery tab",
+                    "state_description": "@{activeTab == 'delivery' ? 'Selected' : 'Not selected'}"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "Pick Up",
+                  "font_size": 14,
+                  "font_weight": "@{activeTab == 'pickup' ? 'bold' : 'medium'}",
+                  "text_color": "@{activeTab == 'pickup' ? '#4FAF5A' : '#878787'}",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "visibility": "@{showPickupTab == 'true' ? 'visible' : 'gone'}",
+                  "actions": [
+                    {
+                      "log_id": "set_pickup_state",
+                      "url": "div-action://set_state?state_id=0/checkout_tabs/pickup"
+                    },
+                    {
+                      "log_id": "tab_pickup",
+                      "url": "divaction://tab_changed?tab=pickup"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "description": "Pick Up tab",
+                    "state_description": "@{activeTab == 'pickup' ? 'Selected' : 'Not selected'}"
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 2
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 2
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "@{activeTab == 'delivery' ? '#4FAF5A' : '#DCDCEC'}"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 2
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "@{activeTab == 'pickup' ? '#4FAF5A' : '#DCDCEC'}"
+                    }
+                  ]
+                }
+              ],
+              "accessibility": {
+                "mode": "exclude"
+              }
+            },
+            {
+              "type": "state",
+              "id": "checkout_tabs",
+              "width": {
+                "type": "match_parent"
+              },
+              "default_state_id": "delivery",
+              "states": [
+                {
+                  "state_id": "delivery",
+                  "div": {
+                    "type": "container",
+                    "orientation": "vertical",
+                    "width": {
+                      "type": "match_parent"
+                    },
+                    "height": {
+                      "type": "wrap_content"
+                    },
+                    "paddings": {
+                      "bottom": 24
+                    },
+                    "items": [
+                      {
+                        "type": "text",
+                        "text": "Billing Address",
+                        "font_size": 16,
+                        "font_weight": "bold",
+                        "text_color": "#101010",
+                        "margins": {
+                          "top": 20,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "accessibility": {
+                          "type": "header"
+                        },
+                        "font_family": "Roboto"
+                      },
+                      {
+                        "type": "text",
+                        "text": "FIRST NAME*",
+                        "font_size": 12,
+                        "text_color": "#101010",
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "font_family": "Roboto"
+                      },
+                      {
+                        "type": "container",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "height": {
+                          "type": "fixed",
+                          "value": 50
+                        },
+                        "margins": {
+                          "top": 6,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "paddings": {
+                          "left": 20,
+                          "right": 12
+                        },
+                        "content_alignment_vertical": "center",
+                        "background": [
+                          {
+                            "type": "solid",
+                            "color": "#F6F8FA"
+                          }
+                        ],
+                        "border": {
+                          "corner_radius": 10
+                        },
+                        "items": [
+                          {
+                            "type": "input",
+                            "text_variable": "billingFirstName",
+                            "hint_text": "Enter name",
+                            "font_size": 14,
+                            "text_color": "#101010",
+                            "hint_color": "#878787",
+                            "width": {
+                              "type": "match_parent"
+                            },
+                            "height": {
+                              "type": "match_parent"
+                            },
+                            "on_blur_actions": [
+                              {
+                                "log_id": "blur_fn",
+                                "url": "divaction://field_blur?field=billingFirstName&value=@{billingFirstName}"
+                              }
+                            ],
+                            "accessibility": {
+                              "type": "edit_text",
+                              "hint": "Billing first name"
+                            },
+                            "font_family": "Roboto"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "text",
+                        "text": "EMAIL*",
+                        "font_size": 12,
+                        "text_color": "#101010",
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "font_family": "Roboto"
+                      },
+                      {
+                        "type": "container",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "height": {
+                          "type": "fixed",
+                          "value": 50
+                        },
+                        "margins": {
+                          "top": 6,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "paddings": {
+                          "left": 20,
+                          "right": 12
+                        },
+                        "content_alignment_vertical": "center",
+                        "background": [
+                          {
+                            "type": "solid",
+                            "color": "#F6F8FA"
+                          }
+                        ],
+                        "border": {
+                          "corner_radius": 10
+                        },
+                        "items": [
+                          {
+                            "type": "input",
+                            "text_variable": "billingEmail",
+                            "hint_text": "Enter email",
+                            "font_size": 14,
+                            "text_color": "#101010",
+                            "hint_color": "#878787",
+                            "keyboard_type": "email",
+                            "width": {
+                              "type": "match_parent"
+                            },
+                            "height": {
+                              "type": "match_parent"
+                            },
+                            "on_blur_actions": [
+                              {
+                                "log_id": "blur_em",
+                                "url": "divaction://field_blur?field=billingEmail&value=@{billingEmail}"
+                              }
+                            ],
+                            "accessibility": {
+                              "type": "edit_text",
+                              "hint": "Billing email"
+                            },
+                            "font_family": "Roboto"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "text",
+                        "text": "PHONE NUMBER*",
+                        "font_size": 12,
+                        "text_color": "#101010",
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "font_family": "Roboto"
+                      },
+                      {
+                        "type": "container",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "height": {
+                          "type": "fixed",
+                          "value": 50
+                        },
+                        "margins": {
+                          "top": 6,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "paddings": {
+                          "left": 20,
+                          "right": 12
+                        },
+                        "content_alignment_vertical": "center",
+                        "background": [
+                          {
+                            "type": "solid",
+                            "color": "#F6F8FA"
+                          }
+                        ],
+                        "border": {
+                          "corner_radius": 10
+                        },
+                        "items": [
+                          {
+                            "type": "input",
+                            "text_variable": "billingPhone",
+                            "hint_text": "Enter phone number",
+                            "font_size": 14,
+                            "text_color": "#101010",
+                            "hint_color": "#878787",
+                            "keyboard_type": "phone",
+                            "width": {
+                              "type": "match_parent"
+                            },
+                            "height": {
+                              "type": "match_parent"
+                            },
+                            "on_blur_actions": [
+                              {
+                                "log_id": "blur_ph",
+                                "url": "divaction://field_blur?field=billingPhone&value=@{billingPhone}"
+                              }
+                            ],
+                            "accessibility": {
+                              "type": "edit_text",
+                              "hint": "Billing phone number"
+                            },
+                            "font_family": "Roboto"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "text",
+                        "text": "ADDRESS*",
+                        "font_size": 12,
+                        "text_color": "#101010",
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "visibility": "@{isBillingPlusCodeMode == 'true' ? 'gone' : 'visible'}",
+                        "font_family": "Roboto"
+                      },
+                      {
+                        "type": "container",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "height": {
+                          "type": "fixed",
+                          "value": 81
+                        },
+                        "margins": {
+                          "top": 6,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "paddings": {
+                          "left": 20,
+                          "right": 12,
+                          "top": 10,
+                          "bottom": 10
+                        },
+                        "background": [
+                          {
+                            "type": "solid",
+                            "color": "#F6F8FA"
+                          }
+                        ],
+                        "border": {
+                          "corner_radius": 10
+                        },
+                        "visibility": "@{isBillingPlusCodeMode == 'true' ? 'gone' : 'visible'}",
+                        "orientation": "horizontal",
+                        "content_alignment_vertical": "center",
+                        "items": [
+                          {
+                            "type": "input",
+                            "text_variable": "billingAddress",
+                            "hint_text": "Enter your address",
+                            "font_size": 14,
+                            "text_color": "#101010",
+                            "hint_color": "#878787",
+                            "width": {
+                              "type": "match_parent",
+                              "weight": 1
+                            },
+                            "height": {
+                              "type": "match_parent"
+                            },
+                            "max_lines": 3,
+                            "on_blur_actions": [
+                              {
+                                "log_id": "blur_addr",
+                                "url": "divaction://field_blur?field=billingAddress&value=@{billingAddress}"
+                              }
+                            ],
+                            "accessibility": {
+                              "type": "edit_text",
+                              "hint": "Billing address"
+                            },
+                            "font_family": "Roboto"
+                          },
+                          {
+                            "type": "image",
+                            "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/location-dot.svg",
+                            "width": {
+                              "type": "fixed",
+                              "value": 24
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 24
+                            },
+                            "tint_color": "#4FAF5A",
+                            "margins": {
+                              "left": 8
+                            },
+                            "actions": [
+                              {
+                                "log_id": "pick_billing_location",
+                                "url": "divaction://open_location_picker?target=billing"
+                              }
+                            ],
+                            "accessibility": {
+                              "type": "button",
+                              "description": "Pick billing location on map"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "text",
+                        "text": "PLUS CODE*",
+                        "font_size": 12,
+                        "text_color": "#101010",
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "visibility": "@{isBillingPlusCodeMode == 'true' && isPlusCodeEnabled == 'true' ? 'visible' : 'gone'}",
+                        "font_family": "Roboto"
+                      },
+                      {
+                        "type": "container",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "height": {
+                          "type": "fixed",
+                          "value": 50
+                        },
+                        "margins": {
+                          "top": 6,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "paddings": {
+                          "left": 20,
+                          "right": 12
+                        },
+                        "content_alignment_vertical": "center",
+                        "background": [
+                          {
+                            "type": "solid",
+                            "color": "#F6F8FA"
+                          }
+                        ],
+                        "border": {
+                          "corner_radius": 10
+                        },
+                        "visibility": "@{isBillingPlusCodeMode == 'true' && isPlusCodeEnabled == 'true' ? 'visible' : 'gone'}",
+                        "items": [
+                          {
+                            "type": "input",
+                            "text_variable": "billingPlusCode",
+                            "hint_text": "Enter plus code",
+                            "font_size": 14,
+                            "text_color": "#101010",
+                            "hint_color": "#878787",
+                            "width": {
+                              "type": "match_parent"
+                            },
+                            "height": {
+                              "type": "match_parent"
+                            },
+                            "on_blur_actions": [
+                              {
+                                "log_id": "blur_pc",
+                                "url": "divaction://field_blur?field=billingPlusCode&value=@{billingPlusCode}"
+                              }
+                            ],
+                            "accessibility": {
+                              "type": "edit_text",
+                              "hint": "Billing plus code"
+                            },
+                            "font_family": "Roboto"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "container",
+                        "orientation": "horizontal",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "content_alignment_vertical": "center",
+                        "items": [
+                          {
+                            "type": "image",
+                            "image_url": "@{isDifferentDeliveryAddress == 'true' ? 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/square-check.svg' : 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/regular/square.svg'}",
+                            "width": {
+                              "type": "fixed",
+                              "value": 24
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 24
+                            },
+                            "tint_color": "@{isDifferentDeliveryAddress == 'true' ? '#4FAF5A' : '#DCDCEC'}",
+                            "accessibility": {
+                              "mode": "exclude"
+                            }
+                          },
+                          {
+                            "type": "text",
+                            "text": "Delivery address different from billing address",
+                            "font_size": 14,
+                            "text_color": "#101010",
+                            "margins": {
+                              "left": 10
+                            },
+                            "font_family": "Roboto"
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "log_id": "toggle_diff_addr",
+                            "url": "divaction://toggle_different_address"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "mode": "merge",
+                          "state_description": "@{isDifferentDeliveryAddress == 'true' ? 'Checked' : 'Unchecked'}"
+                        }
+                      },
+                      {
+                        "type": "container",
+                        "orientation": "vertical",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "visibility": "@{isDifferentDeliveryAddress == 'true' ? 'visible' : 'gone'}",
+                        "items": [
+                          {
+                            "type": "text",
+                            "text": "FIRST NAME*",
+                            "font_size": 12,
+                            "text_color": "#101010",
+                            "margins": {
+                              "top": 16,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "font_family": "Roboto"
+                          },
+                          {
+                            "type": "container",
+                            "width": {
+                              "type": "match_parent"
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 50
+                            },
+                            "margins": {
+                              "top": 6,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "paddings": {
+                              "left": 20,
+                              "right": 12
+                            },
+                            "content_alignment_vertical": "center",
+                            "background": [
+                              {
+                                "type": "solid",
+                                "color": "#F6F8FA"
+                              }
+                            ],
+                            "border": {
+                              "corner_radius": 10
+                            },
+                            "items": [
+                              {
+                                "type": "input",
+                                "text_variable": "deliveryFirstName",
+                                "hint_text": "Enter name",
+                                "font_size": 14,
+                                "text_color": "#101010",
+                                "hint_color": "#878787",
+                                "width": {
+                                  "type": "match_parent"
+                                },
+                                "height": {
+                                  "type": "match_parent"
+                                },
+                                "on_blur_actions": [
+                                  {
+                                    "log_id": "blur_dfn",
+                                    "url": "divaction://field_blur?field=deliveryFirstName&value=@{deliveryFirstName}"
+                                  }
+                                ],
+                                "accessibility": {
+                                  "type": "edit_text",
+                                  "hint": "Delivery first name"
+                                },
+                                "font_family": "Roboto"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "text",
+                            "text": "PHONE NUMBER*",
+                            "font_size": 12,
+                            "text_color": "#101010",
+                            "margins": {
+                              "top": 16,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "font_family": "Roboto"
+                          },
+                          {
+                            "type": "container",
+                            "width": {
+                              "type": "match_parent"
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 50
+                            },
+                            "margins": {
+                              "top": 6,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "paddings": {
+                              "left": 20,
+                              "right": 12
+                            },
+                            "content_alignment_vertical": "center",
+                            "background": [
+                              {
+                                "type": "solid",
+                                "color": "#F6F8FA"
+                              }
+                            ],
+                            "border": {
+                              "corner_radius": 10
+                            },
+                            "items": [
+                              {
+                                "type": "input",
+                                "text_variable": "deliveryPhone",
+                                "hint_text": "Enter phone number",
+                                "font_size": 14,
+                                "text_color": "#101010",
+                                "hint_color": "#878787",
+                                "keyboard_type": "phone",
+                                "width": {
+                                  "type": "match_parent"
+                                },
+                                "height": {
+                                  "type": "match_parent"
+                                },
+                                "on_blur_actions": [
+                                  {
+                                    "log_id": "blur_dph",
+                                    "url": "divaction://field_blur?field=deliveryPhone&value=@{deliveryPhone}"
+                                  }
+                                ],
+                                "accessibility": {
+                                  "type": "edit_text",
+                                  "hint": "Delivery phone number"
+                                },
+                                "font_family": "Roboto"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "text",
+                            "text": "ADDRESS*",
+                            "font_size": 12,
+                            "text_color": "#101010",
+                            "margins": {
+                              "top": 16,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "font_family": "Roboto"
+                          },
+                          {
+                            "type": "container",
+                            "width": {
+                              "type": "match_parent"
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 81
+                            },
+                            "margins": {
+                              "top": 6,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "paddings": {
+                              "left": 20,
+                              "right": 12,
+                              "top": 10,
+                              "bottom": 10
+                            },
+                            "background": [
+                              {
+                                "type": "solid",
+                                "color": "#F6F8FA"
+                              }
+                            ],
+                            "border": {
+                              "corner_radius": 10
+                            },
+                            "orientation": "horizontal",
+                            "content_alignment_vertical": "center",
+                            "items": [
+                              {
+                                "type": "input",
+                                "text_variable": "deliveryAddress",
+                                "hint_text": "Enter your address",
+                                "font_size": 14,
+                                "text_color": "#101010",
+                                "hint_color": "#878787",
+                                "width": {
+                                  "type": "match_parent",
+                                  "weight": 1
+                                },
+                                "height": {
+                                  "type": "match_parent"
+                                },
+                                "max_lines": 3,
+                                "on_blur_actions": [
+                                  {
+                                    "log_id": "blur_daddr",
+                                    "url": "divaction://field_blur?field=deliveryAddress&value=@{deliveryAddress}"
+                                  }
+                                ],
+                                "accessibility": {
+                                  "type": "edit_text",
+                                  "hint": "Delivery address"
+                                },
+                                "font_family": "Roboto"
+                              },
+                              {
+                                "type": "image",
+                                "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/location-dot.svg",
+                                "width": {
+                                  "type": "fixed",
+                                  "value": 24
+                                },
+                                "height": {
+                                  "type": "fixed",
+                                  "value": 24
+                                },
+                                "tint_color": "#4FAF5A",
+                                "margins": {
+                                  "left": 8
+                                },
+                                "actions": [
+                                  {
+                                    "log_id": "pick_delivery_location",
+                                    "url": "divaction://open_location_picker?target=delivery"
+                                  }
+                                ],
+                                "accessibility": {
+                                  "type": "button",
+                                  "description": "Pick delivery location on map"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "container",
+                        "orientation": "horizontal",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "content_alignment_vertical": "center",
+                        "items": [
+                          {
+                            "type": "image",
+                            "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/note-sticky.svg",
+                            "width": {
+                              "type": "fixed",
+                              "value": 15
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 19
+                            },
+                            "tint_color": "#101010",
+                            "accessibility": {
+                              "mode": "exclude"
+                            }
+                          },
+                          {
+                            "type": "text",
+                            "text": "Add instruction for the restaurant",
+                            "font_size": 12,
+                            "font_weight": "medium",
+                            "text_color": "#101010",
+                            "margins": {
+                              "left": 8
+                            },
+                            "font_family": "Roboto"
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "log_id": "add_instruction",
+                            "url": "divaction://add_instruction"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "mode": "merge",
+                          "description": "Add restaurant instructions"
+                        }
+                      },
+                      {
+                        "type": "container",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "height": {
+                          "type": "fixed",
+                          "value": 1
+                        },
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "background": [
+                          {
+                            "type": "solid",
+                            "color": "#DCDCEC"
+                          }
+                        ],
+                        "accessibility": {
+                          "mode": "exclude"
+                        }
+                      },
+                      {
+                        "type": "container",
+                        "orientation": "horizontal",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "content_alignment_vertical": "top",
+                        "items": [
+                          {
+                            "type": "image",
+                            "image_url": "@{deliveryTiming == 'asap' ? 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/circle-dot.svg' : 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/regular/circle.svg'}",
+                            "width": {
+                              "type": "fixed",
+                              "value": 20
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 20
+                            },
+                            "tint_color": "@{deliveryTiming == 'asap' ? '#4FAF5A' : '#DCDCEC'}",
+                            "accessibility": {
+                              "mode": "exclude"
+                            }
+                          },
+                          {
+                            "type": "container",
+                            "orientation": "vertical",
+                            "margins": {
+                              "left": 8
+                            },
+                            "items": [
+                              {
+                                "type": "text",
+                                "text": "As soon as possible",
+                                "font_size": 14,
+                                "font_weight": "medium",
+                                "text_color": "#101010",
+                                "font_family": "Roboto"
+                              },
+                              {
+                                "type": "text",
+                                "text": "@{estimatedDeliveryTime}",
+                                "font_size": 12,
+                                "text_color": "#878787",
+                                "margins": {
+                                  "top": 3
+                                },
+                                "font_family": "Roboto"
+                              }
+                            ]
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "log_id": "select_asap",
+                            "url": "divaction://select_asap"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "mode": "merge",
+                          "state_description": "@{deliveryTiming == 'asap' ? 'Selected' : 'Not selected'}"
+                        }
+                      },
+                      {
+                        "type": "container",
+                        "orientation": "horizontal",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "margins": {
+                          "top": 12,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "content_alignment_vertical": "top",
+                        "visibility": "@{isAdvanceBookingEnabled == 'true' ? 'visible' : 'gone'}",
+                        "items": [
+                          {
+                            "type": "image",
+                            "image_url": "@{deliveryTiming == 'later' ? 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/circle-dot.svg' : 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/regular/circle.svg'}",
+                            "width": {
+                              "type": "fixed",
+                              "value": 20
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 20
+                            },
+                            "tint_color": "@{deliveryTiming == 'later' ? '#4FAF5A' : '#DCDCEC'}",
+                            "accessibility": {
+                              "mode": "exclude"
+                            }
+                          },
+                          {
+                            "type": "container",
+                            "orientation": "vertical",
+                            "margins": {
+                              "left": 8
+                            },
+                            "items": [
+                              {
+                                "type": "text",
+                                "text": "Later",
+                                "font_size": 14,
+                                "font_weight": "medium",
+                                "text_color": "#101010",
+                                "font_family": "Roboto"
+                              },
+                              {
+                                "type": "text",
+                                "text": "Change delivery date & time",
+                                "font_size": 12,
+                                "text_color": "#878787",
+                                "margins": {
+                                  "top": 3
+                                },
+                                "font_family": "Roboto"
+                              }
+                            ]
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "log_id": "select_later",
+                            "url": "divaction://select_later"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "mode": "merge",
+                          "state_description": "@{deliveryTiming == 'later' ? 'Selected' : 'Not selected'}"
+                        }
+                      },
+                      {
+                        "type": "container",
+                        "orientation": "horizontal",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "margins": {
+                          "top": 12,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "visibility": "@{deliveryTiming == 'later' && isAdvanceBookingEnabled == 'true' ? 'visible' : 'gone'}",
+                        "items": [
+                          {
+                            "type": "container",
+                            "width": {
+                              "type": "match_parent",
+                              "weight": 1
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 44
+                            },
+                            "paddings": {
+                              "left": 12,
+                              "right": 12
+                            },
+                            "content_alignment_vertical": "center",
+                            "background": [
+                              {
+                                "type": "solid",
+                                "color": "#F6F8FA"
+                              }
+                            ],
+                            "border": {
+                              "corner_radius": 8
+                            },
+                            "items": [
+                              {
+                                "type": "text",
+                                "text": "@{deliveryDate}",
+                                "font_size": 14,
+                                "text_color": "#101010",
+                                "font_family": "Roboto"
+                              }
+                            ],
+                            "actions": [
+                              {
+                                "log_id": "delivery_date",
+                                "url": "divaction://open_date_picker?target=delivery"
+                              }
+                            ],
+                            "accessibility": {
+                              "type": "button",
+                              "description": "Select delivery date"
+                            }
+                          },
+                          {
+                            "type": "container",
+                            "width": {
+                              "type": "fixed",
+                              "value": 12
+                            }
+                          },
+                          {
+                            "type": "container",
+                            "width": {
+                              "type": "match_parent",
+                              "weight": 1
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 44
+                            },
+                            "paddings": {
+                              "left": 12,
+                              "right": 12
+                            },
+                            "content_alignment_vertical": "center",
+                            "background": [
+                              {
+                                "type": "solid",
+                                "color": "#F6F8FA"
+                              }
+                            ],
+                            "border": {
+                              "corner_radius": 8
+                            },
+                            "items": [
+                              {
+                                "type": "text",
+                                "text": "@{deliveryTime}",
+                                "font_size": 14,
+                                "text_color": "#101010",
+                                "font_family": "Roboto"
+                              }
+                            ],
+                            "actions": [
+                              {
+                                "log_id": "delivery_time",
+                                "url": "divaction://open_time_picker?target=delivery"
+                              }
+                            ],
+                            "accessibility": {
+                              "type": "button",
+                              "description": "Select delivery time"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "text",
+                        "text": "View Restaurants Timings",
+                        "font_size": 14,
+                        "font_weight": "bold",
+                        "text_color": "#4FAF5A",
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "underline": "single",
+                        "actions": [
+                          {
+                            "log_id": "view_timings",
+                            "url": "divaction://view_store_timings"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "description": "View restaurant timings"
+                        },
+                        "font_family": "Roboto"
+                      },
+                      {
+                        "type": "container",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "height": {
+                          "type": "fixed",
+                          "value": 50
+                        },
+                        "margins": {
+                          "top": 24,
+                          "left": 20,
+                          "right": 20,
+                          "bottom": 16
+                        },
+                        "background": [
+                          {
+                            "type": "solid",
+                            "color": "#4FAF5A"
+                          }
+                        ],
+                        "border": {
+                          "corner_radius": 10
+                        },
+                        "content_alignment_horizontal": "center",
+                        "content_alignment_vertical": "center",
+                        "items": [
+                          {
+                            "type": "text",
+                            "text": "Confirm",
+                            "font_size": 14,
+                            "font_weight": "bold",
+                            "text_color": "#FFFFFF",
+                            "text_alignment_horizontal": "center",
+                            "font_family": "Roboto"
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "log_id": "confirm_delivery",
+                            "url": "divaction://confirm_delivery?billingFirstName=@{billingFirstName}&billingEmail=@{billingEmail}&billingPhone=@{billingPhone}&billingAddress=@{billingAddress}&billingPlusCode=@{billingPlusCode}&deliveryFirstName=@{deliveryFirstName}&deliveryPhone=@{deliveryPhone}&deliveryAddress=@{deliveryAddress}&deliveryPlusCode=@{deliveryPlusCode}"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "mode": "merge",
+                          "description": "Confirm delivery order"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "state_id": "pickup",
+                  "div": {
+                    "type": "container",
+                    "orientation": "vertical",
+                    "width": {
+                      "type": "match_parent"
+                    },
+                    "height": {
+                      "type": "wrap_content"
+                    },
+                    "paddings": {
+                      "bottom": 24
+                    },
+                    "items": [
+                      {
+                        "type": "text",
+                        "text": "RESTAURANT ADDRESS*",
+                        "font_size": 12,
+                        "text_color": "#101010",
+                        "margins": {
+                          "top": 20,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "accessibility": {
+                          "type": "header"
+                        },
+                        "font_family": "Roboto"
+                      },
+                      {
+                        "type": "container",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "height": {
+                          "type": "fixed",
+                          "value": 50
+                        },
+                        "margins": {
+                          "top": 6,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "paddings": {
+                          "left": 20,
+                          "right": 12
+                        },
+                        "content_alignment_vertical": "center",
+                        "background": [
+                          {
+                            "type": "solid",
+                            "color": "#F6F8FA"
+                          }
+                        ],
+                        "border": {
+                          "corner_radius": 10
+                        },
+                        "items": [
+                          {
+                            "type": "text",
+                            "text": "@{restaurantAddress}",
+                            "font_size": 14,
+                            "text_color": "#101010",
+                            "max_lines": 1,
+                            "ellipsis": {
+                              "text": "..."
+                            },
+                            "font_family": "Roboto"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "container",
+                        "orientation": "horizontal",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "content_alignment_vertical": "center",
+                        "items": [
+                          {
+                            "type": "image",
+                            "image_url": "@{isBillingAddressEnabled == 'true' ? 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/square-check.svg' : 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/regular/square.svg'}",
+                            "width": {
+                              "type": "fixed",
+                              "value": 24
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 24
+                            },
+                            "tint_color": "@{isBillingAddressEnabled == 'true' ? '#4FAF5A' : '#DCDCEC'}",
+                            "accessibility": {
+                              "mode": "exclude"
+                            }
+                          },
+                          {
+                            "type": "text",
+                            "text": "Billing Address",
+                            "font_size": 14,
+                            "text_color": "#101010",
+                            "margins": {
+                              "left": 10
+                            },
+                            "font_family": "Roboto"
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "log_id": "toggle_billing",
+                            "url": "divaction://toggle_billing_address"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "mode": "merge",
+                          "state_description": "@{isBillingAddressEnabled == 'true' ? 'Checked' : 'Unchecked'}"
+                        }
+                      },
+                      {
+                        "type": "container",
+                        "orientation": "vertical",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "visibility": "@{isBillingAddressEnabled == 'true' ? 'visible' : 'gone'}",
+                        "items": [
+                          {
+                            "type": "text",
+                            "text": "FIRST NAME*",
+                            "font_size": 12,
+                            "text_color": "#101010",
+                            "margins": {
+                              "top": 16,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "font_family": "Roboto"
+                          },
+                          {
+                            "type": "container",
+                            "width": {
+                              "type": "match_parent"
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 50
+                            },
+                            "margins": {
+                              "top": 6,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "paddings": {
+                              "left": 20,
+                              "right": 12
+                            },
+                            "content_alignment_vertical": "center",
+                            "background": [
+                              {
+                                "type": "solid",
+                                "color": "#F6F8FA"
+                              }
+                            ],
+                            "border": {
+                              "corner_radius": 10
+                            },
+                            "items": [
+                              {
+                                "type": "input",
+                                "text_variable": "pickupBillingFirstName",
+                                "hint_text": "Enter name",
+                                "font_size": 14,
+                                "text_color": "#101010",
+                                "hint_color": "#878787",
+                                "width": {
+                                  "type": "match_parent"
+                                },
+                                "height": {
+                                  "type": "match_parent"
+                                },
+                                "on_blur_actions": [
+                                  {
+                                    "log_id": "blur_pfn",
+                                    "url": "divaction://field_blur?field=pickupBillingFirstName&value=@{pickupBillingFirstName}"
+                                  }
+                                ],
+                                "accessibility": {
+                                  "type": "edit_text",
+                                  "hint": "Pickup billing first name"
+                                },
+                                "font_family": "Roboto"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "text",
+                            "text": "EMAIL*",
+                            "font_size": 12,
+                            "text_color": "#101010",
+                            "margins": {
+                              "top": 16,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "font_family": "Roboto"
+                          },
+                          {
+                            "type": "container",
+                            "width": {
+                              "type": "match_parent"
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 50
+                            },
+                            "margins": {
+                              "top": 6,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "paddings": {
+                              "left": 20,
+                              "right": 12
+                            },
+                            "content_alignment_vertical": "center",
+                            "background": [
+                              {
+                                "type": "solid",
+                                "color": "#F6F8FA"
+                              }
+                            ],
+                            "border": {
+                              "corner_radius": 10
+                            },
+                            "items": [
+                              {
+                                "type": "input",
+                                "text_variable": "pickupBillingEmail",
+                                "hint_text": "Enter email",
+                                "font_size": 14,
+                                "text_color": "#101010",
+                                "hint_color": "#878787",
+                                "keyboard_type": "email",
+                                "width": {
+                                  "type": "match_parent"
+                                },
+                                "height": {
+                                  "type": "match_parent"
+                                },
+                                "on_blur_actions": [
+                                  {
+                                    "log_id": "blur_pem",
+                                    "url": "divaction://field_blur?field=pickupBillingEmail&value=@{pickupBillingEmail}"
+                                  }
+                                ],
+                                "accessibility": {
+                                  "type": "edit_text",
+                                  "hint": "Pickup billing email"
+                                },
+                                "font_family": "Roboto"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "text",
+                            "text": "PHONE NUMBER*",
+                            "font_size": 12,
+                            "text_color": "#101010",
+                            "margins": {
+                              "top": 16,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "font_family": "Roboto"
+                          },
+                          {
+                            "type": "container",
+                            "width": {
+                              "type": "match_parent"
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 50
+                            },
+                            "margins": {
+                              "top": 6,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "paddings": {
+                              "left": 20,
+                              "right": 12
+                            },
+                            "content_alignment_vertical": "center",
+                            "background": [
+                              {
+                                "type": "solid",
+                                "color": "#F6F8FA"
+                              }
+                            ],
+                            "border": {
+                              "corner_radius": 10
+                            },
+                            "items": [
+                              {
+                                "type": "input",
+                                "text_variable": "pickupBillingPhone",
+                                "hint_text": "Enter phone number",
+                                "font_size": 14,
+                                "text_color": "#101010",
+                                "hint_color": "#878787",
+                                "keyboard_type": "phone",
+                                "width": {
+                                  "type": "match_parent"
+                                },
+                                "height": {
+                                  "type": "match_parent"
+                                },
+                                "on_blur_actions": [
+                                  {
+                                    "log_id": "blur_pph",
+                                    "url": "divaction://field_blur?field=pickupBillingPhone&value=@{pickupBillingPhone}"
+                                  }
+                                ],
+                                "accessibility": {
+                                  "type": "edit_text",
+                                  "hint": "Pickup billing phone number"
+                                },
+                                "font_family": "Roboto"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "text",
+                            "text": "ADDRESS*",
+                            "font_size": 12,
+                            "text_color": "#101010",
+                            "margins": {
+                              "top": 16,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "font_family": "Roboto"
+                          },
+                          {
+                            "type": "container",
+                            "width": {
+                              "type": "match_parent"
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 81
+                            },
+                            "margins": {
+                              "top": 6,
+                              "left": 20,
+                              "right": 20
+                            },
+                            "paddings": {
+                              "left": 20,
+                              "right": 12,
+                              "top": 10,
+                              "bottom": 10
+                            },
+                            "background": [
+                              {
+                                "type": "solid",
+                                "color": "#F6F8FA"
+                              }
+                            ],
+                            "border": {
+                              "corner_radius": 10
+                            },
+                            "items": [
+                              {
+                                "type": "input",
+                                "text_variable": "pickupBillingAddress",
+                                "hint_text": "Enter your address",
+                                "font_size": 14,
+                                "text_color": "#101010",
+                                "hint_color": "#878787",
+                                "width": {
+                                  "type": "match_parent"
+                                },
+                                "height": {
+                                  "type": "match_parent"
+                                },
+                                "max_lines": 3,
+                                "on_blur_actions": [
+                                  {
+                                    "log_id": "blur_paddr",
+                                    "url": "divaction://field_blur?field=pickupBillingAddress&value=@{pickupBillingAddress}"
+                                  }
+                                ],
+                                "accessibility": {
+                                  "type": "edit_text",
+                                  "hint": "Pickup billing address"
+                                },
+                                "font_family": "Roboto"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "text",
+                        "text": "PICKUP DATE*",
+                        "font_size": 12,
+                        "text_color": "#101010",
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "visibility": "@{isAdvanceBookingEnabled == 'true' ? 'visible' : 'gone'}",
+                        "font_family": "Roboto"
+                      },
+                      {
+                        "type": "container",
+                        "orientation": "horizontal",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "height": {
+                          "type": "fixed",
+                          "value": 50
+                        },
+                        "margins": {
+                          "top": 6,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "paddings": {
+                          "left": 20,
+                          "right": 12
+                        },
+                        "content_alignment_vertical": "center",
+                        "background": [
+                          {
+                            "type": "solid",
+                            "color": "#F6F8FA"
+                          }
+                        ],
+                        "border": {
+                          "corner_radius": 10
+                        },
+                        "visibility": "@{isAdvanceBookingEnabled == 'true' ? 'visible' : 'gone'}",
+                        "items": [
+                          {
+                            "type": "text",
+                            "text": "@{pickupDate}",
+                            "font_size": 14,
+                            "text_color": "#101010",
+                            "width": {
+                              "type": "match_parent",
+                              "weight": 1
+                            },
+                            "font_family": "Roboto"
+                          },
+                          {
+                            "type": "image",
+                            "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/calendar-days.svg",
+                            "width": {
+                              "type": "fixed",
+                              "value": 24
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 24
+                            },
+                            "tint_color": "#5F6368",
+                            "accessibility": {
+                              "mode": "exclude"
+                            }
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "log_id": "pickup_date",
+                            "url": "divaction://open_date_picker?target=pickup"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "description": "Select pickup date"
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "text": "PICKUP TIME*",
+                        "font_size": 12,
+                        "text_color": "#101010",
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "font_family": "Roboto"
+                      },
+                      {
+                        "type": "container",
+                        "orientation": "horizontal",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "height": {
+                          "type": "fixed",
+                          "value": 50
+                        },
+                        "margins": {
+                          "top": 6,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "paddings": {
+                          "left": 20,
+                          "right": 12
+                        },
+                        "content_alignment_vertical": "center",
+                        "background": [
+                          {
+                            "type": "solid",
+                            "color": "#F6F8FA"
+                          }
+                        ],
+                        "border": {
+                          "corner_radius": 10
+                        },
+                        "items": [
+                          {
+                            "type": "text",
+                            "text": "@{pickupTime}",
+                            "font_size": 14,
+                            "text_color": "#101010",
+                            "width": {
+                              "type": "match_parent",
+                              "weight": 1
+                            },
+                            "font_family": "Roboto"
+                          },
+                          {
+                            "type": "image",
+                            "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/clock.svg",
+                            "width": {
+                              "type": "fixed",
+                              "value": 24
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 24
+                            },
+                            "tint_color": "#5F6368",
+                            "accessibility": {
+                              "mode": "exclude"
+                            }
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "log_id": "pickup_time",
+                            "url": "divaction://open_time_picker?target=pickup"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "description": "Select pickup time"
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "text": "View Restaurants Timings",
+                        "font_size": 14,
+                        "font_weight": "bold",
+                        "text_color": "#4FAF5A",
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "underline": "single",
+                        "actions": [
+                          {
+                            "log_id": "view_timings_pickup",
+                            "url": "divaction://view_store_timings"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "description": "View restaurant timings"
+                        },
+                        "font_family": "Roboto"
+                      },
+                      {
+                        "type": "container",
+                        "orientation": "horizontal",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "margins": {
+                          "top": 16,
+                          "left": 20,
+                          "right": 20
+                        },
+                        "content_alignment_vertical": "center",
+                        "items": [
+                          {
+                            "type": "image",
+                            "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/note-sticky.svg",
+                            "width": {
+                              "type": "fixed",
+                              "value": 15
+                            },
+                            "height": {
+                              "type": "fixed",
+                              "value": 19
+                            },
+                            "tint_color": "#101010",
+                            "accessibility": {
+                              "mode": "exclude"
+                            }
+                          },
+                          {
+                            "type": "text",
+                            "text": "Add instruction for the restaurant",
+                            "font_size": 12,
+                            "font_weight": "medium",
+                            "text_color": "#101010",
+                            "margins": {
+                              "left": 8
+                            },
+                            "font_family": "Roboto"
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "log_id": "add_instruction_pickup",
+                            "url": "divaction://add_instruction"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "mode": "merge",
+                          "description": "Add restaurant instructions"
+                        }
+                      },
+                      {
+                        "type": "container",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "height": {
+                          "type": "fixed",
+                          "value": 50
+                        },
+                        "margins": {
+                          "top": 24,
+                          "left": 20,
+                          "right": 20,
+                          "bottom": 16
+                        },
+                        "background": [
+                          {
+                            "type": "solid",
+                            "color": "#4FAF5A"
+                          }
+                        ],
+                        "border": {
+                          "corner_radius": 10
+                        },
+                        "content_alignment_horizontal": "center",
+                        "content_alignment_vertical": "center",
+                        "items": [
+                          {
+                            "type": "text",
+                            "text": "Confirm",
+                            "font_size": 14,
+                            "font_weight": "bold",
+                            "text_color": "#FFFFFF",
+                            "text_alignment_horizontal": "center",
+                            "font_family": "Roboto"
+                          }
+                        ],
+                        "actions": [
+                          {
+                            "log_id": "confirm_pickup",
+                            "url": "divaction://confirm_pickup?pickupBillingFirstName=@{pickupBillingFirstName}&pickupBillingEmail=@{pickupBillingEmail}&pickupBillingPhone=@{pickupBillingPhone}&pickupBillingAddress=@{pickupBillingAddress}"
+                          }
+                        ],
+                        "accessibility": {
+                          "type": "button",
+                          "mode": "merge",
+                          "description": "Confirm pickup order"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

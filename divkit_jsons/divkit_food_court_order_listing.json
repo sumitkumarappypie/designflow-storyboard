@@ -1,0 +1,1376 @@
+{
+  "templates": {
+    "pending_order_card": {
+      "type": "container",
+      "orientation": "vertical",
+      "width": {
+        "type": "match_parent"
+      },
+      "height": {
+        "type": "wrap_content"
+      },
+      "background": [
+        {
+          "type": "solid",
+          "color": "#FFFFFF"
+        }
+      ],
+      "border": {
+        "corner_radius": 16,
+        "stroke": {
+          "color": "#F0F0F0",
+          "width": 1
+        }
+      },
+      "margins": {
+        "left": 16,
+        "right": 16,
+        "bottom": 12
+      },
+      "paddings": {
+        "left": 16,
+        "right": 16,
+        "top": 16,
+        "bottom": 16
+      },
+      "actions": [
+        {
+          "log_id": "open_pending_order",
+          "url": "divaction://open_order_detail?orderId=@{item.getString('orderId')}"
+        }
+      ],
+      "items": [
+        {
+          "type": "container",
+          "orientation": "horizontal",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "content_alignment_vertical": "center",
+          "items": [
+            {
+              "type": "image",
+              "image_url": "@{item.getString('vendorImg')}",
+              "width": {
+                "type": "fixed",
+                "value": 50
+              },
+              "height": {
+                "type": "fixed",
+                "value": 50
+              },
+              "border": {
+                "corner_radius": 10
+              },
+              "placeholder_color": "#F0F0F0",
+              "scale": "fill",
+              "accessibility": {
+                "type": "image",
+                "description": "Photo of @{item.getString(\"vendorName\")}"
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent",
+                "weight": 1
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "margins": {
+                "left": 12
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{item.getString('vendorName')}",
+                  "font_size": 13,
+                  "font_weight": "bold",
+                  "text_color": "#101010",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "max_lines": 1,
+                  "ellipsis": {
+                    "text": "..."
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "@{item.getString('vendorAddress')}",
+                  "font_size": 11,
+                  "text_color": "#878787",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "top": 2
+                  },
+                  "max_lines": 1,
+                  "ellipsis": {
+                    "text": "..."
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "separator",
+          "width": {
+            "type": "match_parent"
+          },
+          "margins": {
+            "top": 12,
+            "bottom": 12
+          },
+          "delimiter_style": {
+            "color": "#ECECFB"
+          },
+          "accessibility": {
+            "mode": "exclude"
+          }
+        },
+        {
+          "type": "container",
+          "orientation": "horizontal",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "@{item.getString('orderIdLabel')}",
+              "font_size": 12,
+              "text_color": "#878787",
+              "width": {
+                "type": "match_parent",
+                "weight": 1
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            },
+            {
+              "type": "text",
+              "text": "@{item.getString('displayOrderId')}",
+              "font_size": 12,
+              "font_weight": "medium",
+              "text_color": "#101010",
+              "width": {
+                "type": "wrap_content"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            }
+          ]
+        },
+        {
+          "type": "container",
+          "orientation": "horizontal",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "margins": {
+            "top": 8
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "@{item.getString('orderDateLabel')}",
+              "font_size": 12,
+              "text_color": "#878787",
+              "width": {
+                "type": "match_parent",
+                "weight": 1
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            },
+            {
+              "type": "text",
+              "text": "@{item.getString('orderDate')}",
+              "font_size": 12,
+              "font_weight": "medium",
+              "text_color": "#101010",
+              "width": {
+                "type": "wrap_content"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            }
+          ]
+        },
+        {
+          "type": "container",
+          "orientation": "horizontal",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "margins": {
+            "top": 8
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "@{item.getString('estimatedTimeLabel')}",
+              "font_size": 12,
+              "text_color": "#878787",
+              "width": {
+                "type": "match_parent",
+                "weight": 1
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            },
+            {
+              "type": "text",
+              "text": "@{item.getString('deliveryPickupTime')}",
+              "font_size": 12,
+              "font_weight": "medium",
+              "text_color": "#101010",
+              "width": {
+                "type": "wrap_content"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            }
+          ]
+        },
+        {
+          "type": "separator",
+          "width": {
+            "type": "match_parent"
+          },
+          "margins": {
+            "top": 12,
+            "bottom": 12
+          },
+          "delimiter_style": {
+            "color": "#ECECFB"
+          },
+          "accessibility": {
+            "mode": "exclude"
+          }
+        },
+        {
+          "type": "container",
+          "orientation": "horizontal",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "content_alignment_vertical": "center",
+          "items": [
+            {
+              "type": "text",
+              "text": "@{item.getString('totalLabel')}",
+              "font_size": 13,
+              "font_weight": "bold",
+              "text_color": "#101010",
+              "width": {
+                "type": "match_parent",
+                "weight": 1
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            },
+            {
+              "type": "text",
+              "text": "@{item.getString('totalPrice')}",
+              "font_size": 13,
+              "font_weight": "bold",
+              "text_color": "@{themeColor}",
+              "width": {
+                "type": "wrap_content"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            }
+          ]
+        },
+        {
+          "type": "container",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "fixed",
+            "value": 40
+          },
+          "margins": {
+            "top": 12
+          },
+          "content_alignment_horizontal": "center",
+          "content_alignment_vertical": "center",
+          "background": [
+            {
+              "type": "solid",
+              "color": "@{themeColor}"
+            }
+          ],
+          "border": {
+            "corner_radius": 10
+          },
+          "visibility": "@{item.getString('whatsAppEnabled') == 'true' ? 'visible' : 'gone'}",
+          "actions": [
+            {
+              "log_id": "send_whatsapp",
+              "url": "divaction://send_whatsapp?number=@{item.getString('whatsAppNumber')}&message=@{item.getString('whatsAppMessage')}"
+            }
+          ],
+          "items": [
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "wrap_content"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "content_alignment_vertical": "center",
+              "items": [
+                {
+                  "type": "image",
+                  "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/brands/whatsapp.svg",
+                  "width": {
+                    "type": "fixed",
+                    "value": 16
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 16
+                  },
+                  "tint_color": "#FFFFFF",
+                  "margins": {
+                    "right": 8
+                  },
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "@{item.getString('whatsAppLabel')}",
+                  "font_size": 13,
+                  "font_weight": "medium",
+                  "text_color": "#FFFFFF",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            }
+          ],
+          "accessibility": {
+            "type": "button",
+            "mode": "merge",
+            "description": "Send order on WhatsApp"
+          }
+        }
+      ],
+      "accessibility": {
+        "type": "button",
+        "mode": "merge",
+        "description": "View pending order from @{item.getString(\"vendorName\")}"
+      }
+    },
+    "completed_order_card": {
+      "type": "container",
+      "orientation": "vertical",
+      "width": {
+        "type": "match_parent"
+      },
+      "height": {
+        "type": "wrap_content"
+      },
+      "background": [
+        {
+          "type": "solid",
+          "color": "#FFFFFF"
+        }
+      ],
+      "border": {
+        "corner_radius": 16,
+        "stroke": {
+          "color": "#F0F0F0",
+          "width": 1
+        }
+      },
+      "margins": {
+        "left": 16,
+        "right": 16,
+        "bottom": 12
+      },
+      "paddings": {
+        "left": 16,
+        "right": 16,
+        "top": 16,
+        "bottom": 16
+      },
+      "actions": [
+        {
+          "log_id": "open_completed_order",
+          "url": "divaction://open_order_detail?orderId=@{item.getString('orderId')}"
+        }
+      ],
+      "items": [
+        {
+          "type": "container",
+          "orientation": "horizontal",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "content_alignment_vertical": "center",
+          "items": [
+            {
+              "type": "image",
+              "image_url": "@{item.getString('vendorImg')}",
+              "width": {
+                "type": "fixed",
+                "value": 50
+              },
+              "height": {
+                "type": "fixed",
+                "value": 50
+              },
+              "border": {
+                "corner_radius": 10
+              },
+              "placeholder_color": "#F0F0F0",
+              "scale": "fill",
+              "accessibility": {
+                "type": "image",
+                "description": "Photo of @{item.getString(\"vendorName\")}"
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent",
+                "weight": 1
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "margins": {
+                "left": 12
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{item.getString('vendorName')}",
+                  "font_size": 13,
+                  "font_weight": "bold",
+                  "text_color": "#101010",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "max_lines": 1,
+                  "ellipsis": {
+                    "text": "..."
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "@{item.getString('vendorAddress')}",
+                  "font_size": 11,
+                  "text_color": "#878787",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "top": 2
+                  },
+                  "max_lines": 1,
+                  "ellipsis": {
+                    "text": "..."
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "width": {
+                "type": "fixed",
+                "value": 28
+              },
+              "height": {
+                "type": "fixed",
+                "value": 28
+              },
+              "content_alignment_horizontal": "center",
+              "content_alignment_vertical": "center",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "@{item.getString('status') == 'Complete' ? '#4FAF5A' : '#FF5252'}"
+                }
+              ],
+              "border": {
+                "corner_radius": 14
+              },
+              "items": [
+                {
+                  "type": "image",
+                  "image_url": "@{item.getString('status') == 'Complete' ? 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg' : 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/xmark.svg'}",
+                  "width": {
+                    "type": "fixed",
+                    "value": 14
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 14
+                  },
+                  "tint_color": "#FFFFFF",
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                }
+              ],
+              "accessibility": {
+                "mode": "merge",
+                "description": "@{item.getString(\"statusDisplay\")}"
+              }
+            }
+          ]
+        },
+        {
+          "type": "separator",
+          "width": {
+            "type": "match_parent"
+          },
+          "margins": {
+            "top": 12,
+            "bottom": 12
+          },
+          "delimiter_style": {
+            "color": "#ECECFB"
+          },
+          "accessibility": {
+            "mode": "exclude"
+          }
+        },
+        {
+          "type": "container",
+          "orientation": "horizontal",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "@{item.getString('orderIdLabel')}",
+              "font_size": 12,
+              "text_color": "#878787",
+              "width": {
+                "type": "match_parent",
+                "weight": 1
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            },
+            {
+              "type": "text",
+              "text": "@{item.getString('displayOrderId')}",
+              "font_size": 12,
+              "font_weight": "medium",
+              "text_color": "#101010",
+              "width": {
+                "type": "wrap_content"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            }
+          ]
+        },
+        {
+          "type": "container",
+          "orientation": "horizontal",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "margins": {
+            "top": 8
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "@{item.getString('orderDateLabel')}",
+              "font_size": 12,
+              "text_color": "#878787",
+              "width": {
+                "type": "match_parent",
+                "weight": 1
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "wrap_content"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "content_alignment_vertical": "center",
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{item.getString('orderDate')}",
+                  "font_size": 12,
+                  "font_weight": "medium",
+                  "text_color": "#101010",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "@{' | ' + item.getString('statusDisplay')}",
+                  "font_size": 12,
+                  "font_weight": "medium",
+                  "text_color": "@{item.getString('status') == 'Complete' ? '#4FAF5A' : '#FF5252'}",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "separator",
+          "width": {
+            "type": "match_parent"
+          },
+          "margins": {
+            "top": 12,
+            "bottom": 12
+          },
+          "delimiter_style": {
+            "color": "#ECECFB"
+          },
+          "accessibility": {
+            "mode": "exclude"
+          }
+        },
+        {
+          "type": "container",
+          "orientation": "horizontal",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "content_alignment_vertical": "center",
+          "items": [
+            {
+              "type": "text",
+              "text": "@{item.getString('totalLabel')}",
+              "font_size": 13,
+              "font_weight": "bold",
+              "text_color": "#101010",
+              "width": {
+                "type": "match_parent",
+                "weight": 1
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            },
+            {
+              "type": "text",
+              "text": "@{item.getString('totalPrice')}",
+              "font_size": 13,
+              "font_weight": "bold",
+              "text_color": "@{themeColor}",
+              "width": {
+                "type": "wrap_content"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "font_family": "Roboto"
+            },
+            {
+              "type": "image",
+              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/ellipsis-vertical.svg",
+              "width": {
+                "type": "fixed",
+                "value": 20
+              },
+              "height": {
+                "type": "fixed",
+                "value": 20
+              },
+              "tint_color": "#878787",
+              "margins": {
+                "left": 12
+              },
+              "actions": [
+                {
+                  "log_id": "order_options",
+                  "url": "divaction://order_options?orderId=@{item.getString('orderId')}"
+                }
+              ],
+              "accessibility": {
+                "type": "button",
+                "description": "More order options"
+              }
+            }
+          ]
+        }
+      ],
+      "accessibility": {
+        "type": "button",
+        "mode": "merge",
+        "description": "View completed order from @{item.getString(\"vendorName\")}"
+      }
+    }
+  },
+  "card": {
+    "log_id": "food_court_order_listing",
+    "variables": [
+      {
+        "name": "activeTab",
+        "type": "string",
+        "value": "pending"
+      },
+      {
+        "name": "pendingTabLabel",
+        "type": "string",
+        "value": "Pending (0)"
+      },
+      {
+        "name": "completedTabLabel",
+        "type": "string",
+        "value": "Completed (0)"
+      },
+      {
+        "name": "pendingCount",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "name": "completedCount",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "name": "pendingOrders",
+        "type": "array",
+        "value": []
+      },
+      {
+        "name": "completedOrders",
+        "type": "array",
+        "value": []
+      },
+      {
+        "name": "noPendingTitle",
+        "type": "string",
+        "value": "No Pending Orders"
+      },
+      {
+        "name": "noPendingDescription",
+        "type": "string",
+        "value": "You don't have any pending orders right now. Explore our menu and place your first order!"
+      },
+      {
+        "name": "noCompletedTitle",
+        "type": "string",
+        "value": "No Completed Orders"
+      },
+      {
+        "name": "noCompletedDescription",
+        "type": "string",
+        "value": "You haven't completed any orders yet."
+      },
+      {
+        "name": "exploreMenuLabel",
+        "type": "string",
+        "value": "Explore Menu"
+      },
+      {
+        "name": "themeColor",
+        "type": "string",
+        "value": "#4FAF5A"
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "match_parent"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#F6F8FA"
+            }
+          ],
+          "items": [
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 44
+              },
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#FFFFFF"
+                }
+              ],
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "height": {
+                    "type": "match_parent"
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "actions": [
+                    {
+                      "log_id": "switch_to_pending",
+                      "url": "divaction://switch_tab?tab=pending"
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{pendingTabLabel}",
+                      "font_size": 14,
+                      "font_weight": "@{activeTab == 'pending' ? 'bold' : 'medium'}",
+                      "text_color": "@{activeTab == 'pending' ? themeColor : '#878787'}",
+                      "text_alignment_horizontal": "center",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "container",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 2
+                      },
+                      "margins": {
+                        "top": 8
+                      },
+                      "alignment_vertical": "bottom",
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "@{activeTab == 'pending' ? themeColor : '#00FFFFFF'}"
+                        }
+                      ],
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Pending orders tab"
+                  }
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "height": {
+                    "type": "match_parent"
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "actions": [
+                    {
+                      "log_id": "switch_to_completed",
+                      "url": "divaction://switch_tab?tab=completed"
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{completedTabLabel}",
+                      "font_size": 14,
+                      "font_weight": "@{activeTab == 'completed' ? 'bold' : 'medium'}",
+                      "text_color": "@{activeTab == 'completed' ? themeColor : '#878787'}",
+                      "text_alignment_horizontal": "center",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "container",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 2
+                      },
+                      "margins": {
+                        "top": 8
+                      },
+                      "alignment_vertical": "bottom",
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "@{activeTab == 'completed' ? themeColor : '#00FFFFFF'}"
+                        }
+                      ],
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Completed orders tab"
+                  }
+                }
+              ],
+              "accessibility": {
+                "type": "tab_bar",
+                "description": "Order tabs"
+              }
+            },
+            {
+              "type": "gallery",
+              "id": "pending_orders_list",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "paddings": {
+                "top": 12,
+                "bottom": 16
+              },
+              "item_spacing": 0,
+              "cross_content_alignment": "center",
+              "visibility": "@{activeTab == 'pending' && pendingCount > 0 ? 'visible' : 'gone'}",
+              "item_builder": {
+                "data": "@{pendingOrders}",
+                "data_element_name": "item",
+                "prototypes": [
+                  {
+                    "div": {
+                      "type": "pending_order_card"
+                    }
+                  }
+                ]
+              },
+              "accessibility": {
+                "type": "list",
+                "description": "Pending orders"
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "match_parent"
+              },
+              "paddings": {
+                "left": 40,
+                "right": 40
+              },
+              "content_alignment_horizontal": "center",
+              "content_alignment_vertical": "center",
+              "visibility": "@{activeTab == 'pending' && pendingCount == 0 ? 'visible' : 'gone'}",
+              "items": [
+                {
+                  "type": "image",
+                  "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/clipboard-list.svg",
+                  "width": {
+                    "type": "fixed",
+                    "value": 90
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 90
+                  },
+                  "tint_color": "#DCDCEC",
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "@{noPendingTitle}",
+                  "font_size": 18,
+                  "font_weight": "bold",
+                  "text_color": "#101010",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "top": 20
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "@{noPendingDescription}",
+                  "font_size": 14,
+                  "text_color": "#878787",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "top": 8
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "fixed",
+                    "value": 180
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 44
+                  },
+                  "margins": {
+                    "top": 24
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "@{themeColor}"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 10
+                  },
+                  "actions": [
+                    {
+                      "log_id": "explore_menu_pending",
+                      "url": "divaction://explore_menu"
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{exploreMenuLabel}",
+                      "font_size": 14,
+                      "font_weight": "bold",
+                      "text_color": "#FFFFFF",
+                      "text_alignment_horizontal": "center",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Explore menu"
+                  }
+                }
+              ],
+              "accessibility": {
+                "mode": "merge",
+                "description": "No pending orders"
+              }
+            },
+            {
+              "type": "gallery",
+              "id": "completed_orders_list",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "paddings": {
+                "top": 12,
+                "bottom": 16
+              },
+              "item_spacing": 0,
+              "cross_content_alignment": "center",
+              "visibility": "@{activeTab == 'completed' && completedCount > 0 ? 'visible' : 'gone'}",
+              "item_builder": {
+                "data": "@{completedOrders}",
+                "data_element_name": "item",
+                "prototypes": [
+                  {
+                    "div": {
+                      "type": "completed_order_card"
+                    }
+                  }
+                ]
+              },
+              "accessibility": {
+                "type": "list",
+                "description": "Completed orders"
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "match_parent"
+              },
+              "paddings": {
+                "left": 40,
+                "right": 40
+              },
+              "content_alignment_horizontal": "center",
+              "content_alignment_vertical": "center",
+              "visibility": "@{activeTab == 'completed' && completedCount == 0 ? 'visible' : 'gone'}",
+              "items": [
+                {
+                  "type": "image",
+                  "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/box-archive.svg",
+                  "width": {
+                    "type": "fixed",
+                    "value": 90
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 90
+                  },
+                  "tint_color": "#DCDCEC",
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "@{noCompletedTitle}",
+                  "font_size": 18,
+                  "font_weight": "bold",
+                  "text_color": "#101010",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "top": 20
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "@{noCompletedDescription}",
+                  "font_size": 14,
+                  "text_color": "#878787",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "top": 8
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "fixed",
+                    "value": 180
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 44
+                  },
+                  "margins": {
+                    "top": 24
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "@{themeColor}"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 10
+                  },
+                  "actions": [
+                    {
+                      "log_id": "explore_menu_completed",
+                      "url": "divaction://explore_menu"
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{exploreMenuLabel}",
+                      "font_size": 14,
+                      "font_weight": "bold",
+                      "text_color": "#FFFFFF",
+                      "text_alignment_horizontal": "center",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Explore menu"
+                  }
+                }
+              ],
+              "accessibility": {
+                "mode": "merge",
+                "description": "No completed orders"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

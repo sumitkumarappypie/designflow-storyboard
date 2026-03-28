@@ -1,0 +1,622 @@
+{
+  "card": {
+    "log_id": "div2_sample_card",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#FFFFFF"
+            }
+          ],
+          "border": {
+            "corners_radius": {
+              "top-left": 16,
+              "top-right": 16,
+              "bottom-left": 0,
+              "bottom-right": 0
+            }
+          },
+          "items": [
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 20,
+                "bottom": 16
+              },
+              "content_alignment_vertical": "center",
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{headerTitle}",
+                  "font_size": 18,
+                  "font_weight": "bold",
+                  "text_color": "#212121",
+                  "width": {
+                    "type": "wrap_content",
+                    "constrained": true
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "✕",
+                  "font_size": 20,
+                  "font_weight": "medium",
+                  "text_color": "#212121",
+                  "width": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "text_alignment_horizontal": "center",
+                  "text_alignment_vertical": "center",
+                  "actions": [
+                    {
+                      "log_id": "close_click",
+                      "url": "divaction://close"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "description": "Close location search"
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 48
+              },
+              "margins": {
+                "left": 16,
+                "right": 16,
+                "bottom": 8
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16
+              },
+              "content_alignment_vertical": "center",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#F5F5F5"
+                }
+              ],
+              "border": {
+                "corner_radius": 24,
+                "stroke": {
+                  "color": "#E0E0E0",
+                  "width": 1
+                }
+              },
+              "items": [
+                {
+                  "type": "image",
+                  "image_url": "https://www.svgrepo.com/show/532555/search.svg",
+                  "width": {
+                    "type": "fixed",
+                    "value": 24
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 24
+                  },
+                  "tint_color": "#9E9E9E",
+                  "margins": {
+                    "right": 12
+                  },
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "input",
+                  "text_variable": "searchQuery",
+                  "hint_text": "@{searchPlaceholder}",
+                  "hint_color": "#9E9E9E",
+                  "font_size": 16,
+                  "text_color": "#212121",
+                  "line_height": 22,
+                  "keyboard_type": "single_line_text",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "accessibility": {
+                    "type": "edit_text",
+                    "hint": "Search location"
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 12,
+                "bottom": 12
+              },
+              "content_alignment_vertical": "center",
+              "actions": [
+                {
+                  "log_id": "current_location_click",
+                  "url": "divaction://use_current_location"
+                }
+              ],
+              "items": [
+                {
+                  "type": "image",
+                  "image_url": "https://www.svgrepo.com/show/315096/current-location.svg",
+                  "width": {
+                    "type": "fixed",
+                    "value": 24
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 24
+                  },
+                  "tint_color": "#4CAF50",
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "@{useCurrentLocationText}",
+                  "font_size": 16,
+                  "font_weight": "medium",
+                  "text_color": "#4CAF50",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "left": 5
+                  },
+                  "font_family": "Roboto"
+                }
+              ],
+              "accessibility": {
+                "type": "button",
+                "mode": "merge",
+                "description": "Use current location"
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{showRecentSearches && !showSearchResults && len(recentSearches) > 0 ? 'visible' : 'gone'}",
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{recentSearchesHeader}",
+                  "font_size": 12,
+                  "font_weight": "bold",
+                  "text_color": "#212121",
+                  "letter_spacing": 0.5,
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 16,
+                    "bottom": 12
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "item_builder": {
+                    "data": "@{recentSearches}",
+                    "data_element_name": "recentItem",
+                    "prototypes": [
+                      {
+                        "selector": true,
+                        "div": {
+                          "type": "container",
+                          "orientation": "vertical",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "items": [
+                            {
+                              "type": "container",
+                              "orientation": "horizontal",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "paddings": {
+                                "left": 16,
+                                "right": 16,
+                                "top": 14,
+                                "bottom": 14
+                              },
+                              "content_alignment_vertical": "center",
+                              "actions": [
+                                {
+                                  "log_id": "recent_item_click",
+                                  "url": "divaction://select_recent?place_id=@{recentItem.getString('place_id')}&primary_text=@{encodeUri(recentItem.getString('primary_text'))}&secondary_text=@{encodeUri(recentItem.getString('secondary_text'))}"
+                                }
+                              ],
+                              "items": [
+                                {
+                                  "type": "image",
+                                  "image_url": "https://www.svgrepo.com/show/532555/search.svg",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 24
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 24
+                                  },
+                                  "tint_color": "#9E9E9E",
+                                  "margins": {
+                                    "right": 12
+                                  },
+                                  "accessibility": {
+                                    "mode": "exclude"
+                                  }
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{recentItem.getString('primary_text')}",
+                                  "font_size": 16,
+                                  "text_color": "#212121",
+                                  "max_lines": 1,
+                                  "ellipsis": {
+                                    "text": "..."
+                                  },
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                }
+                              ],
+                              "accessibility": {
+                                "type": "button",
+                                "mode": "merge",
+                                "description": "Select recent location"
+                              }
+                            },
+                            {
+                              "type": "separator",
+                              "delimiter_style": {
+                                "color": "#EEEEEE"
+                              },
+                              "margins": {
+                                "left": 52
+                              },
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "accessibility": {
+                    "type": "list",
+                    "description": "Recent searches"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{showSearchResults ? 'visible' : 'gone'}",
+              "item_builder": {
+                "data": "@{searchResults}",
+                "data_element_name": "resultItem",
+                "prototypes": [
+                  {
+                    "selector": true,
+                    "div": {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "paddings": {
+                            "left": 16,
+                            "right": 16,
+                            "top": 12,
+                            "bottom": 12
+                          },
+                          "content_alignment_vertical": "top",
+                          "actions": [
+                            {
+                              "log_id": "result_item_click",
+                              "url": "divaction://select_location?place_id=@{resultItem.getString('place_id')}&primary_text=@{encodeUri(resultItem.getString('primary_text'))}&secondary_text=@{encodeUri(resultItem.getString('secondary_text'))}"
+                            }
+                          ],
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "https://www.svgrepo.com/show/532555/search.svg",
+                              "width": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "tint_color": "#9E9E9E",
+                              "margins": {
+                                "right": 16,
+                                "top": 2
+                              },
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "vertical",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "@{resultItem.getString('primary_text')}",
+                                  "font_size": 16,
+                                  "font_weight": "medium",
+                                  "text_color": "#212121",
+                                  "max_lines": 1,
+                                  "ellipsis": {
+                                    "text": "..."
+                                  },
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{resultItem.getString('secondary_text')}",
+                                  "font_size": 14,
+                                  "text_color": "#757575",
+                                  "max_lines": 1,
+                                  "ellipsis": {
+                                    "text": "..."
+                                  },
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "wrap_content"
+                                  },
+                                  "margins": {
+                                    "top": 4
+                                  },
+                                  "font_family": "Roboto"
+                                }
+                              ]
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "mode": "merge",
+                            "description": "Select location"
+                          }
+                        },
+                        {
+                          "type": "separator",
+                          "delimiter_style": {
+                            "color": "#EEEEEE"
+                          },
+                          "margins": {
+                            "left": 0
+                          },
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "accessibility": {
+                "type": "list",
+                "description": "Location search results"
+              }
+            },
+            {
+              "type": "container",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 200
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "variables": [
+      {
+        "type": "string",
+        "name": "headerTitle",
+        "value": "Select Location"
+      },
+      {
+        "type": "string",
+        "name": "searchPlaceholder",
+        "value": "Search location"
+      },
+      {
+        "type": "string",
+        "name": "searchQuery",
+        "value": ""
+      },
+      {
+        "type": "string",
+        "name": "useCurrentLocationText",
+        "value": "Use current location"
+      },
+      {
+        "type": "string",
+        "name": "recentSearchesHeader",
+        "value": "RECENT SEARCHES"
+      },
+      {
+        "type": "array",
+        "name": "recentSearches",
+        "value": []
+      },
+      {
+        "type": "array",
+        "name": "searchResults",
+        "value": []
+      },
+      {
+        "type": "boolean",
+        "name": "showRecentSearches",
+        "value": true
+      },
+      {
+        "type": "boolean",
+        "name": "showSearchResults",
+        "value": false
+      },
+      {
+        "type": "boolean",
+        "name": "isLoading",
+        "value": false
+      }
+    ],
+    "variable_triggers": [
+      {
+        "condition": "@{len(searchQuery) >= 0}",
+        "mode": "on_variable",
+        "actions": [
+          {
+            "log_id": "search_query_changed",
+            "url": "divaction://search_input?query=@{encodeUri(searchQuery)}"
+          }
+        ]
+      }
+    ]
+  },
+  "templates": {}
+}

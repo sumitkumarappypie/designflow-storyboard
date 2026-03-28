@@ -1,0 +1,2559 @@
+{
+  "templates": {},
+  "card": {
+    "log_id": "food_court_my_account",
+    "variables": [
+      {
+        "name": "current_state",
+        "type": "string",
+        "value": "view"
+      },
+      {
+        "name": "isLoading",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "profileImageUrl",
+        "type": "string",
+        "value": "https://i.pravatar.cc/150?u=sumit"
+      },
+      {
+        "name": "userName",
+        "type": "string",
+        "value": "Sumit Kumar"
+      },
+      {
+        "name": "userEmail",
+        "type": "string",
+        "value": "sumit@example.com"
+      },
+      {
+        "name": "contactName",
+        "type": "string",
+        "value": "Sumit Kumar"
+      },
+      {
+        "name": "contactEmail",
+        "type": "string",
+        "value": "sumit@example.com"
+      },
+      {
+        "name": "contactPhone",
+        "type": "string",
+        "value": "+91 98765 43210"
+      },
+      {
+        "name": "billingName",
+        "type": "string",
+        "value": "Sumit Kumar"
+      },
+      {
+        "name": "billingPhone",
+        "type": "string",
+        "value": "+91 98765 43210"
+      },
+      {
+        "name": "billingAddress",
+        "type": "string",
+        "value": "Tower B, Flat 1204, NSEZ, Noida"
+      },
+      {
+        "name": "isDifferentDeliveryAddress",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "deliveryName",
+        "type": "string",
+        "value": "Sumit Kumar"
+      },
+      {
+        "name": "deliveryPhone",
+        "type": "string",
+        "value": "+91 98765 43210"
+      },
+      {
+        "name": "deliveryAddress",
+        "type": "string",
+        "value": "Tower B, Flat 1204, NSEZ, Noida"
+      },
+      {
+        "name": "editProfileName",
+        "type": "string",
+        "value": "Sumit Kumar"
+      },
+      {
+        "name": "editProfileEmail",
+        "type": "string",
+        "value": "sumit@example.com"
+      },
+      {
+        "name": "editProfilePhone",
+        "type": "string",
+        "value": "+91 98765 43210"
+      },
+      {
+        "name": "editBillingName",
+        "type": "string",
+        "value": "Sumit Kumar"
+      },
+      {
+        "name": "editBillingPhone",
+        "type": "string",
+        "value": "+91 98765 43210"
+      },
+      {
+        "name": "editBillingAddress",
+        "type": "string",
+        "value": "Tower B, Flat 1204, NSEZ, Noida"
+      },
+      {
+        "name": "editDeliveryName",
+        "type": "string",
+        "value": "Sumit Kumar"
+      },
+      {
+        "name": "editDeliveryPhone",
+        "type": "string",
+        "value": "+91 98765 43210"
+      },
+      {
+        "name": "editDeliveryAddress",
+        "type": "string",
+        "value": "Tower B, Flat 1204, NSEZ, Noida"
+      },
+      {
+        "name": "labelPersonalInfo",
+        "type": "string",
+        "value": "PERSONAL INFORMATION"
+      },
+      {
+        "name": "labelBillingAddress",
+        "type": "string",
+        "value": "Billing Address"
+      },
+      {
+        "name": "labelDeliveryAddress",
+        "type": "string",
+        "value": "Delivery Address"
+      },
+      {
+        "name": "labelEdit",
+        "type": "string",
+        "value": "EDIT"
+      },
+      {
+        "name": "labelUpdate",
+        "type": "string",
+        "value": "Update"
+      },
+      {
+        "name": "labelFullName",
+        "type": "string",
+        "value": "FULL NAME *"
+      },
+      {
+        "name": "labelEmail",
+        "type": "string",
+        "value": "EMAIL *"
+      },
+      {
+        "name": "labelPhoneNumber",
+        "type": "string",
+        "value": "PHONE NUMBER *"
+      },
+      {
+        "name": "labelAddress",
+        "type": "string",
+        "value": "ADDRESS *"
+      },
+      {
+        "name": "labelDifferentDelivery",
+        "type": "string",
+        "value": "Delivery address different from billing address"
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#F5F5F5"
+            }
+          ],
+          "items": [
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{current_state == 'view' ? 'visible' : 'gone'}",
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#FFFFFF"
+                    }
+                  ],
+                  "paddings": {
+                    "top": 24,
+                    "bottom": 24,
+                    "left": 16,
+                    "right": 16
+                  },
+                  "alignment_horizontal": "center",
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "overlap",
+                      "width": {
+                        "type": "fixed",
+                        "value": 90
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 90
+                      },
+                      "alignment_horizontal": "center",
+                      "items": [
+                        {
+                          "type": "image",
+                          "image_url": "@{profileImageUrl}",
+                          "width": {
+                            "type": "fixed",
+                            "value": 90
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 90
+                          },
+                          "border": {
+                            "corner_radius": 45
+                          },
+                          "scale": "fill",
+                          "placeholder_color": "#E0E0E0",
+                          "accessibility": {
+                            "type": "image",
+                            "description": "Profile photo"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "@{userName}",
+                      "font_size": 18,
+                      "font_weight": "bold",
+                      "text_color": "#212121",
+                      "text_alignment_horizontal": "center",
+                      "margins": {
+                        "top": 12
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 20,
+                    "bottom": 8
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelPersonalInfo}",
+                      "font_size": 13,
+                      "font_weight": "bold",
+                      "text_color": "#757575",
+                      "letter_spacing": 0.5,
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "accessibility": {
+                        "type": "header"
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "text",
+                      "text": "@{labelEdit}",
+                      "font_size": 13,
+                      "font_weight": "bold",
+                      "text_color": "#4CAF50",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "alignment_horizontal": "right",
+                      "actions": [
+                        {
+                          "log_id": "edit_profile",
+                          "url": "divaction://edit_profile"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "description": "Edit personal information"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#FFFFFF"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 12
+                  },
+                  "margins": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 4
+                  },
+                  "paddings": {
+                    "top": 4,
+                    "bottom": 4
+                  },
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 14,
+                        "bottom": 14
+                      },
+                      "content_alignment_vertical": "center",
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#E8F5E9"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 18
+                          },
+                          "alignment_horizontal": "center",
+                          "alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/user.svg",
+                              "width": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "tint_color": "#4CAF50",
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "vertical",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "left": 12
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "Full Name",
+                              "font_size": 11,
+                              "text_color": "#9E9E9E",
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{contactName}",
+                              "font_size": 15,
+                              "text_color": "#212121",
+                              "margins": {
+                                "top": 2
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "separator",
+                      "delimiter_style": {
+                        "color": "#F0F0F0"
+                      },
+                      "margins": {
+                        "left": 64
+                      },
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 14,
+                        "bottom": 14
+                      },
+                      "content_alignment_vertical": "center",
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#E3F2FD"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 18
+                          },
+                          "alignment_horizontal": "center",
+                          "alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/envelope.svg",
+                              "width": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "tint_color": "#2196F3",
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "vertical",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "left": 12
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "Email",
+                              "font_size": 11,
+                              "text_color": "#9E9E9E",
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{contactEmail}",
+                              "font_size": 15,
+                              "text_color": "#212121",
+                              "margins": {
+                                "top": 2
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "separator",
+                      "delimiter_style": {
+                        "color": "#F0F0F0"
+                      },
+                      "margins": {
+                        "left": 64
+                      },
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 14,
+                        "bottom": 14
+                      },
+                      "content_alignment_vertical": "center",
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#E3F2FD"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 18
+                          },
+                          "alignment_horizontal": "center",
+                          "alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/phone.svg",
+                              "width": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "tint_color": "#2196F3",
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "vertical",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "left": 12
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "Phone Number",
+                              "font_size": 11,
+                              "text_color": "#9E9E9E",
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{contactPhone}",
+                              "font_size": 15,
+                              "text_color": "#212121",
+                              "margins": {
+                                "top": 2
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 24,
+                    "bottom": 8
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelBillingAddress}",
+                      "font_size": 13,
+                      "font_weight": "bold",
+                      "text_color": "#757575",
+                      "letter_spacing": 0.5,
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "accessibility": {
+                        "type": "header"
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "text",
+                      "text": "@{labelEdit}",
+                      "font_size": 13,
+                      "font_weight": "bold",
+                      "text_color": "#4CAF50",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "alignment_horizontal": "right",
+                      "actions": [
+                        {
+                          "log_id": "edit_billing",
+                          "url": "divaction://edit_billing"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "description": "Edit billing address"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#FFFFFF"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 12
+                  },
+                  "margins": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 4
+                  },
+                  "paddings": {
+                    "top": 4,
+                    "bottom": 4
+                  },
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 14,
+                        "bottom": 14
+                      },
+                      "content_alignment_vertical": "center",
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#E8F5E9"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 18
+                          },
+                          "alignment_horizontal": "center",
+                          "alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/user.svg",
+                              "width": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "tint_color": "#4CAF50",
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "vertical",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "left": 12
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "Full Name",
+                              "font_size": 11,
+                              "text_color": "#9E9E9E",
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{billingName}",
+                              "font_size": 15,
+                              "text_color": "#212121",
+                              "margins": {
+                                "top": 2
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "separator",
+                      "delimiter_style": {
+                        "color": "#F0F0F0"
+                      },
+                      "margins": {
+                        "left": 64
+                      },
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 14,
+                        "bottom": 14
+                      },
+                      "content_alignment_vertical": "center",
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#E3F2FD"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 18
+                          },
+                          "alignment_horizontal": "center",
+                          "alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/phone.svg",
+                              "width": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "tint_color": "#2196F3",
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "vertical",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "left": 12
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "Phone Number",
+                              "font_size": 11,
+                              "text_color": "#9E9E9E",
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{billingPhone}",
+                              "font_size": 15,
+                              "text_color": "#212121",
+                              "margins": {
+                                "top": 2
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "separator",
+                      "delimiter_style": {
+                        "color": "#F0F0F0"
+                      },
+                      "margins": {
+                        "left": 64
+                      },
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 14,
+                        "bottom": 14
+                      },
+                      "content_alignment_vertical": "center",
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#FBE9E7"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 18
+                          },
+                          "alignment_horizontal": "center",
+                          "alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/location-dot.svg",
+                              "width": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 18
+                              },
+                              "tint_color": "#FF5722",
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "vertical",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "margins": {
+                            "left": 12
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "Address",
+                              "font_size": 11,
+                              "text_color": "#9E9E9E",
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{billingAddress}",
+                              "font_size": 15,
+                              "text_color": "#212121",
+                              "margins": {
+                                "top": 2
+                              },
+                              "max_lines": 3,
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 16,
+                    "bottom": 4
+                  },
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "image",
+                      "image_url": "@{isDifferentDeliveryAddress == 'true' ? 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/square-check.svg' : 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/regular/square.svg'}",
+                      "width": {
+                        "type": "fixed",
+                        "value": 24
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 24
+                      },
+                      "tint_color": "@{isDifferentDeliveryAddress == 'true' ? '#4FAF5A' : '#DCDCEC'}",
+                      "actions": [
+                        {
+                          "log_id": "toggle_delivery_checkbox",
+                          "url": "divaction://toggle_different_delivery"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "state_description": "@{isDifferentDeliveryAddress == 'true' ? 'Checked' : 'Unchecked'}",
+                        "description": "Different delivery address"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "@{labelDifferentDelivery}",
+                      "font_size": 14,
+                      "text_color": "#424242",
+                      "margins": {
+                        "left": 10
+                      },
+                      "actions": [
+                        {
+                          "log_id": "toggle_delivery_checkbox_text",
+                          "url": "divaction://toggle_different_delivery"
+                        }
+                      ],
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "visibility": "@{isDifferentDeliveryAddress == 'true' ? 'visible' : 'gone'}",
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 20,
+                        "bottom": 8
+                      },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{labelDeliveryAddress}",
+                          "font_size": 13,
+                          "font_weight": "bold",
+                          "text_color": "#757575",
+                          "letter_spacing": 0.5,
+                          "width": {
+                            "type": "match_parent",
+                            "weight": 1
+                          },
+                          "accessibility": {
+                            "type": "header"
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{labelEdit}",
+                          "font_size": 13,
+                          "font_weight": "bold",
+                          "text_color": "#4CAF50",
+                          "width": {
+                            "type": "wrap_content"
+                          },
+                          "alignment_horizontal": "right",
+                          "actions": [
+                            {
+                              "log_id": "edit_delivery",
+                              "url": "divaction://edit_delivery"
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "description": "Edit delivery address"
+                          },
+                          "font_family": "Roboto"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FFFFFF"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 12
+                      },
+                      "margins": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 4
+                      },
+                      "paddings": {
+                        "top": 4,
+                        "bottom": 4
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "paddings": {
+                            "left": 16,
+                            "right": 16,
+                            "top": 14,
+                            "bottom": 14
+                          },
+                          "content_alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "container",
+                              "orientation": "overlap",
+                              "width": {
+                                "type": "fixed",
+                                "value": 36
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 36
+                              },
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "#E8F5E9"
+                                }
+                              ],
+                              "border": {
+                                "corner_radius": 18
+                              },
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "items": [
+                                {
+                                  "type": "image",
+                                  "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/user.svg",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 18
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 18
+                                  },
+                                  "tint_color": "#4CAF50",
+                                  "alignment_horizontal": "center",
+                                  "alignment_vertical": "center"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "vertical",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "margins": {
+                                "left": 12
+                              },
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "Full Name",
+                                  "font_size": 11,
+                                  "text_color": "#9E9E9E",
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{deliveryName}",
+                                  "font_size": 15,
+                                  "text_color": "#212121",
+                                  "margins": {
+                                    "top": 2
+                                  },
+                                  "font_family": "Roboto"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "separator",
+                          "delimiter_style": {
+                            "color": "#F0F0F0"
+                          },
+                          "margins": {
+                            "left": 64
+                          }
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "paddings": {
+                            "left": 16,
+                            "right": 16,
+                            "top": 14,
+                            "bottom": 14
+                          },
+                          "content_alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "container",
+                              "orientation": "overlap",
+                              "width": {
+                                "type": "fixed",
+                                "value": 36
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 36
+                              },
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "#E3F2FD"
+                                }
+                              ],
+                              "border": {
+                                "corner_radius": 18
+                              },
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "items": [
+                                {
+                                  "type": "image",
+                                  "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/phone.svg",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 18
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 18
+                                  },
+                                  "tint_color": "#2196F3",
+                                  "alignment_horizontal": "center",
+                                  "alignment_vertical": "center"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "vertical",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "margins": {
+                                "left": 12
+                              },
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "Phone Number",
+                                  "font_size": 11,
+                                  "text_color": "#9E9E9E",
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{deliveryPhone}",
+                                  "font_size": 15,
+                                  "text_color": "#212121",
+                                  "margins": {
+                                    "top": 2
+                                  },
+                                  "font_family": "Roboto"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "separator",
+                          "delimiter_style": {
+                            "color": "#F0F0F0"
+                          },
+                          "margins": {
+                            "left": 64
+                          }
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "paddings": {
+                            "left": 16,
+                            "right": 16,
+                            "top": 14,
+                            "bottom": 14
+                          },
+                          "content_alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "container",
+                              "orientation": "overlap",
+                              "width": {
+                                "type": "fixed",
+                                "value": 36
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 36
+                              },
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "#FBE9E7"
+                                }
+                              ],
+                              "border": {
+                                "corner_radius": 18
+                              },
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "items": [
+                                {
+                                  "type": "image",
+                                  "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/location-dot.svg",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 18
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 18
+                                  },
+                                  "tint_color": "#FF5722",
+                                  "alignment_horizontal": "center",
+                                  "alignment_vertical": "center"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "vertical",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "margins": {
+                                "left": 12
+                              },
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "Address",
+                                  "font_size": 11,
+                                  "text_color": "#9E9E9E",
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{deliveryAddress}",
+                                  "font_size": 15,
+                                  "text_color": "#212121",
+                                  "margins": {
+                                    "top": 2
+                                  },
+                                  "max_lines": 3,
+                                  "font_family": "Roboto"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 24
+                  }
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{current_state == 'edit_profile' ? 'visible' : 'gone'}",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#FFFFFF"
+                }
+              ],
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "top": 24,
+                    "bottom": 20
+                  },
+                  "alignment_horizontal": "center",
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "overlap",
+                      "width": {
+                        "type": "fixed",
+                        "value": 96
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 96
+                      },
+                      "alignment_horizontal": "center",
+                      "items": [
+                        {
+                          "type": "image",
+                          "image_url": "@{profileImageUrl}",
+                          "width": {
+                            "type": "fixed",
+                            "value": 96
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 96
+                          },
+                          "border": {
+                            "corner_radius": 48
+                          },
+                          "scale": "fill",
+                          "placeholder_color": "#E0E0E0"
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "fixed",
+                            "value": 30
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 30
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#4CAF50"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 15
+                          },
+                          "alignment_horizontal": "right",
+                          "alignment_vertical": "bottom",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/pen.svg",
+                              "width": {
+                                "type": "fixed",
+                                "value": 16
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 16
+                              },
+                              "tint_color": "#FFFFFF",
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "log_id": "edit_profile_image",
+                              "url": "divaction://edit_profile_image"
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "mode": "merge",
+                            "description": "Change profile photo"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "PERSONAL INFORMATION",
+                  "font_size": 13,
+                  "font_weight": "bold",
+                  "text_color": "#757575",
+                  "letter_spacing": 0.5,
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "bottom": 12
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelFullName}",
+                      "font_size": 12,
+                      "text_color": "#9E9E9E",
+                      "margins": {
+                        "bottom": 6
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "input",
+                      "text_variable": "editProfileName",
+                      "font_size": 15,
+                      "text_color": "#212121",
+                      "hint_text": "Enter your full name",
+                      "hint_color": "#BDBDBD",
+                      "keyboard_type": "single_line_text",
+                      "accessibility": {
+                        "type": "edit_text",
+                        "hint": "Full name"
+                      },
+                      "line_height": 22,
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 44
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 10,
+                        "bottom": 10
+                      },
+                      "border": {
+                        "corner_radius": 8,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 1
+                        }
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FAFAFA"
+                        }
+                      ],
+                      "on_blur_actions": [
+                        {
+                          "log_id": "profile_name_blur",
+                          "url": "divaction://field_changed?field=editProfileName&value=@{editProfileName}"
+                        }
+                      ],
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 16
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelEmail}",
+                      "font_size": 12,
+                      "text_color": "#9E9E9E",
+                      "margins": {
+                        "bottom": 6
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "text",
+                      "text": "@{editProfileEmail}",
+                      "font_size": 15,
+                      "text_color": "#9E9E9E",
+                      "line_height": 22,
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 44
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 10,
+                        "bottom": 10
+                      },
+                      "border": {
+                        "corner_radius": 8,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 1
+                        }
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#F5F5F5"
+                        }
+                      ],
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 16
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelPhoneNumber}",
+                      "font_size": 12,
+                      "text_color": "#9E9E9E",
+                      "margins": {
+                        "bottom": 6
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "input",
+                      "text_variable": "editProfilePhone",
+                      "font_size": 15,
+                      "text_color": "#212121",
+                      "hint_text": "Enter your phone number",
+                      "hint_color": "#BDBDBD",
+                      "keyboard_type": "phone",
+                      "accessibility": {
+                        "type": "edit_text",
+                        "hint": "Phone number"
+                      },
+                      "line_height": 22,
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 44
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 10,
+                        "bottom": 10
+                      },
+                      "border": {
+                        "corner_radius": 8,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 1
+                        }
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FAFAFA"
+                        }
+                      ],
+                      "on_blur_actions": [
+                        {
+                          "log_id": "profile_phone_blur",
+                          "url": "divaction://field_changed?field=editProfilePhone&value=@{editProfilePhone}"
+                        }
+                      ],
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 52
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#4CAF50"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 8
+                  },
+                  "margins": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 32,
+                    "bottom": 24
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelUpdate}",
+                      "font_size": 16,
+                      "font_weight": "bold",
+                      "text_color": "#FFFFFF",
+                      "text_alignment_horizontal": "center",
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "update_contact_info",
+                      "url": "divaction://update_contact_info?name=@{editProfileName}&phone=@{editProfilePhone}"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Update personal information"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{current_state == 'edit_billing' ? 'visible' : 'gone'}",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#FFFFFF"
+                }
+              ],
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{labelBillingAddress}",
+                  "font_size": 13,
+                  "font_weight": "bold",
+                  "text_color": "#757575",
+                  "letter_spacing": 0.5,
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 24,
+                    "bottom": 12
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelFullName}",
+                      "font_size": 12,
+                      "text_color": "#9E9E9E",
+                      "margins": {
+                        "bottom": 6
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "input",
+                      "text_variable": "editBillingName",
+                      "font_size": 15,
+                      "text_color": "#212121",
+                      "hint_text": "Enter full name",
+                      "hint_color": "#BDBDBD",
+                      "keyboard_type": "single_line_text",
+                      "accessibility": {
+                        "type": "edit_text",
+                        "hint": "Billing full name"
+                      },
+                      "line_height": 22,
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 44
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 10,
+                        "bottom": 10
+                      },
+                      "border": {
+                        "corner_radius": 8,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 1
+                        }
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FAFAFA"
+                        }
+                      ],
+                      "on_blur_actions": [
+                        {
+                          "log_id": "billing_name_blur",
+                          "url": "divaction://field_changed?field=editBillingName&value=@{editBillingName}"
+                        }
+                      ],
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 16
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelPhoneNumber}",
+                      "font_size": 12,
+                      "text_color": "#9E9E9E",
+                      "margins": {
+                        "bottom": 6
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "input",
+                      "text_variable": "editBillingPhone",
+                      "font_size": 15,
+                      "text_color": "#212121",
+                      "hint_text": "Enter phone number",
+                      "hint_color": "#BDBDBD",
+                      "keyboard_type": "phone",
+                      "accessibility": {
+                        "type": "edit_text",
+                        "hint": "Billing phone number"
+                      },
+                      "line_height": 22,
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 44
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 10,
+                        "bottom": 10
+                      },
+                      "border": {
+                        "corner_radius": 8,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 1
+                        }
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FAFAFA"
+                        }
+                      ],
+                      "on_blur_actions": [
+                        {
+                          "log_id": "billing_phone_blur",
+                          "url": "divaction://field_changed?field=editBillingPhone&value=@{editBillingPhone}"
+                        }
+                      ],
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 16
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelAddress}",
+                      "font_size": 12,
+                      "text_color": "#9E9E9E",
+                      "margins": {
+                        "bottom": 6
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "content_alignment_vertical": "center",
+                      "items": [
+                        {
+                          "type": "input",
+                          "text_variable": "editBillingAddress",
+                          "font_size": 15,
+                          "text_color": "#212121",
+                          "hint_text": "Enter address",
+                          "hint_color": "#BDBDBD",
+                          "keyboard_type": "single_line_text",
+                          "accessibility": {
+                            "type": "edit_text",
+                            "hint": "Billing address"
+                          },
+                          "line_height": 22,
+                          "width": {
+                            "type": "match_parent",
+                            "weight": 1
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 44
+                          },
+                          "paddings": {
+                            "left": 12,
+                            "right": 8,
+                            "top": 10,
+                            "bottom": 10
+                          },
+                          "border": {
+                            "corner_radius": 8,
+                            "stroke": {
+                              "color": "#E0E0E0",
+                              "width": 1
+                            }
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#FAFAFA"
+                            }
+                          ],
+                          "on_blur_actions": [
+                            {
+                              "log_id": "billing_address_blur",
+                              "url": "divaction://field_changed?field=editBillingAddress&value=@{editBillingAddress}"
+                            }
+                          ],
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "fixed",
+                            "value": 40
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 40
+                          },
+                          "margins": {
+                            "left": 8
+                          },
+                          "alignment_horizontal": "center",
+                          "alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/location-dot.svg",
+                              "width": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "tint_color": "#4CAF50",
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "log_id": "open_location_picker_billing",
+                              "url": "divaction://open_location_picker?type=billing"
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "mode": "merge",
+                            "description": "Pick billing location"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 52
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#4CAF50"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 8
+                  },
+                  "margins": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 32,
+                    "bottom": 24
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelUpdate}",
+                      "font_size": 16,
+                      "font_weight": "bold",
+                      "text_color": "#FFFFFF",
+                      "text_alignment_horizontal": "center",
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "update_billing_info",
+                      "url": "divaction://update_billing_info?name=@{editBillingName}&phone=@{editBillingPhone}&address=@{editBillingAddress}"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Update billing address"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{current_state == 'edit_delivery' ? 'visible' : 'gone'}",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#FFFFFF"
+                }
+              ],
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 24,
+                    "bottom": 8
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelDeliveryAddress}",
+                      "font_size": 13,
+                      "font_weight": "bold",
+                      "text_color": "#212121",
+                      "letter_spacing": 0.5,
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "accessibility": {
+                        "type": "header"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 16
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelFullName}",
+                      "font_size": 12,
+                      "text_color": "#9E9E9E",
+                      "margins": {
+                        "bottom": 6
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "input",
+                      "text_variable": "editDeliveryName",
+                      "font_size": 15,
+                      "text_color": "#212121",
+                      "hint_text": "Enter your full name",
+                      "hint_color": "#BDBDBD",
+                      "keyboard_type": "single_line_text",
+                      "accessibility": {
+                        "type": "edit_text",
+                        "hint": "Delivery full name"
+                      },
+                      "line_height": 22,
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 44
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 10,
+                        "bottom": 10
+                      },
+                      "border": {
+                        "corner_radius": 8,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 1
+                        }
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FAFAFA"
+                        }
+                      ],
+                      "on_blur_actions": [
+                        {
+                          "log_id": "field_changed_delivery_name",
+                          "url": "divaction://field_changed?field=editDeliveryName&value=@{editDeliveryName}"
+                        }
+                      ],
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 16
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelPhoneNumber}",
+                      "font_size": 12,
+                      "text_color": "#9E9E9E",
+                      "margins": {
+                        "bottom": 6
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "input",
+                      "text_variable": "editDeliveryPhone",
+                      "font_size": 15,
+                      "text_color": "#212121",
+                      "hint_text": "Enter your phone number",
+                      "hint_color": "#BDBDBD",
+                      "keyboard_type": "phone",
+                      "accessibility": {
+                        "type": "edit_text",
+                        "hint": "Delivery phone number"
+                      },
+                      "line_height": 22,
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 44
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 10,
+                        "bottom": 10
+                      },
+                      "border": {
+                        "corner_radius": 8,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 1
+                        }
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FAFAFA"
+                        }
+                      ],
+                      "on_blur_actions": [
+                        {
+                          "log_id": "field_changed_delivery_phone",
+                          "url": "divaction://field_changed?field=editDeliveryPhone&value=@{editDeliveryPhone}"
+                        }
+                      ],
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 16
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelAddress}",
+                      "font_size": 12,
+                      "text_color": "#9E9E9E",
+                      "margins": {
+                        "bottom": 6
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 44
+                      },
+                      "border": {
+                        "corner_radius": 8,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 1
+                        }
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FAFAFA"
+                        }
+                      ],
+                      "content_alignment_vertical": "center",
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{editDeliveryAddress != '' ? editDeliveryAddress : 'Tap to select address'}",
+                          "font_size": 15,
+                          "text_color": "@{editDeliveryAddress != '' ? '#212121' : '#BDBDBD'}",
+                          "max_lines": 1,
+                          "width": {
+                            "type": "match_parent",
+                            "weight": 1
+                          },
+                          "paddings": {
+                            "left": 12,
+                            "right": 8
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 36
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#FBE9E7"
+                            }
+                          ],
+                          "border": {
+                            "corner_radius": 18
+                          },
+                          "margins": {
+                            "right": 4
+                          },
+                          "alignment_horizontal": "center",
+                          "alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/location-dot.svg",
+                              "width": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "tint_color": "#4CAF50",
+                              "alignment_horizontal": "center",
+                              "alignment_vertical": "center",
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "log_id": "open_delivery_location_picker",
+                              "url": "divaction://open_location_picker?type=shipping"
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "mode": "merge",
+                            "description": "Pick delivery location"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 52
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#4CAF50"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 8
+                  },
+                  "margins": {
+                    "left": 16,
+                    "right": 16,
+                    "top": 32,
+                    "bottom": 24
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{labelUpdate}",
+                      "font_size": 16,
+                      "font_weight": "bold",
+                      "text_color": "#FFFFFF",
+                      "text_alignment_horizontal": "center",
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "update_delivery_info",
+                      "url": "divaction://update_delivery_info?name=@{editDeliveryName}&phone=@{editDeliveryPhone}&address=@{editDeliveryAddress}"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Update delivery address"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

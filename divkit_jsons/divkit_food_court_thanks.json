@@ -1,0 +1,413 @@
+{
+  "templates": {},
+  "card": {
+    "log_id": "food_court_thanks",
+    "variables": [
+      {
+        "name": "paymentState",
+        "type": "string",
+        "value": "success"
+      },
+      {
+        "name": "orderStatusText",
+        "type": "string",
+        "value": "Your Order was successful"
+      },
+      {
+        "name": "orderSummaryText",
+        "type": "string",
+        "value": "Your Order ID is A68458232714 and receipt has been sent to your registered Email ID."
+      },
+      {
+        "name": "trackOrderText",
+        "type": "string",
+        "value": "Track My Order"
+      },
+      {
+        "name": "continueOrderText",
+        "type": "string",
+        "value": "Continue Ordering"
+      },
+      {
+        "name": "sendOnWhatsappText",
+        "type": "string",
+        "value": "Send Order On WhatsApp"
+      },
+      {
+        "name": "isWhatsappEnabled",
+        "type": "string",
+        "value": "false"
+      },
+      {
+        "name": "isTrackOrderVisible",
+        "type": "string",
+        "value": "true"
+      },
+      {
+        "name": "iconBgColor",
+        "type": "string",
+        "value": "#4FAF5A"
+      },
+      {
+        "name": "iconUrl",
+        "type": "string",
+        "value": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg"
+      },
+      {
+        "name": "iconTintColor",
+        "type": "string",
+        "value": "#FFFFFF"
+      },
+      {
+        "name": "pageBgColor",
+        "type": "string",
+        "value": "#FFFFFF"
+      },
+      {
+        "name": "headingTextColor",
+        "type": "string",
+        "value": "#101010"
+      },
+      {
+        "name": "contentTextColor",
+        "type": "string",
+        "value": "#878787"
+      },
+      {
+        "name": "buttonBgColor",
+        "type": "string",
+        "value": "#4FAF5A"
+      },
+      {
+        "name": "buttonTextColor",
+        "type": "string",
+        "value": "#FFFFFF"
+      },
+      {
+        "name": "secondaryButtonBgColor",
+        "type": "string",
+        "value": "#FFFFFF"
+      },
+      {
+        "name": "secondaryButtonTextColor",
+        "type": "string",
+        "value": "#878787"
+      },
+      {
+        "name": "whatsappButtonBgColor",
+        "type": "string",
+        "value": "#C3C3C3"
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "overlap",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "match_parent"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "@{pageBgColor}"
+            }
+          ],
+          "items": [
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "match_parent"
+              },
+              "content_alignment_vertical": "center",
+              "content_alignment_horizontal": "center",
+              "paddings": {
+                "left": 63,
+                "right": 63,
+                "bottom": 80
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "overlap",
+                  "width": {
+                    "type": "fixed",
+                    "value": 90
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 90
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "border": {
+                    "corner_radius": 45
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "@{iconBgColor}"
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "image",
+                      "image_url": "@{iconUrl}",
+                      "width": {
+                        "type": "fixed",
+                        "value": 40
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 40
+                      },
+                      "tint_color": "@{iconTintColor}",
+                      "alignment_horizontal": "center",
+                      "alignment_vertical": "center"
+                    }
+                  ],
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "@{orderStatusText}",
+                  "font_size": 18,
+                  "font_weight": "bold",
+                  "text_color": "@{headingTextColor}",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "top": 13
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "@{orderSummaryText}",
+                  "font_size": 14,
+                  "font_weight": "regular",
+                  "text_color": "@{contentTextColor}",
+                  "text_alignment_horizontal": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "top": 13
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "wrap_content"
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 42
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "@{whatsappButtonBgColor}"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 10
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "margins": {
+                    "top": 13
+                  },
+                  "paddings": {
+                    "left": 21,
+                    "right": 21
+                  },
+                  "visibility": "@{isWhatsappEnabled == 'true' ? 'visible' : 'gone'}",
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{sendOnWhatsappText}",
+                      "font_size": 14,
+                      "font_weight": "bold",
+                      "text_color": "@{buttonTextColor}",
+                      "text_alignment_horizontal": "center",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "send_whatsapp",
+                      "url": "divaction://send_whatsapp"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Send order on WhatsApp"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "alignment_vertical": "bottom",
+              "content_alignment_vertical": "center",
+              "paddings": {
+                "left": 20,
+                "right": 20,
+                "bottom": 20
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 42
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "@{secondaryButtonBgColor}"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 10
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "margins": {
+                    "right": 8
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{continueOrderText}",
+                      "font_size": 14,
+                      "font_weight": "bold",
+                      "text_color": "@{secondaryButtonTextColor}",
+                      "text_alignment_horizontal": "center",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "continue_ordering",
+                      "url": "divaction://continue_ordering"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Continue ordering"
+                  }
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 42
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "@{buttonBgColor}"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 10
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "margins": {
+                    "left": 7
+                  },
+                  "visibility": "@{isTrackOrderVisible == 'true' ? 'visible' : 'gone'}",
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{trackOrderText}",
+                      "font_size": 14,
+                      "font_weight": "bold",
+                      "text_color": "@{buttonTextColor}",
+                      "text_alignment_horizontal": "center",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "track_order",
+                      "url": "divaction://track_order"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Track my order"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

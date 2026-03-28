@@ -1,0 +1,236 @@
+{
+  "card": {
+    "log_id": "store_timings_card",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#FFFFFF"
+            }
+          ],
+          "border": {
+            "corners_radius": {
+              "top-left": 16,
+              "top-right": 16,
+              "bottom-left": 0,
+              "bottom-right": 0
+            }
+          },
+          "items": [
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 20,
+                "bottom": 16
+              },
+              "content_alignment_vertical": "center",
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{headerTitle}",
+                  "font_size": 18,
+                  "font_weight": "bold",
+                  "text_color": "#212121",
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "width": {
+                    "type": "wrap_content",
+                    "constrained": true
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "✕",
+                  "font_size": 20,
+                  "font_weight": "medium",
+                  "text_color": "#212121",
+                  "width": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "text_alignment_horizontal": "center",
+                  "text_alignment_vertical": "center",
+                  "actions": [
+                    {
+                      "log_id": "close_click",
+                      "url": "divaction://close"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "description": "Close"
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            },
+            {
+              "type": "separator",
+              "delimiter_style": {
+                "color": "#E0E0E0"
+              },
+              "margins": {
+                "left": 0,
+                "right": 0
+              },
+              "accessibility": {
+                "mode": "exclude"
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "paddings": {
+                "top": 8,
+                "bottom": 24
+              },
+              "item_builder": {
+                "data": "@{scheduleItems}",
+                "data_element_name": "scheduleItem",
+                "prototypes": [
+                  {
+                    "selector": true,
+                    "div": {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "paddings": {
+                        "left": 16,
+                        "right": 16,
+                        "top": 16,
+                        "bottom": 16
+                      },
+                      "content_alignment_vertical": "center",
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{scheduleItem.getString('day_name')}",
+                          "font_size": 16,
+                          "font_weight": "regular",
+                          "text_color": "#212121",
+                          "width": {
+                            "type": "fixed",
+                            "value": 120
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{scheduleItem.getString('timing')}",
+                          "font_size": 16,
+                          "font_weight": "regular",
+                          "text_color": "#212121",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "font_family": "Roboto"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "variables": [
+      {
+        "type": "string",
+        "name": "headerTitle",
+        "value": "Restaurant Timings"
+      },
+      {
+        "type": "array",
+        "name": "scheduleItems",
+        "value": [
+          {
+            "day_name": "Monday",
+            "timing": "10:00 AM – 10:00 PM"
+          },
+          {
+            "day_name": "Tuesday",
+            "timing": "10:00 AM – 10:00 PM"
+          },
+          {
+            "day_name": "Wednesday",
+            "timing": "10:00 AM – 10:00 PM"
+          },
+          {
+            "day_name": "Thursday",
+            "timing": "10:00 AM – 10:00 PM"
+          },
+          {
+            "day_name": "Friday",
+            "timing": "10:00 AM – 11:00 PM"
+          },
+          {
+            "day_name": "Saturday",
+            "timing": "09:00 AM – 11:30 PM"
+          },
+          {
+            "day_name": "Sunday",
+            "timing": "09:00 AM – 10:30 PM"
+          }
+        ]
+      }
+    ]
+  },
+  "templates": {}
+}

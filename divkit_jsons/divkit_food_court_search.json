@@ -1,0 +1,1289 @@
+{
+  "card": {
+    "log_id": "food_court_search",
+    "variable_triggers": [
+      {
+        "condition": "@{searchText == ''}",
+        "actions": [
+          {
+            "log_id": "search_cleared",
+            "url": "divaction://search_cleared"
+          }
+        ]
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "match_parent"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#FFFFFF"
+            }
+          ],
+          "items": [
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "paddings": {
+                "left": 20,
+                "right": 20,
+                "top": 16,
+                "bottom": 16
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "content_alignment_vertical": "center",
+                  "margins": {
+                    "bottom": 16
+                  },
+                  "actions": [
+                    {
+                      "log_id": "location_click",
+                      "url": "divaction://location_select"
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "image",
+                      "width": {
+                        "type": "fixed",
+                        "value": 24
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 24
+                      },
+                      "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/location-dot.svg",
+                      "tint_color": "#4CAF50",
+                      "margins": {
+                        "right": 8
+                      },
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "@{currentLocation}",
+                      "font_size": 16,
+                      "max_lines": 2,
+                      "font_weight": "medium",
+                      "text_color": "#000000",
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "image",
+                      "width": {
+                        "type": "fixed",
+                        "value": 20
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 20
+                      },
+                      "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/chevron-down.svg",
+                      "tint_color": "#000000",
+                      "margins": {
+                        "left": 4
+                      },
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Select delivery location"
+                  }
+                },
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 56
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#F5F5F5"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 28
+                  },
+                  "content_alignment_vertical": "center",
+                  "paddings": {
+                    "left": 20,
+                    "right": 20
+                  },
+                  "items": [
+                    {
+                      "type": "image",
+                      "width": {
+                        "type": "fixed",
+                        "value": 20
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 20
+                      },
+                      "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/magnifying-glass.svg",
+                      "tint_color": "#999999",
+                      "margins": {
+                        "right": 12
+                      },
+                      "accessibility": {
+                        "mode": "exclude"
+                      }
+                    },
+                    {
+                      "type": "input",
+                      "text_variable": "searchText",
+                      "hint_text": "@{searchPlaceholder}",
+                      "hint_color": "#999999",
+                      "text_color": "#212121",
+                      "font_size": 16,
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "enter_key_type": "search",
+                      "enter_key_actions": [
+                        {
+                          "log_id": "search_submit",
+                          "url": "divaction://search_submit?query=@{searchText}"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "edit_text",
+                        "hint": "Search menu, restaurant or etc"
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "overlap",
+                      "width": {
+                        "type": "fixed",
+                        "value": 28
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 28
+                      },
+                      "margins": {
+                        "left": 12
+                      },
+                      "actions": [
+                        {
+                          "log_id": "filter_click",
+                          "url": "divaction://filter_open"
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "description": "Open filters"
+                      },
+                      "items": [
+                        {
+                          "type": "image",
+                          "width": {
+                            "type": "fixed",
+                            "value": 24
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 24
+                          },
+                          "alignment_vertical": "center",
+                          "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/sliders.svg",
+                          "tint_color": "#666666",
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        },
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 10
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 10
+                          },
+                          "alignment_horizontal": "right",
+                          "alignment_vertical": "top",
+                          "border": {
+                            "corner_radius": 5
+                          },
+                          "background": [
+                            {
+                              "type": "solid",
+                              "color": "#E53935"
+                            }
+                          ],
+                          "visibility": "@{hasActiveFilters == 'true' ? 'visible' : 'gone'}",
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "content_alignment_vertical": "center",
+              "paddings": {
+                "left": 20,
+                "right": 20,
+                "bottom": 12
+              },
+              "visibility": "@{searchQuery != '' ? 'visible' : 'gone'}",
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{searchResultsForText} \"@{searchQuery}\"",
+                  "font_size": 16,
+                  "font_weight": "medium",
+                  "text_color": "#333333",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "visibility": "@{hasResults == 'false' && isLoading == 'false' ? 'visible' : 'gone'}",
+              "content_alignment_horizontal": "center",
+              "paddings": {
+                "top": 80,
+                "bottom": 80,
+                "left": 40,
+                "right": 40
+              },
+              "items": [
+                {
+                  "type": "image",
+                  "width": {
+                    "type": "fixed",
+                    "value": 120
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 120
+                  },
+                  "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/magnifying-glass.svg",
+                  "tint_color": "#CCCCCC",
+                  "margins": {
+                    "bottom": 24
+                  },
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "@{emptyTitle}",
+                  "font_size": 20,
+                  "font_weight": "bold",
+                  "text_color": "#333333",
+                  "text_alignment_horizontal": "center",
+                  "margins": {
+                    "bottom": 8
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "text",
+                  "text": "@{emptyMessage}",
+                  "font_size": 15,
+                  "text_color": "#757575",
+                  "text_alignment_horizontal": "center",
+                  "font_family": "Roboto"
+                }
+              ],
+              "accessibility": {
+                "mode": "merge",
+                "description": "No results found. Try a different search term."
+              }
+            },
+            {
+              "type": "gallery",
+              "id": "search_results_gallery",
+              "visibility": "@{hasResults == 'true' ? 'visible' : 'gone'}",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "match_parent"
+              },
+              "orientation": "vertical",
+              "column_count": 1,
+              "item_spacing": 16,
+              "paddings": {
+                "left": 20,
+                "right": 20,
+                "bottom": 16
+              },
+              "item_builder": {
+                "data": "@{searchResults}",
+                "data_element_name": "item",
+                "prototypes": [
+                  {
+                    "id": "restaurant_@{item.getString('id')}",
+                    "selector": "@{item.getString('itemType') == 'vendor'}",
+                    "div": {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FFFFFF"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 16,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 1
+                        }
+                      },
+                      "actions": [
+                        {
+                          "log_id": "restaurant_click",
+                          "url": "divaction://restaurant?id=@{item.getString('id')}&name=@{item.getString('name')}"
+                        }
+                      ],
+                      "items": [
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 160
+                          },
+                          "orientation": "overlap",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "@{item.getString('image')}",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "match_parent"
+                              },
+                              "scale": "fill",
+                              "border": {
+                                "corner_radius": 16
+                              },
+                              "placeholder_color": "#E0E0E0",
+                              "accessibility": {
+                                "type": "image",
+                                "description": "Photo of @{item.getString(\"name\")}"
+                              }
+                            },
+                            {
+                              "type": "container",
+                              "width": {
+                                "type": "wrap_content"
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "alignment_horizontal": "left",
+                              "alignment_vertical": "top",
+                              "visibility": "@{item.getString('isOpen') == 'false' ? 'visible' : 'gone'}",
+                              "margins": {
+                                "top": 12,
+                                "left": 12
+                              },
+                              "paddings": {
+                                "left": 8,
+                                "right": 8,
+                                "top": 4,
+                                "bottom": 4
+                              },
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "#FF5252"
+                                }
+                              ],
+                              "border": {
+                                "corner_radius": 4
+                              },
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "@{closedText}",
+                                  "font_size": 12,
+                                  "font_weight": "bold",
+                                  "text_color": "#FFFFFF",
+                                  "font_family": "Roboto"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "container",
+                              "width": {
+                                "type": "wrap_content"
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "alignment_horizontal": "right",
+                              "alignment_vertical": "top",
+                              "margins": {
+                                "top": 12,
+                                "right": 12
+                              },
+                              "paddings": {
+                                "left": 10,
+                                "right": 10,
+                                "top": 10,
+                                "bottom": 10
+                              },
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "#FFFFFF"
+                                }
+                              ],
+                              "border": {
+                                "corner_radius": 20
+                              },
+                              "actions": [
+                                {
+                                  "log_id": "favorite_click",
+                                  "url": "divaction://favorite?id=@{item.getString('id')}&isFavourite=@{item.getBoolean('isFavourite')}"
+                                }
+                              ],
+                              "items": [
+                                {
+                                  "type": "image",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 20
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 20
+                                  },
+                                  "image_url": "@{item.getBoolean('isFavourite') ? 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/refs/heads/6.x/svgs/solid/heart.svg' : 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/regular/heart.svg'}",
+                                  "tint_color": "#FF6B6B",
+                                  "accessibility": {
+                                    "mode": "exclude"
+                                  }
+                                }
+                              ],
+                              "accessibility": {
+                                "type": "button",
+                                "state_description": "@{item.getBoolean(\"isFavourite\") ? \"Favorited\" : \"Not favorited\"}"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "vertical",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "paddings": {
+                            "left": 12,
+                            "right": 12,
+                            "top": 12,
+                            "bottom": 12
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "@{item.getString('name')}",
+                              "font_size": 17,
+                              "font_weight": "bold",
+                              "text_color": "#000000",
+                              "max_lines": 1,
+                              "margins": {
+                                "bottom": 6
+                              },
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "horizontal",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "content_alignment_vertical": "center",
+                              "margins": {
+                                "bottom": 8
+                              },
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "@{item.getString('location')}",
+                                  "font_size": 13,
+                                  "text_color": "#666666",
+                                  "max_lines": 1,
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": " | ",
+                                  "font_size": 13,
+                                  "text_color": "#CCCCCC",
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{minOrderText} @{item.getString('minOrder')}",
+                                  "font_size": 13,
+                                  "text_color": "#666666",
+                                  "max_lines": 1,
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "horizontal",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "content_alignment_vertical": "center",
+                              "items": [
+                                {
+                                  "type": "image",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 16
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 16
+                                  },
+                                  "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/star.svg",
+                                  "tint_color": "#FFB800",
+                                  "margins": {
+                                    "right": 4
+                                  },
+                                  "visibility": "@{item.getString('rating') != '0' && item.getString('rating') != '0.0' && item.getString('rating') != '' ? 'visible' : 'gone'}",
+                                  "accessibility": {
+                                    "mode": "exclude"
+                                  }
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{item.getString('rating')}",
+                                  "font_size": 14,
+                                  "font_weight": "medium",
+                                  "text_color": "#000000",
+                                  "max_lines": 1,
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "visibility": "@{item.getString('rating') != '0' && item.getString('rating') != '0.0' && item.getString('rating') != '' ? 'visible' : 'gone'}",
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": " @{reviewsText}",
+                                  "font_size": 13,
+                                  "text_color": "#999999",
+                                  "max_lines": 1,
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "visibility": "@{item.getString('rating') != '0' && item.getString('rating') != '0.0' && item.getString('rating') != '' ? 'visible' : 'gone'}",
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": " | ",
+                                  "font_size": 13,
+                                  "text_color": "#CCCCCC",
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "visibility": "@{item.getString('rating') != '0' && item.getString('rating') != '0.0' && item.getString('rating') != '' && item.getString('deliveryTime') != '' ? 'visible' : 'gone'}",
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "image",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 14
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 14
+                                  },
+                                  "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/clock.svg",
+                                  "tint_color": "#666666",
+                                  "margins": {
+                                    "right": 4
+                                  },
+                                  "visibility": "@{item.getString('deliveryTime') != '' ? 'visible' : 'gone'}",
+                                  "accessibility": {
+                                    "mode": "exclude"
+                                  }
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{item.getString('deliveryTime')} mins",
+                                  "font_size": 13,
+                                  "text_color": "#666666",
+                                  "max_lines": 1,
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "visibility": "@{item.getString('deliveryTime') != '' ? 'visible' : 'gone'}",
+                                  "font_family": "Roboto"
+                                }
+                              ],
+                              "accessibility": {
+                                "mode": "merge",
+                                "description": "Rating: @{item.getString(\"rating\")} reviews, delivery @{item.getString(\"deliveryTime\")}"
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "View restaurant @{item.getString(\"name\")}"
+                      }
+                    }
+                  },
+                  {
+                    "id": "product_@{item.getString('id')}",
+                    "selector": "@{item.getString('itemType') == 'product'}",
+                    "div": {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FFFFFF"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 16,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 1
+                        }
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 12,
+                        "bottom": 12
+                      },
+                      "actions": [
+                        {
+                          "log_id": "product_click",
+                          "url": "divaction://product?id=@{item.getString('id')}&restaurantId=@{item.getString('restaurantId')}"
+                        }
+                      ],
+                      "items": [
+                        {
+                          "type": "container",
+                          "width": {
+                            "type": "fixed",
+                            "value": 80
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 80
+                          },
+                          "orientation": "overlap",
+                          "items": [
+                            {
+                              "type": "image",
+                              "image_url": "@{item.getString('image')}",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "match_parent"
+                              },
+                              "scale": "fill",
+                              "border": {
+                                "corner_radius": 12
+                              },
+                              "placeholder_color": "#E0E0E0",
+                              "accessibility": {
+                                "type": "image",
+                                "description": "Photo of @{item.getString(\"name\")}"
+                              }
+                            },
+                            {
+                              "type": "container",
+                              "width": {
+                                "type": "fixed",
+                                "value": 20
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 20
+                              },
+                              "alignment_horizontal": "left",
+                              "alignment_vertical": "top",
+                              "margins": {
+                                "top": 6,
+                                "left": 6
+                              },
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "#FFFFFF"
+                                }
+                              ],
+                              "border": {
+                                "corner_radius": 4,
+                                "stroke": {
+                                  "color": "@{item.getString('isVeg') == 'true' ? '#4CAF50' : '#F44336'}",
+                                  "width": 2
+                                }
+                              },
+                              "content_alignment_horizontal": "center",
+                              "content_alignment_vertical": "center",
+                              "items": [
+                                {
+                                  "type": "container",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 8
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 8
+                                  },
+                                  "background": [
+                                    {
+                                      "type": "solid",
+                                      "color": "@{item.getString('isVeg') == 'true' ? '#4CAF50' : '#F44336'}"
+                                    }
+                                  ],
+                                  "border": {
+                                    "corner_radius": 4
+                                  }
+                                }
+                              ],
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "vertical",
+                          "width": {
+                            "type": "match_parent",
+                            "weight": 1
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "paddings": {
+                            "left": 12
+                          },
+                          "content_alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "@{item.getString('name')}",
+                              "font_size": 16,
+                              "font_weight": "bold",
+                              "text_color": "#212121",
+                              "max_lines": 2,
+                              "margins": {
+                                "bottom": 4
+                              },
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "horizontal",
+                              "width": {
+                                "type": "wrap_content"
+                              },
+                              "content_alignment_vertical": "center",
+                              "margins": {
+                                "bottom": 8
+                              },
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "@{byText} ",
+                                  "font_size": 13,
+                                  "text_color": "#999999",
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{item.getString('restaurantName')}",
+                                  "font_size": 13,
+                                  "text_color": "#4CAF50",
+                                  "font_weight": "medium",
+                                  "max_lines": 1,
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "horizontal",
+                              "width": {
+                                "type": "wrap_content"
+                              },
+                              "content_alignment_vertical": "center",
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "@{item.getString('currentPrice')}",
+                                  "font_size": 17,
+                                  "font_weight": "bold",
+                                  "text_color": "#212121",
+                                  "margins": {
+                                    "right": 8
+                                  },
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{item.getString('originalPrice')}",
+                                  "font_size": 14,
+                                  "text_color": "#9E9E9E",
+                                  "strike": "single",
+                                  "visibility": "@{item.getString('originalPrice') != item.getString('currentPrice') && item.getString('originalPrice') != '' ? 'visible' : 'gone'}",
+                                  "font_family": "Roboto"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "View product @{item.getString(\"name\")}"
+                      }
+                    }
+                  },
+                  {
+                    "id": "category_@{item.getString('id')}",
+                    "selector": "@{item.getString('itemType') == 'category'}",
+                    "div": {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#FFFFFF"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 16,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 1
+                        }
+                      },
+                      "paddings": {
+                        "left": 12,
+                        "right": 12,
+                        "top": 12,
+                        "bottom": 12
+                      },
+                      "actions": [
+                        {
+                          "log_id": "category_click",
+                          "url": "divaction://category?id=@{item.getString('id')}&name=@{item.getString('name')}&restaurantId=@{item.getString('restaurantId')}"
+                        }
+                      ],
+                      "items": [
+                        {
+                          "type": "image",
+                          "image_url": "@{item.getString('image')}",
+                          "width": {
+                            "type": "fixed",
+                            "value": 60
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 60
+                          },
+                          "scale": "fill",
+                          "border": {
+                            "corner_radius": 12
+                          },
+                          "placeholder_color": "#E0E0E0",
+                          "accessibility": {
+                            "type": "image",
+                            "description": "Photo of @{item.getString(\"name\")}"
+                          }
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "vertical",
+                          "width": {
+                            "type": "match_parent",
+                            "weight": 1
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "paddings": {
+                            "top": 5,
+                            "left": 12
+                          },
+                          "content_alignment_vertical": "center",
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "@{item.getString('name')}",
+                              "font_size": 16,
+                              "font_weight": "bold",
+                              "text_color": "#212121",
+                              "max_lines": 2,
+                              "margins": {
+                                "bottom": 4
+                              },
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "container",
+                              "orientation": "horizontal",
+                              "width": {
+                                "type": "wrap_content"
+                              },
+                              "content_alignment_vertical": "center",
+                              "visibility": "@{item.getString('restaurantName') != '' ? 'visible' : 'gone'}",
+                              "items": [
+                                {
+                                  "type": "text",
+                                  "text": "@{fromText} ",
+                                  "font_size": 13,
+                                  "text_color": "#999999",
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{item.getString('restaurantName')}",
+                                  "font_size": 13,
+                                  "text_color": "#4CAF50",
+                                  "font_weight": "medium",
+                                  "max_lines": 1,
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "image",
+                          "width": {
+                            "type": "fixed",
+                            "value": 20
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 20
+                          },
+                          "margins": {
+                            "top": 12
+                          },
+                          "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/chevron-right.svg",
+                          "tint_color": "#BDBDBD",
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "View category @{item.getString(\"name\")}"
+                      }
+                    }
+                  }
+                ]
+              },
+              "accessibility": {
+                "type": "list",
+                "description": "Search results"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "variables": [
+      {
+        "type": "string",
+        "name": "currentLocation",
+        "value": "Select your location"
+      },
+      {
+        "type": "string",
+        "name": "searchText",
+        "value": ""
+      },
+      {
+        "type": "string",
+        "name": "searchQuery",
+        "value": ""
+      },
+      {
+        "type": "string",
+        "name": "searchPlaceholder",
+        "value": "Search menu, restaurant or etc"
+      },
+      {
+        "type": "string",
+        "name": "searchResultsForText",
+        "value": "Search results for"
+      },
+      {
+        "type": "string",
+        "name": "emptyTitle",
+        "value": "No Results Found"
+      },
+      {
+        "type": "string",
+        "name": "emptyMessage",
+        "value": "We couldn't find any matches. Try a different search term."
+      },
+      {
+        "type": "string",
+        "name": "minOrderText",
+        "value": "Min Order"
+      },
+      {
+        "type": "string",
+        "name": "reviewsText",
+        "value": "reviews"
+      },
+      {
+        "type": "string",
+        "name": "closedText",
+        "value": "Closed"
+      },
+      {
+        "type": "string",
+        "name": "byText",
+        "value": "By"
+      },
+      {
+        "type": "string",
+        "name": "fromText",
+        "value": "From"
+      },
+      {
+        "type": "string",
+        "name": "loadingMoreText",
+        "value": "Loading..."
+      },
+      {
+        "type": "string",
+        "name": "loadMoreButtonText",
+        "value": "Load More"
+      },
+      {
+        "type": "array",
+        "name": "searchResults",
+        "value": [
+          {
+            "id": "item_001",
+            "name": "Butter Chicken",
+            "restaurant": "Punjab Kitchen",
+            "category": "North Indian",
+            "price": 249,
+            "rating": 4.5,
+            "rating_count": 1280,
+            "delivery_time": "25-30 min",
+            "image_url": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400",
+            "is_veg": false,
+            "tag": "Bestseller",
+            "discount": "20% OFF"
+          },
+          {
+            "id": "item_002",
+            "name": "Paneer Tikka Masala",
+            "restaurant": "Spice Route",
+            "category": "North Indian",
+            "price": 219,
+            "rating": 4.3,
+            "rating_count": 945,
+            "delivery_time": "20-25 min",
+            "image_url": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400",
+            "is_veg": true,
+            "tag": "Popular",
+            "discount": ""
+          },
+          {
+            "id": "item_003",
+            "name": "Chicken Biryani",
+            "restaurant": "Biryani House",
+            "category": "Biryani",
+            "price": 299,
+            "rating": 4.7,
+            "rating_count": 3420,
+            "delivery_time": "30-35 min",
+            "image_url": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400",
+            "is_veg": false,
+            "tag": "Top Rated",
+            "discount": "15% OFF"
+          },
+          {
+            "id": "item_004",
+            "name": "Masala Dosa",
+            "restaurant": "South Spice",
+            "category": "South Indian",
+            "price": 129,
+            "rating": 4.2,
+            "rating_count": 760,
+            "delivery_time": "15-20 min",
+            "image_url": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400",
+            "is_veg": true,
+            "tag": "",
+            "discount": ""
+          },
+          {
+            "id": "item_005",
+            "name": "Veg Hakka Noodles",
+            "restaurant": "Wok Express",
+            "category": "Chinese",
+            "price": 179,
+            "rating": 4.0,
+            "rating_count": 512,
+            "delivery_time": "20-25 min",
+            "image_url": "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400",
+            "is_veg": true,
+            "tag": "",
+            "discount": "10% OFF"
+          }
+        ]
+      },
+      {
+        "type": "string",
+        "name": "hasResults",
+        "value": "false"
+      },
+      {
+        "type": "string",
+        "name": "isLoading",
+        "value": "false"
+      },
+      {
+        "type": "string",
+        "name": "isLoadingMore",
+        "value": "false"
+      },
+      {
+        "type": "integer",
+        "name": "currentPage",
+        "value": 1
+      },
+      {
+        "type": "string",
+        "name": "hasActiveFilters",
+        "value": "false"
+      }
+    ]
+  },
+  "templates": {}
+}

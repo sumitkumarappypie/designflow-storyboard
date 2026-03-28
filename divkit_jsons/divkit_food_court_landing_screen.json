@@ -1,0 +1,982 @@
+{
+  "card": {
+    "log_id": "sample_card",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "overlap",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "match_parent"
+          },
+          "items": [
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "match_parent"
+              },
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#FFFFFF"
+                }
+              ],
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 20,
+                    "right": 20,
+                    "top": 16,
+                    "bottom": 16
+                  },
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "content_alignment_vertical": "center",
+                      "margins": {
+                        "bottom": 20
+                      },
+                      "actions": [
+                        {
+                          "log_id": "location_click",
+                          "url": "divaction://location_select"
+                        }
+                      ],
+                      "items": [
+                        {
+                          "type": "image",
+                          "width": {
+                            "type": "fixed",
+                            "value": 28
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 28
+                          },
+                          "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/location-dot.svg",
+                          "tint_color": "#4CAF50",
+                          "scale": "fit",
+                          "margins": {
+                            "right": 8
+                          },
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{currentLocation}",
+                          "font_size": 16,
+                          "max_lines": 2,
+                          "font_weight": "medium",
+                          "text_color": "#000000",
+                          "width": {
+                            "type": "match_parent",
+                            "weight": 1
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "image",
+                          "width": {
+                            "type": "fixed",
+                            "value": 20
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 20
+                          },
+                          "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/chevron-down.svg",
+                          "tint_color": "#000000",
+                          "margins": {
+                            "left": 4
+                          },
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        }
+                      ],
+                      "accessibility": {
+                        "type": "button",
+                        "mode": "merge",
+                        "description": "Select delivery location"
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 56
+                      },
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#F5F5F5"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 28
+                      },
+                      "content_alignment_vertical": "center",
+                      "paddings": {
+                        "left": 20,
+                        "right": 20
+                      },
+                      "margins": {
+                        "bottom": 24
+                      },
+                      "items": [
+                        {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent",
+                            "weight": 1
+                          },
+                          "height": {
+                            "type": "match_parent"
+                          },
+                          "content_alignment_vertical": "center",
+                          "actions": [
+                            {
+                              "log_id": "search_click",
+                              "url": "divaction://open_search"
+                            }
+                          ],
+                          "items": [
+                            {
+                              "type": "image",
+                              "width": {
+                                "type": "fixed",
+                                "value": 20
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 20
+                              },
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/magnifying-glass.svg",
+                              "tint_color": "#999999",
+                              "margins": {
+                                "right": 12
+                              },
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{searchPlaceholder}",
+                              "font_size": 15,
+                              "text_color": "#999999",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "mode": "merge",
+                            "description": "Search restaurants and menu items"
+                          }
+                        },
+                        {
+                          "type": "container",
+                          "orientation": "overlap",
+                          "width": {
+                            "type": "fixed",
+                            "value": 28
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 28
+                          },
+                          "actions": [
+                            {
+                              "log_id": "filter_click",
+                              "url": "divaction://filter_open"
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "description": "Open filters"
+                          },
+                          "items": [
+                            {
+                              "type": "image",
+                              "width": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 24
+                              },
+                              "alignment_vertical": "center",
+                              "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/sliders.svg",
+                              "tint_color": "#666666",
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            },
+                            {
+                              "type": "container",
+                              "width": {
+                                "type": "fixed",
+                                "value": 10
+                              },
+                              "height": {
+                                "type": "fixed",
+                                "value": 10
+                              },
+                              "alignment_horizontal": "right",
+                              "alignment_vertical": "top",
+                              "border": {
+                                "corner_radius": 5
+                              },
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "#E53935"
+                                }
+                              ],
+                              "visibility": "@{hasActiveFilters == 'true' ? 'visible' : 'gone'}",
+                              "accessibility": {
+                                "mode": "exclude"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": {
+                    "left": 20,
+                    "right": 20
+                  },
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "content_alignment_vertical": "center",
+                      "margins": {
+                        "bottom": 16
+                      },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "Top Categories",
+                          "font_size": 20,
+                          "font_weight": "bold",
+                          "text_color": "#000000",
+                          "width": {
+                            "type": "match_parent",
+                            "weight": 1
+                          },
+                          "accessibility": {
+                            "type": "header"
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "text",
+                          "text": "See all",
+                          "font_size": 15,
+                          "text_color": "#4CAF50",
+                          "width": {
+                            "type": "wrap_content"
+                          },
+                          "actions": [
+                            {
+                              "log_id": "categories_see_all",
+                              "url": "divaction://categories_see_all"
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "description": "See all categories"
+                          },
+                          "font_family": "Roboto"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "gallery",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "scroll_mode": "default",
+                      "column_count": 1,
+                      "item_spacing": 16,
+                      "margins": {
+                        "bottom": 32
+                      },
+                      "item_builder": {
+                        "data": "@{categories}",
+                        "data_element_name": "category",
+                        "prototypes": [
+                          {
+                            "div": {
+                              "type": "container",
+                              "orientation": "vertical",
+                              "width": {
+                                "type": "fixed",
+                                "value": 80
+                              },
+                              "content_alignment_horizontal": "center",
+                              "actions": [
+                                {
+                                  "log_id": "category_click",
+                                  "url": "divaction://category?id=@{category.getString('id')}&name=@{category.getString('name')}"
+                                }
+                              ],
+                              "items": [
+                                {
+                                  "type": "container",
+                                  "width": {
+                                    "type": "fixed",
+                                    "value": 80
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 80
+                                  },
+                                  "border": {
+                                    "corner_radius": 40
+                                  },
+                                  "background": [
+                                    {
+                                      "type": "solid",
+                                      "color": "@{category.getString('bgColor')}"
+                                    }
+                                  ],
+                                  "margins": {
+                                    "bottom": 8
+                                  },
+                                  "items": [
+                                    {
+                                      "type": "image",
+                                      "width": {
+                                        "type": "match_parent"
+                                      },
+                                      "height": {
+                                        "type": "match_parent"
+                                      },
+                                      "image_url": "@{category.getString('image')}",
+                                      "scale": "fit",
+                                      "accessibility": {
+                                        "type": "image",
+                                        "description": "Photo of @{category.getString('name')}"
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "@{category.getString('name')}",
+                                  "font_size": 13,
+                                  "text_color": "#000000",
+                                  "text_alignment_horizontal": "center",
+                                  "width": {
+                                    "type": "wrap_content"
+                                  },
+                                  "font_family": "Roboto"
+                                }
+                              ],
+                              "accessibility": {
+                                "type": "button",
+                                "mode": "merge",
+                                "description": "Open @{category.getString('name')} category"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "accessibility": {
+                        "type": "list",
+                        "description": "Top categories"
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "horizontal",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "content_alignment_vertical": "center",
+                      "margins": {
+                        "bottom": 16
+                      },
+                      "visibility": "@{hasRestaurants == 'true' ? 'visible' : 'gone'}",
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "@{restaurantsNearYouText}",
+                          "font_size": 20,
+                          "font_weight": "bold",
+                          "text_color": "#000000",
+                          "width": {
+                            "type": "match_parent",
+                            "weight": 1
+                          },
+                          "accessibility": {
+                            "type": "header"
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{seeAllText}",
+                          "font_size": 15,
+                          "text_color": "#4CAF50",
+                          "width": {
+                            "type": "wrap_content"
+                          },
+                          "actions": [
+                            {
+                              "log_id": "restaurants_see_all",
+                              "url": "divaction://restaurants_see_all"
+                            }
+                          ],
+                          "accessibility": {
+                            "type": "button",
+                            "description": "See all restaurants"
+                          },
+                          "font_family": "Roboto"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "visibility": "@{hasRestaurants == 'false' ? 'visible' : 'gone'}",
+                      "content_alignment_horizontal": "center",
+                      "paddings": {
+                        "top": 60,
+                        "bottom": 60
+                      },
+                      "items": [
+                        {
+                          "type": "image",
+                          "width": {
+                            "type": "fixed",
+                            "value": 120
+                          },
+                          "height": {
+                            "type": "fixed",
+                            "value": 120
+                          },
+                          "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/store-slash.svg",
+                          "tint_color": "#CCCCCC",
+                          "margins": {
+                            "bottom": 24
+                          },
+                          "accessibility": {
+                            "mode": "exclude"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{emptyTitle}",
+                          "font_size": 20,
+                          "font_weight": "bold",
+                          "text_color": "#333333",
+                          "text_alignment_horizontal": "center",
+                          "margins": {
+                            "bottom": 8
+                          },
+                          "font_family": "Roboto"
+                        },
+                        {
+                          "type": "text",
+                          "text": "@{emptyMessage}",
+                          "font_size": 15,
+                          "text_color": "#757575",
+                          "text_alignment_horizontal": "center",
+                          "width": {
+                            "type": "fixed",
+                            "value": 280
+                          },
+                          "font_family": "Roboto"
+                        }
+                      ],
+                      "accessibility": {
+                        "mode": "merge",
+                        "description": "No restaurants found in your area. Please try a different location."
+                      }
+                    },
+                    {
+                      "type": "gallery",
+                      "visibility": "@{hasRestaurants == 'true' ? 'visible' : 'gone'}",
+                      "width": {
+                        "type": "match_parent"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "orientation": "vertical",
+                      "column_count": 2,
+                      "cross_spacing": 16,
+                      "item_spacing": 16,
+                      "item_builder": {
+                        "data": "@{restaurants}",
+                        "data_element_name": "restaurant",
+                        "prototypes": [
+                          {
+                            "div": {
+                              "type": "container",
+                              "orientation": "vertical",
+                              "width": {
+                                "type": "match_parent"
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "background": [
+                                {
+                                  "type": "solid",
+                                  "color": "#FFFFFF"
+                                }
+                              ],
+                              "border": {
+                                "corner_radius": 16
+                              },
+                              "actions": [
+                                {
+                                  "log_id": "restaurant_click",
+                                  "url": "divaction://restaurant?id=@{restaurant.getString('id')}&name=@{restaurant.getString('name')}"
+                                }
+                              ],
+                              "items": [
+                                {
+                                  "type": "container",
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "height": {
+                                    "type": "fixed",
+                                    "value": 140
+                                  },
+                                  "orientation": "overlap",
+                                  "items": [
+                                    {
+                                      "type": "image",
+                                      "image_url": "@{restaurant.getString('image')}",
+                                      "width": {
+                                        "type": "match_parent"
+                                      },
+                                      "height": {
+                                        "type": "match_parent"
+                                      },
+                                      "scale": "fill",
+                                      "border": {
+                                        "corner_radius": 16
+                                      },
+                                      "placeholder_color": "#E0E0E0",
+                                      "accessibility": {
+                                        "type": "image",
+                                        "description": "Photo of @{restaurant.getString('name')}"
+                                      }
+                                    },
+                                    {
+                                      "type": "container",
+                                      "width": {
+                                        "type": "wrap_content"
+                                      },
+                                      "height": {
+                                        "type": "wrap_content"
+                                      },
+                                      "alignment_horizontal": "right",
+                                      "alignment_vertical": "top",
+                                      "margins": {
+                                        "top": 12,
+                                        "right": 12
+                                      },
+                                      "paddings": {
+                                        "left": 10,
+                                        "right": 10,
+                                        "top": 10,
+                                        "bottom": 10
+                                      },
+                                      "background": [
+                                        {
+                                          "type": "solid",
+                                          "color": "#FFFFFF"
+                                        }
+                                      ],
+                                      "border": {
+                                        "corner_radius": 20
+                                      },
+                                      "actions": [
+                                        {
+                                          "log_id": "favorite_click",
+                                          "url": "divaction://favorite?id=@{restaurant.getString('id')}&isFavourite=@{restaurant.getBoolean('isFavourite')}&name=@{restaurant.getString('name')}"
+                                        }
+                                      ],
+                                      "items": [
+                                        {
+                                          "type": "image",
+                                          "width": {
+                                            "type": "fixed",
+                                            "value": 20
+                                          },
+                                          "height": {
+                                            "type": "fixed",
+                                            "value": 20
+                                          },
+                                          "image_url": "@{restaurant.getBoolean('isFavourite') ? 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/refs/heads/6.x/svgs/solid/heart.svg' : 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/regular/heart.svg'}",
+                                          "tint_color": "#FF6B6B",
+                                          "accessibility": {
+                                            "mode": "exclude"
+                                          }
+                                        }
+                                      ],
+                                      "accessibility": {
+                                        "type": "button",
+                                        "state_description": "@{restaurant.getBoolean('isFavourite') ? 'Favorited' : 'Not favorited'}"
+                                      }
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "container",
+                                  "orientation": "vertical",
+                                  "width": {
+                                    "type": "match_parent"
+                                  },
+                                  "paddings": {
+                                    "left": 12,
+                                    "right": 12,
+                                    "top": 12,
+                                    "bottom": 12
+                                  },
+                                  "items": [
+                                    {
+                                      "type": "text",
+                                      "text": "@{restaurant.getString('name')}",
+                                      "font_size": 16,
+                                      "font_weight": "bold",
+                                      "text_color": "#000000",
+                                      "max_lines": 1,
+                                      "margins": {
+                                        "bottom": 4
+                                      },
+                                      "font_family": "Roboto"
+                                    },
+                                    {
+                                      "type": "container",
+                                      "orientation": "horizontal",
+                                      "width": {
+                                        "type": "match_parent"
+                                      },
+                                      "content_alignment_vertical": "center",
+                                      "margins": {
+                                        "bottom": 8
+                                      },
+                                      "items": [
+                                        {
+                                          "type": "text",
+                                          "text": "@{restaurant.getString('location')}",
+                                          "font_size": 13,
+                                          "text_color": "#666666",
+                                          "max_lines": 1,
+                                          "width": {
+                                            "type": "wrap_content"
+                                          },
+                                          "font_family": "Roboto"
+                                        },
+                                        {
+                                          "type": "text",
+                                          "text": " • ",
+                                          "font_size": 13,
+                                          "text_color": "#666666",
+                                          "width": {
+                                            "type": "wrap_content"
+                                          },
+                                          "accessibility": {
+                                            "mode": "exclude"
+                                          },
+                                          "font_family": "Roboto"
+                                        },
+                                        {
+                                          "type": "text",
+                                          "text": "@{minOrderText+' '+restaurant.getString('minOrder')}",
+                                          "font_size": 13,
+                                          "text_color": "#666666",
+                                          "max_lines": 1,
+                                          "width": {
+                                            "type": "wrap_content"
+                                          },
+                                          "font_family": "Roboto"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "container",
+                                      "orientation": "horizontal",
+                                      "width": {
+                                        "type": "match_parent"
+                                      },
+                                      "visibility": "@{restaurant.getString('rating') != '0' && restaurant.getString('rating') != '0.0' && restaurant.getString('rating') != '' ? 'visible' : 'gone'}",
+                                      "content_alignment_vertical": "center",
+                                      "items": [
+                                        {
+                                          "type": "image",
+                                          "width": {
+                                            "type": "fixed",
+                                            "value": 16
+                                          },
+                                          "height": {
+                                            "type": "fixed",
+                                            "value": 16
+                                          },
+                                          "image_url": "https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/star.svg",
+                                          "tint_color": "#FFB800",
+                                          "margins": {
+                                            "right": 4
+                                          },
+                                          "accessibility": {
+                                            "mode": "exclude"
+                                          }
+                                        },
+                                        {
+                                          "type": "text",
+                                          "text": "@{restaurant.getString('rating')}",
+                                          "font_size": 13,
+                                          "font_weight": "medium",
+                                          "text_color": "#000000",
+                                          "max_lines": 1,
+                                          "width": {
+                                            "type": "wrap_content"
+                                          },
+                                          "font_family": "Roboto"
+                                        },
+                                        {
+                                          "type": "text",
+                                          "text": " @{reviewsText}",
+                                          "font_size": 13,
+                                          "text_color": "#999999",
+                                          "max_lines": 1,
+                                          "width": {
+                                            "type": "wrap_content"
+                                          },
+                                          "font_family": "Roboto"
+                                        }
+                                      ],
+                                      "accessibility": {
+                                        "mode": "merge",
+                                        "description": "Rating: @{restaurant.getString('rating')}"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ],
+                              "accessibility": {
+                                "type": "button",
+                                "mode": "merge",
+                                "description": "Open @{restaurant.getString('name')}"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "scrollbar": "auto",
+                      "accessibility": {
+                        "type": "list",
+                        "description": "Restaurants near you"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "variables": [
+      {
+        "type": "string",
+        "name": "currentLocation",
+        "value": "NSEZ, Noida, Phase-2..."
+      },
+      {
+        "type": "string",
+        "name": "searchPlaceholder",
+        "value": "Search menu, restaurant or etc"
+      },
+      {
+        "type": "string",
+        "name": "reviewsText",
+        "value": "reviews"
+      },
+      {
+        "type": "string",
+        "name": "minOrderText",
+        "value": "Min Order"
+      },
+      {
+        "type": "string",
+        "name": "restaurantsNearYouText",
+        "value": "Restaurants Near You"
+      },
+      {
+        "type": "string",
+        "name": "seeAllText",
+        "value": "See all"
+      },
+      {
+        "type": "array",
+        "name": "categories",
+        "value": [
+          {
+            "id": "beverages",
+            "name": "Beverages",
+            "image": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop",
+            "bgColor": "#1a472a"
+          },
+          {
+            "id": "snacks",
+            "name": "Snacks",
+            "image": "https://t4.ftcdn.net/jpg/02/08/38/95/360_F_208389537_XYn1ukJfse2kVLxJYJpiBcjEkAHrWfBt.jpg",
+            "bgColor": "#8b4513"
+          },
+          {
+            "id": "seafood",
+            "name": "Seafood",
+            "image": "https://bellyrumbles.com/wp-content/uploads/2021/12/how-to-make-a-seafood-platter.jpg",
+            "bgColor": "#e8e8e8"
+          },
+          {
+            "id": "dessert",
+            "name": "Dessert",
+            "image": "https://t3.ftcdn.net/jpg/01/76/33/14/360_F_176331484_nLHY9EoW0ETwPZaS9OBXPGbCJhT70GZe.jpg",
+            "bgColor": "#2d3e50"
+          }
+        ]
+      },
+      {
+        "type": "array",
+        "name": "restaurants",
+        "value": [
+          {
+            "id": "starbuck",
+            "name": "Starbuck Borobudur",
+            "location": "Noida",
+            "minOrder": "₹200",
+            "rating": "4.8",
+            "isFavourite": false,
+            "type": "restaurant",
+            "image": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop"
+          },
+          {
+            "id": "baegopa",
+            "name": "Baegopa Suhat",
+            "location": "Indrapuram",
+            "minOrder": "₹250",
+            "rating": "4.8",
+            "isFavourite": false,
+            "type": "restaurant",
+            "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop"
+          },
+          {
+            "id": "restaurant3",
+            "name": "Green Garden Cafe",
+            "location": "Sector 18",
+            "minOrder": "₹180",
+            "rating": "4.6",
+            "isFavourite": false,
+            "type": "restaurant",
+            "image": "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=400&h=300&fit=crop"
+          },
+          {
+            "id": "restaurant4",
+            "name": "Modern Bistro",
+            "location": "Greater Noida",
+            "minOrder": "₹300",
+            "rating": "4.9",
+            "isFavourite": false,
+            "type": "restaurant",
+            "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop"
+          }
+        ]
+      },
+      {
+        "type": "integer",
+        "name": "currentPage",
+        "value": 1
+      },
+      {
+        "type": "string",
+        "name": "hasMoreRestaurants",
+        "value": "false"
+      },
+      {
+        "type": "string",
+        "name": "hasRestaurants",
+        "value": "true"
+      },
+      {
+        "type": "string",
+        "name": "emptyTitle",
+        "value": "No Restaurants Found"
+      },
+      {
+        "type": "string",
+        "name": "emptyMessage",
+        "value": "We couldn't find any restaurants in your area. Please try a different location."
+      },
+      {
+        "type": "string",
+        "name": "isLoadingMore",
+        "value": "false"
+      },
+      {
+        "type": "string",
+        "name": "hasActiveFilters",
+        "value": "false"
+      }
+    ]
+  },
+  "templates": {}
+}

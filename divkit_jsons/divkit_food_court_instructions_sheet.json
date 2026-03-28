@@ -1,0 +1,315 @@
+{
+  "card": {
+    "log_id": "divkit_instructions_sheet",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "wrap_content"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#FFFFFF"
+            }
+          ],
+          "border": {
+            "corner_radius": 20,
+            "corners_radius": {
+              "top-left": 20,
+              "top-right": 20,
+              "bottom-left": 0,
+              "bottom-right": 0
+            }
+          },
+          "paddings": {
+            "left": 20,
+            "right": 20,
+            "top": 20,
+            "bottom": 24
+          },
+          "items": [
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "content_alignment_vertical": "center",
+              "margins": {
+                "bottom": 16
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "@{headerTitle}",
+                  "font_size": 20,
+                  "font_weight": "bold",
+                  "text_color": "#1A1A2E",
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#F5F5F5"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 16
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "type": "text",
+                      "text": "×",
+                      "font_size": 20,
+                      "font_weight": "medium",
+                      "text_color": "#757575",
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "close_sheet",
+                      "url": "divaction://close"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Close instructions"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "separator",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 1
+              },
+              "delimiter_style": {
+                "color": "#E8E8E8"
+              },
+              "accessibility": {
+                "mode": "exclude"
+              },
+              "margins": {
+                "bottom": 20
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 120
+              },
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#F5F5F5"
+                }
+              ],
+              "border": {
+                "corner_radius": 12
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "top": 12,
+                "bottom": 12
+              },
+              "items": [
+                {
+                  "type": "input",
+                  "text_variable": "instructionInput",
+                  "hint_text": "@{hintText}",
+                  "hint_color": "#9E9E9E",
+                  "text_color": "#1A1A2E",
+                  "font_size": 15,
+                  "keyboard_type": "multi_line_text",
+                  "accessibility": {
+                    "type": "edit_text",
+                    "hint": "Enter special instructions"
+                  },
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "match_parent"
+                  },
+                  "max_visible_lines": 5,
+                  "font_family": "Roboto"
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "content_alignment_vertical": "center",
+              "margins": {
+                "top": 24
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 48
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "margins": {
+                    "right": 12
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "@{clearButtonText}",
+                      "font_size": 16,
+                      "font_weight": "medium",
+                      "text_color": "#757575",
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "clear_instruction",
+                      "url": "div-action://set_variable?name=instructionInput&value="
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Clear instructions"
+                  }
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1.5
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 48
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#43A047"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 24
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "type": "text",
+                      "text": "@{saveButtonText}",
+                      "font_size": 16,
+                      "font_weight": "bold",
+                      "text_color": "#FFFFFF",
+                      "font_family": "Roboto"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "log_id": "save_instruction",
+                      "url": "divaction://save_instruction?instruction=@{instructionInput}"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "mode": "merge",
+                    "description": "Save instructions"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "variables": [
+      {
+        "type": "string",
+        "name": "headerTitle",
+        "value": "Add Instructions"
+      },
+      {
+        "type": "string",
+        "name": "hintText",
+        "value": "Enter instructions"
+      },
+      {
+        "type": "string",
+        "name": "clearButtonText",
+        "value": "Clear"
+      },
+      {
+        "type": "string",
+        "name": "saveButtonText",
+        "value": "Save"
+      },
+      {
+        "type": "string",
+        "name": "instructionInput",
+        "value": ""
+      }
+    ]
+  },
+  "templates": {}
+}

@@ -1,0 +1,517 @@
+{
+  "card": {
+    "log_id": "order_preview_card",
+    "variables": [
+      {
+        "name": "orderId",
+        "type": "string",
+        "value": "ORD-2026032801"
+      },
+      {
+        "name": "cartItems",
+        "type": "array",
+        "value": []
+      },
+      {
+        "name": "paymentBreakdown",
+        "type": "array",
+        "value": []
+      },
+      {
+        "name": "deliveryDetails",
+        "type": "array",
+        "value": []
+      },
+      {
+        "name": "deliveryDetailsLabel",
+        "type": "string",
+        "value": "DELIVERY DETAILS"
+      },
+      {
+        "name": "restaurantDetails",
+        "type": "array",
+        "value": []
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "match_parent"
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#F5F5F5"
+            }
+          ],
+          "items": [
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "match_parent",
+                "weight": 1
+              },
+              "paddings": {
+                "left": 20,
+                "right": 20,
+                "top": 16,
+                "bottom": 16
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "ITEMS",
+                  "font_size": 14,
+                  "font_weight": "bold",
+                  "text_color": "#000000",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "bottom": 12
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "Order ID",
+                      "font_size": 14,
+                      "font_weight": "regular",
+                      "text_color": "#000000",
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    },
+                    {
+                      "type": "text",
+                      "text": "@{orderId}",
+                      "font_size": 14,
+                      "font_weight": "regular",
+                      "text_color": "#000000",
+                      "width": {
+                        "type": "wrap_content"
+                      },
+                      "height": {
+                        "type": "wrap_content"
+                      },
+                      "font_family": "Roboto"
+                    }
+                  ]
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": {
+                    "color": "#CCCCCC",
+                    "orientation": "horizontal"
+                  },
+                  "margins": {
+                    "top": 16,
+                    "bottom": 16
+                  },
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "PAYMENT DETAILS",
+                  "font_size": 14,
+                  "font_weight": "bold",
+                  "text_color": "#000000",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "bottom": 12
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "gallery",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "orientation": "vertical",
+                  "item_builder": {
+                    "data": "@{paymentBreakdown}",
+                    "data_element_name": "payment",
+                    "prototypes": [
+                      {
+                        "div": {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "margins": {
+                            "bottom": 8
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "@{payment.getString('label')}",
+                              "font_size": 14,
+                              "font_weight": "@{payment.getString('type') == 'bold' ? 'bold' : 'regular'}",
+                              "text_color": "@{payment.getString('type') == 'bold' ? '#000000' : '#000000'}",
+                              "width": {
+                                "type": "match_parent",
+                                "weight": 1
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{payment.getString('value')}",
+                              "font_size": 14,
+                              "font_weight": "@{payment.getString('type') == 'bold' ? 'bold' : 'regular'}",
+                              "text_color": "@{payment.getString('type') == 'bold' ? '#4CAF50' : (payment.getString('type') == 'discount' ? '#4CAF50' : '#000000')}",
+                              "width": {
+                                "type": "wrap_content"
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "accessibility": {
+                    "type": "list",
+                    "description": "Payment breakdown"
+                  }
+                },
+                {
+                  "type": "image",
+                  "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 1
+                  },
+                  "margins": {
+                    "top": 8,
+                    "bottom": 16
+                  },
+                  "tint_color": "#CCCCCC",
+                  "scale": "fill",
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "@{deliveryDetailsLabel}",
+                  "font_size": 14,
+                  "font_weight": "bold",
+                  "text_color": "#000000",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "bottom": 12
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "gallery",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "orientation": "vertical",
+                  "item_builder": {
+                    "data": "@{deliveryDetails}",
+                    "data_element_name": "detail",
+                    "prototypes": [
+                      {
+                        "div": {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "margins": {
+                            "bottom": 8
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "@{detail.getString('label')}",
+                              "font_size": 14,
+                              "font_weight": "regular",
+                              "text_color": "#000000",
+                              "width": {
+                                "type": "fixed",
+                                "value": 130
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{detail.getString('value')}",
+                              "font_size": 14,
+                              "font_weight": "regular",
+                              "text_color": "#000000",
+                              "width": {
+                                "type": "match_parent",
+                                "weight": 1
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "accessibility": {
+                    "type": "list",
+                    "description": "Delivery details"
+                  }
+                },
+                {
+                  "type": "image",
+                  "image_url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 1
+                  },
+                  "margins": {
+                    "top": 8,
+                    "bottom": 16
+                  },
+                  "tint_color": "#CCCCCC",
+                  "scale": "fill",
+                  "accessibility": {
+                    "mode": "exclude"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "RESTAURANT DETAILS",
+                  "font_size": 14,
+                  "font_weight": "bold",
+                  "text_color": "#000000",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "margins": {
+                    "bottom": 12
+                  },
+                  "accessibility": {
+                    "type": "header"
+                  },
+                  "font_family": "Roboto"
+                },
+                {
+                  "type": "gallery",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "wrap_content"
+                  },
+                  "orientation": "vertical",
+                  "item_builder": {
+                    "data": "@{restaurantDetails}",
+                    "data_element_name": "detail",
+                    "prototypes": [
+                      {
+                        "div": {
+                          "type": "container",
+                          "orientation": "horizontal",
+                          "width": {
+                            "type": "match_parent"
+                          },
+                          "height": {
+                            "type": "wrap_content"
+                          },
+                          "margins": {
+                            "bottom": 8
+                          },
+                          "items": [
+                            {
+                              "type": "text",
+                              "text": "@{detail.getString('label')}",
+                              "font_size": 14,
+                              "font_weight": "regular",
+                              "text_color": "#000000",
+                              "width": {
+                                "type": "fixed",
+                                "value": 130
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "font_family": "Roboto"
+                            },
+                            {
+                              "type": "text",
+                              "text": "@{detail.getString('value')}",
+                              "font_size": 14,
+                              "font_weight": "regular",
+                              "text_color": "#000000",
+                              "width": {
+                                "type": "match_parent",
+                                "weight": 1
+                              },
+                              "height": {
+                                "type": "wrap_content"
+                              },
+                              "font_family": "Roboto"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "accessibility": {
+                    "type": "list",
+                    "description": "Restaurant details"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "wrap_content"
+              },
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#FFFFFF"
+                }
+              ],
+              "border": {
+                "has_shadow": true
+              },
+              "paddings": {
+                "left": 20,
+                "right": 20,
+                "top": 16,
+                "bottom": 16
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "Checkout",
+                  "font_size": 16,
+                  "font_weight": "bold",
+                  "text_color": "#FFFFFF",
+                  "text_alignment_horizontal": "center",
+                  "text_alignment_vertical": "center",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 48
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#4CAF50"
+                    }
+                  ],
+                  "border": {
+                    "corner_radius": 8
+                  },
+                  "actions": [
+                    {
+                      "log_id": "checkout_action",
+                      "url": "divaction://checkout"
+                    }
+                  ],
+                  "accessibility": {
+                    "type": "button",
+                    "description": "Proceed to checkout"
+                  },
+                  "font_family": "Roboto"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
