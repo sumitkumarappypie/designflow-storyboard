@@ -1,6 +1,5 @@
 [build]
-builder = "nixpacks"
-nixpacksConfigPath = "nixpacks.toml"
+dockerfilePath = "Dockerfile"
 
 [deploy]
 healthcheckPath = "/"

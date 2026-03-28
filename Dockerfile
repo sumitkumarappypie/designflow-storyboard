@@ -18,4 +18,6 @@ COPY divkit_client/ /app/divkit_client/
 COPY wireframes/ wireframes/
 COPY wireframes/flows.docker.ts wireframes/flows.ts
 
-CMD ["sh", "-c", "echo PORT=$PORT && exec node_modules/.bin/tsx bin/cli.ts dev --port ${PORT:-4800}"]
+EXPOSE 4800
+
+CMD ["node_modules/.bin/tsx", "bin/cli.ts", "dev", "--port", "4800"]
