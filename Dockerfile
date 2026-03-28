@@ -10,7 +10,6 @@ RUN pnpm install --frozen-lockfile
 ARG CACHEBUST=2
 COPY src/ src/
 COPY bin/ bin/
-COPY templates/ templates/
 COPY tsconfig.json tsup.config.ts ./
 
 COPY divkit_jsons/ /app/divkit_jsons/
