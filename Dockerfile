@@ -1,5 +1,7 @@
 FROM node:22-slim
 
+RUN apt-get update && apt-get install -y sed && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # Install pnpm
@@ -21,13 +23,10 @@ COPY divkit_jsons/ /app/divkit_jsons/
 # Copy DivKit web client build
 COPY divkit_client/ /app/divkit_client/
 
-# Copy wireframes with container paths
+# Copy wireframes
 COPY wireframes/ wireframes/
 
-# Expose port (Render sets $PORT)
-EXPOSE 4800
-
-# Render sets PORT env var; bind to 0.0.0.0 so it's accessible
+# Bind to 0.0.0.0 so Railway can reach the server
 ENV HOST=0.0.0.0
 
 COPY start.sh ./
