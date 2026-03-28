@@ -29,10 +29,33 @@ const VIRTUAL_INFERRED_EDGES = "virtual:designflow/inferred-edges"
 const RESOLVED_THEME = "\0" + VIRTUAL_THEME
 const RESOLVED_SCREENS = "\0" + VIRTUAL_SCREENS
 const RESOLVED_INFERRED_EDGES = "\0" + VIRTUAL_INFERRED_EDGES
+const VIRTUAL_DIVKIT_META = "virtual:designflow/divkit-meta"
+const RESOLVED_DIVKIT_META = "\0" + VIRTUAL_DIVKIT_META
 
 export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
   const { dir } = options
   let suppressNextFlowsReload = false
+
+  // Helper: scan divkitDir for .json files
+  async function scanDivKitScreens(divkitDir: string): Promise<Array<{ id: string; title: string; filePath: string }>> {
+    try {
+      const files = await fs.readdir(divkitDir)
+      return files
+        .filter((f) => f.endsWith(".json"))
+        .map((f) => {
+          const id = f.replace(/\.json$/, "").toLowerCase()
+          const title = f
+            .replace(/\.json$/, "")
+            .replace(/^divkit_food_court_/, "")
+            .replace(/^divkit_/, "")
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, (c) => c.toUpperCase())
+          return { id, title, filePath: path.resolve(divkitDir, f) }
+        })
+    } catch {
+      return []
+    }
+  }
 
   return {
     name: "designflow",
@@ -49,6 +72,7 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
       if (id === VIRTUAL_THEME) return RESOLVED_THEME
       if (id === VIRTUAL_SCREENS) return RESOLVED_SCREENS
       if (id === VIRTUAL_INFERRED_EDGES) return RESOLVED_INFERRED_EDGES
+      if (id === VIRTUAL_DIVKIT_META) return RESOLVED_DIVKIT_META
       return undefined
     },
 
@@ -76,7 +100,34 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
         const entries = screens
           .map((s, i) => `  "${s.id}": Screen${i}`)
           .join(",\n")
-        return `${imports}\nexport default {\n${entries}\n}`
+
+        // Load DivKit screens if divkitDir is configured
+        let divkitImports = ""
+        let divkitEntries = ""
+        const flowsPath = path.resolve(dir, "flows.ts")
+        try {
+          const flowsSource = await fs.readFile(flowsPath, "utf-8")
+          const divkitDirMatch = flowsSource.match(/divkitDir:\s*["']([^"']+)["']/)
+          if (divkitDirMatch) {
+            const divkitDir = divkitDirMatch[1]
+            const divkitScreens = await scanDivKitScreens(divkitDir)
+            if (divkitScreens.length > 0) {
+              const wrapperPath = path.resolve(__pkgRoot, "src/app/DivKitScreen").replace(/\\/g, "/")
+              divkitImports = `\nimport { createDivKitComponent } from "${wrapperPath}"\n` +
+                divkitScreens
+                  .map((s, i) => `import divkitJson${i} from "${s.filePath.replace(/\\/g, "/")}" with { type: "json" }`)
+                  .join("\n")
+              divkitEntries = divkitScreens
+                .map((s, i) => `  "${s.id}": createDivKitComponent(divkitJson${i})`)
+                .join(",\n")
+            }
+          }
+        } catch {
+          // No flows.ts or no divkitDir — skip
+        }
+
+        const allEntries = [entries, divkitEntries].filter(Boolean).join(",\n")
+        return `${imports}${divkitImports}\nexport default {\n${allEntries}\n}`
       }
 
       if (id === RESOLVED_INFERRED_EDGES) {
@@ -99,6 +150,26 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
         return `export default ${JSON.stringify(edges)}`
       }
 
+      if (id === RESOLVED_DIVKIT_META) {
+        const flowsPath = path.resolve(dir, "flows.ts")
+        try {
+          const flowsSource = await fs.readFile(flowsPath, "utf-8")
+          const divkitDirMatch = flowsSource.match(/divkitDir:\s*["']([^"']+)["']/)
+          if (divkitDirMatch) {
+            const divkitDir = divkitDirMatch[1]
+            const divkitScreens = await scanDivKitScreens(divkitDir)
+            const meta: Record<string, { title: string; isDivkit: true }> = {}
+            for (const s of divkitScreens) {
+              meta[s.id] = { title: s.title, isDivkit: true }
+            }
+            return `export default ${JSON.stringify(meta)}`
+          }
+        } catch {
+          // No flows.ts or no divkitDir
+        }
+        return `export default {}`
+      }
+
       return undefined
     },
 
@@ -110,6 +181,19 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
       server.watcher.add([screensDir, themePath])
       // Prevent page reload when export writes a temp index.html
       server.watcher.unwatch(path.resolve(dir, "index.html"))
+
+      // Watch divkitDir for .json changes
+      ;(async () => {
+        try {
+          const flowsSrc = await fs.readFile(path.resolve(dir, "flows.ts"), "utf-8")
+          const dkDirMatch = flowsSrc.match(/divkitDir:\s*["']([^"']+)["']/)
+          if (dkDirMatch) {
+            server.watcher.add(dkDirMatch[1])
+          }
+        } catch {
+          // flows.ts doesn't exist yet
+        }
+      })()
 
       function invalidateAndReload(changedPath: string) {
         if (changedPath.startsWith(screensDir) || changedPath === themePath) {
@@ -127,6 +211,10 @@ export function designflowPlugin(options: DesignflowPluginOptions): Plugin {
           }
           if (inferredEdgesModule) {
             server.moduleGraph.invalidateModule(inferredEdgesModule)
+          }
+          const divkitMetaModule = server.moduleGraph.getModuleById(RESOLVED_DIVKIT_META)
+          if (divkitMetaModule) {
+            server.moduleGraph.invalidateModule(divkitMetaModule)
           }
 
           server.ws.send({ type: "full-reload" })
