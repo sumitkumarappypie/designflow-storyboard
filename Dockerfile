@@ -19,5 +19,7 @@ COPY wireframes/ wireframes/
 COPY wireframes/flows.docker.ts wireframes/flows.ts
 
 ENV HOST=0.0.0.0
+ENV PORT=4800
 
-CMD sh -c "node_modules/.bin/tsx bin/cli.ts dev --port ${PORT:-4800}"
+ENTRYPOINT ["sh", "-c"]
+CMD ["exec node_modules/.bin/tsx bin/cli.ts dev --port $PORT"]
