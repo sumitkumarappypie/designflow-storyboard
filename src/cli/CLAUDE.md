@@ -7,6 +7,6 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
-| #6575 | 11:47 AM | ✅ | DivKit integration design spec updated with dynamic render IDs | ~425 |
-| #6574 | " | ⚖️ | DivKit-DesignFlow integration architecture specified | ~526 |
+| #6702 | 3:13 PM | ✅ | Dev server host binding restricted for security | ~309 |
+| #6628 | 12:00 PM | 🟣 | Dev server injects DivKit metadata into client HTML | ~247 |
 </claude-mem-context>

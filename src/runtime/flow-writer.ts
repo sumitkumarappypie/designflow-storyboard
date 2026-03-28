@@ -156,16 +156,15 @@ export function serializeFlowConfig(config: DesignFlowConfig): string {
     divkitScreensBlock = `\n  divkitScreens: {\n${dkEntries},\n  },\n`
   }
 
+  const screensBlock = screenEntries ? `\n${screenEntries},\n  ` : ""
+  const edgesBlock = edgeEntries ? `\n${edgeEntries},\n  ` : ""
+
   return `import type { DesignFlowConfig } from "designflow"
 
 const config: DesignFlowConfig = {
-${nameField}${divkitDirField}${divkitClientPathField}  screens: {
-${screenEntries},
-  },
+${nameField}${divkitDirField}${divkitClientPathField}  screens: {${screensBlock}},
 ${divkitScreensBlock}
-  edges: [
-${edgeEntries},
-  ],
+  edges: [${edgesBlock}],
 }
 
 export default config
