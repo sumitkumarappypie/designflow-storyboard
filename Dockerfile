@@ -1,13 +1,11 @@
 FROM node:22-slim
 
-RUN apt-get update && apt-get install -y sed && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 
 # Install pnpm
 RUN npm install -g pnpm
 
-# Copy package files and install dependencies
+# Copy package files and install ALL dependencies (need tsx from devDeps)
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
@@ -26,10 +24,13 @@ COPY divkit_client/ /app/divkit_client/
 # Copy wireframes
 COPY wireframes/ wireframes/
 
-# Bind to 0.0.0.0 so Railway can reach the server
+# Bind to 0.0.0.0 for container networking
 ENV HOST=0.0.0.0
 
 COPY start.sh ./
 RUN chmod +x start.sh
+
+# Verify tsx is available
+RUN node_modules/.bin/tsx --version
 
 CMD ["./start.sh"]
