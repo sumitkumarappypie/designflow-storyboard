@@ -2,6 +2,8 @@ import type { DesignFlowConfig } from "designflow"
 
 const config: DesignFlowConfig = {
   name: "My Designflow Project",
+  divkitDir: "/Users/sumitkumartiwari/Desktop/divkit_jsons_samples",
+  divkitClientPath: "/Users/sumitkumartiwari/Documents/divkit/client/web/divkit",
   screens: {
     explore: {
       title: "Explore",
