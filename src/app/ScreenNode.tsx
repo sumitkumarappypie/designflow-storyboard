@@ -17,6 +17,7 @@ export type ScreenNodeData = {
   color?: string
   projectName?: string
   exportMode?: boolean
+  isDivkit?: boolean
 }
 
 export type ScreenNodeType = Node<ScreenNodeData, "screen">
@@ -106,13 +107,14 @@ export function ScreenNode({ data, id, selected }: NodeProps<ScreenNodeType>) {
     if (data.colorScheme) setActiveColorScheme(data.colorScheme)
   }, [data.colorScheme])
 
-  const pillColor = activeColor ?? data.accentColor
+  const DIVKIT_COLOR = "#f59e0b"
+  const pillColor = data.isDivkit ? DIVKIT_COLOR : (activeColor ?? data.accentColor)
   const { width: fullWidth, height: fullHeight } = getScreenResolution(activeViewport)
   const scale = MAX_THUMBNAIL_DIM / Math.max(fullWidth, fullHeight)
   const thumbnailWidth = Math.round(fullWidth * scale)
   const thumbnailHeight = Math.round(fullHeight * scale)
   const isDark = activeColorScheme === "dark"
-  const hasAccent = !!pillColor
+  const hasAccent = data.isDivkit || !!pillColor
   const pillTextColor = hasAccent ? "#fff" : "#334155"
 
   // Reset focusedOnce when node loses selection
@@ -162,6 +164,22 @@ export function ScreenNode({ data, id, selected }: NodeProps<ScreenNodeType>) {
         >
           {data.title}
         </span>
+        {data.isDivkit && (
+          <span
+            style={{
+              fontSize: "9px",
+              fontWeight: 700,
+              color: "#fff",
+              background: "rgba(0,0,0,0.2)",
+              padding: "1px 5px",
+              borderRadius: "3px",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+            }}
+          >
+            DivKit
+          </span>
+        )}
 
         {/* Color picker — hidden in export mode */}
         {!data.exportMode && (
@@ -337,7 +355,7 @@ export function ScreenNode({ data, id, selected }: NodeProps<ScreenNodeType>) {
           width: `${thumbnailWidth}px`,
           height: `${thumbnailHeight}px`,
           background: isDark ? "#0f172a" : "#f8fafc",
-          border: "1px solid #e2e8f0",
+          border: data.isDivkit ? `2px solid ${DIVKIT_COLOR}` : "1px solid #e2e8f0",
           borderRadius: 0,
           overflow: "hidden",
           position: "relative",
